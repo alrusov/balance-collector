@@ -1,0 +1,52 @@
+[[entities]]
+id               = 1
+enabled          = true
+name             = "первый телефон"
+description      = "мой МТС"
+type             = "MTS"
+schedule         = ""
+delay            = 180
+alert-level-high = 0
+alert-level-low  = 200
+login            = "1234567890"
+password         = "SeCrEt-123"
+
+[[entities]]
+id               = 2
+enabled          = true
+name             = "второй телефон"
+description      = "мой второй МТС"
+type             = "MTS"
+schedule         = ""
+delay            = 180
+alert-level-high = 0
+alert-level-low  = 200
+login            = "0987654321"
+password         = "SeCrEt-321"
+
+[[entities]]
+id               = 100
+enabled          = true
+name             = "ЦБР USD&EUR"
+description      = "Курсы ЦБР для USRRUR и EURRUR"
+type             = "CBR"
+schedule         = "58 11 * * 1-5"
+delay            = 0
+alert-level-high = 80
+alert-level-low  = 70
+login            = ""
+password         = ""
+
+[[entities]]
+id               = 101
+enabled          = true
+name             = "Погода"
+description      = "Погода gismeteo"
+type             = "GISMETEO"
+schedule         = "2 7,14,18,22 * * *"
+delay            = 0
+alert-level-high = 0
+alert-level-low  = 0
+login            = ""
+password         = ""
+

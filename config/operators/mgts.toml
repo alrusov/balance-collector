@@ -1,0 +1,17 @@
+[operators.MGTS]
+description = "МГТС"
+timeout = 30
+
+tasks = [
+  "Navigate(https://login.mgts.ru/amserver/UI/Login)",
+
+  "SendKeys(input[name='IDToken1'], $Login)",
+  "Click(button[id='submit'])",
+
+  "SendKeys(input[name='IDToken2'], $Password)",
+  "Click(button[id='submit'])",
+
+  "Float(div.account-info_balance_value span, Баланс)",
+  "Float(div.account-info_bonus_value span, Бонусы)",
+]
+

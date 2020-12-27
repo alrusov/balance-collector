@@ -1,0 +1,18 @@
+[operators.TRICOLOR]
+description = "Tricolor"
+timeout = 30
+
+tasks = [
+  "Navigate(https://lk-subscr.tricolor.tv/#Login?utm_source=www-tricolor-tv&utm_medium=header&utm_campaign=lk-link)",
+
+  "SendKeys(input[data-attribute='login'], $Login)",
+  "SendKeys(input[data-attribute='password'], $Password)",
+  "Click(button[type='submit'])",
+
+  "WaitVisible(div.stringIconCell)",
+  "Float(div[data-attribute='AllSum'], Баланс)",
+  "Float(table.grid-base-table > tbody > tr > td:nth-child(3) > div > div, Остаток дней)",
+  "String(div[data-attribute='AgreementNumber'], Договор)",
+  "String(div[data-attribute='SmartCard'], ID)",
+  "String(div[data-attribute='StartTariff'], Тариф)",
+]

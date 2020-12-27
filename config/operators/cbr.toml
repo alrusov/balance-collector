@@ -1,0 +1,10 @@
+[operators.CBR]
+description = "Курсы валют ЦБР"
+timeout = 30
+
+tasks = [
+  "Navigate(http://cbr.ru/key-indicators/)",
+
+  "Float(div.key-indicator_table:nth-child(1) > table > tbody > tr:nth-child(2) > td:nth-child(3), USDRUB)",
+  "Float(div.key-indicator_table:nth-child(1) > table > tbody > tr:nth-child(3) > td:nth-child(3), EURRUB)",
+]

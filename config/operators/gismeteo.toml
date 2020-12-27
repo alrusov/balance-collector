@@ -1,0 +1,15 @@
+[operators.GISMETEO]
+description = "Погода gismeteo.ru"
+timeout = 30
+
+tasks = [
+  "Navigate(http://gismeteo.ru/)",
+
+  "Float(div.temperature > span.unit_temperature_c, Температура)",
+  "Float(div._attention > div.info_item  > div.info_value > span.unit_temperature_c, Температура по ощущению)",
+  "Float(span.unit_pressure_mm_hg_atm > span.value, Давление)",
+  "Float(div._additional > div.info_item > div.info_value > span.value, Влажность)",
+  "Float(span.unit_wind_m_s > span.value, Ветер)",
+  "String(div.weather_frame_title > div > a, Место)",
+  "String(div._main > div._description > div.description, Дополнительно)",
+]

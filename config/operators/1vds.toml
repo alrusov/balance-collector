@@ -1,0 +1,13 @@
+[operators.1VDS]
+description = "FirstVDS. !!! Повесили капчу, больше на работает !!!"
+timeout = 30
+
+tasks = [
+  "Navigate(https://my.firstvds.ru/manager/billmgr)",
+
+  "SendKeys(form[id='logon-form'] input[name='username'], $Login)",
+  "SendKeys(form[id='logon-form'] input[name='password'], $Password)",
+  "Click(form[id='logon-form'] input[type='submit'])",
+
+  "Float(a[data-mn='balance'], Баланс)",
+]

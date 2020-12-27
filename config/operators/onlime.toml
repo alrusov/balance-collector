@@ -1,0 +1,16 @@
+[operators.ONLIME]
+description = "Onlime"
+timeout = 30
+
+tasks = [
+  "Navigate(https://my.onlime.ru/session/logout)",
+
+  "SendKeys(input[name='auth_login']   , $Login)",
+  "SendKeys(input[name='auth_password'], $Password)",
+  "Click(input[id='login_button'])",
+  "Float(div[id='account_info_block'] > div:nth-child(5) > p > big, Баланс)",
+  "Float(div[id='account_info_block'] > div:nth-child(6) > p > big, Бонусы)",
+  "Float(div[id='account_info_block'] > div:nth-child(7) > p > span > big, Дней до блокировки)",
+  "String(, Тариф)",
+  "String(div[id='account_info_block'] > div:nth-child(8) > p:nth-child(2) > strong, Статус)",
+]

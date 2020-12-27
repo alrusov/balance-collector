@@ -1,0 +1,41 @@
+table.buttons-panel {
+	margin: 10px 10px;
+	width: 1px;
+	border: none;
+}
+
+table.buttons-panel td {
+	padding: 3px 10px;
+	border: none;
+}
+
+
+button {
+	white-space: nowrap;
+	cursor: pointer;
+}
+
+button.command {
+	height: 32px;
+	padding: 4px 10px;
+	font-size: 13px;
+	font-weight: bold;
+	text-align: center;
+}
+
+button.row {
+	height: 28px;
+	width:100%;
+	padding: 2px 5px;
+	font-size: 13px;
+	font-weight: normal;
+	text-align: left;
+}
+
+button.micro {
+	height: 24px;
+	padding: 2px 5px;
+	font-size: 10px;
+	font-weight: normal;
+	text-align: center;
+}

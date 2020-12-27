@@ -1,0 +1,14 @@
+[operators.BEELINE]
+description = "Билайн"
+timeout = 30
+
+tasks = [
+  "Navigate(https://my.beeline.ru/login.xhtml)",
+
+  "SendKeys(input[id='loginFormB2C:loginForm:login'], $Login)",
+  "SendKeys(input[id='loginFormB2C:loginForm:passwordPwd'], $Password)",
+  "Click(button[id='loginFormB2C:loginForm:j_idt218'])",
+
+  "Float(div.Balance_infoValue_kVsT, Баланс)",
+  "String(tr.profileInfoRow:last-child > td > a > span, Тариф)",
+]

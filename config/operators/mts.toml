@@ -1,0 +1,14 @@
+[operators.MTS]
+description = "МТС"
+timeout = 30
+
+tasks = [
+  "Navigate(https://login.mts.ru/amserver/UI/Login?service=newlk&goto=https://lk.mts.ru/)",
+
+  "SendKeys(input[id='phone'], $Login)",
+  "SendKeys(input[id='password'], $Password)",
+  "Submit(input[id='phone'])",
+
+  "Float(div.parental-statistics-balance__item-summ span, Баланс)",
+  "String(a.lk-tariff-info__title, Тариф)",
+]

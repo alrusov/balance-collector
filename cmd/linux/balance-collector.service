@@ -1,0 +1,14 @@
+[Unit]
+Description=balance-collector service
+After=network-online.target
+
+[Service]
+User=somebody
+Group=somegroup
+EnvironmentFile=/opt/balance-collector/env.sh
+WorkingDirectory=/opt/balance-collector
+ExecStart=/opt/balance-collector/balance-collector -config config/balance-collector.toml
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,77 @@
+[common]
+name = "Balance collector"
+description = "Balance collector"
+class = ""
+
+#log-local-time = true
+log-dir = "logs"
+log-level = "{$LOG_LEVEL}"
+log-levels = {}
+log-buffer-size = 0
+log-buffer-delay = 0
+log-max-string-len = 10000
+
+#go-max-procs = 4
+
+mem-stats-period = 1800
+mem-stats-level = "INFO"
+
+load-avg-period = 60
+
+profiler-enabled = false 
+deep-profiling = false
+
+use-std-json = false
+
+min-size-for-gzip = 256
+
+#----------------------------------------------------------------------------------------------------------------------------#
+
+[http]
+listener = { \
+             bind-addr = "127.0.0.1:{$PORT}", ssl-combined-pem = "", timeout = 5, \
+             root = "html/", \
+             icon-file = "html/favicon.ico", \
+             disabled-endpoints = [], \
+             basic-auth-enabled = false, \
+             jwt-secret = "", \
+             jwt-lifetime = 157680000, \
+             jwt-endpoints = [], \
+             users = {{#include ^users.toml}} \
+           }
+
+#----------------------------------------------------------------------------------------------------------------------------#
+
+[processor]
+# It will be copied to the ZONEINFO environment variable, actual for Windows
+tz-info-file = "config/time/zoneinfo.zip"
+cron-location = "Local"
+
+schedule = "12 5 * * *"
+
+db = "balance-collector.db"
+
+view-browser = {$VIEW_BROWSER}
+std-timeout = 60
+
+templates-dir = "templates/"
+
+#----------------------------------------------------------------------------------------------------------------------------#
+
+{#include ^operators/1vds.toml}
+{#include ^operators/beeline.toml}
+{#include ^operators/cbr.toml}
+{#include ^operators/gismeteo.toml}
+{#include ^operators/goodline.toml}
+{#include ^operators/mgts.toml}
+{#include ^operators/mts.toml}
+{#include ^operators/onlime.toml}
+{#include ^operators/rt.toml}
+{#include ^operators/tricolor.toml}
+{#include ^operators/yota.toml}
+
+#----------------------------------------------------------------------------------------------------------------------------#
+
+{#include ^entities.toml}
+
+#----------------------------------------------------------------------------------------------------------------------------#

@@ -1,0 +1,15 @@
+[operators.GOODLINE]
+description = "GoodLine"
+timeout = 30
+
+tasks = [
+  "Navigate(http://new.goodline.ru/user/?logout=yes)",
+
+  "SendKeys(form[name='form_auth'] input[name='USER_LOGIN'], $Login)",
+  "SendKeys(form[name='form_auth'] input[name='USER_PASSWORD'], $Password)",
+  "Click(form[name='form_auth'] input[type='submit'])",
+
+  "Float(div.detail > div:nth-child(3), Баланс)",
+  "String(div.detail > div:nth-child(1), Тариф, ^(?:.*\\:\\s*)([^\\s]+)(?:.*), 1)",
+  "String(div.detail > div:nth-child(2), Статус, ^(?:.*\\:\\s*)([^\\s]+)(?:.*), 1)",
+]
