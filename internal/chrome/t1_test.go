@@ -32,3 +32,44 @@ func TestParse(t *testing.T) {
 }
 
 //----------------------------------------------------------------------------------------------------------------------------//
+
+func TestFloat(t *testing.T) {
+	type paramsBlock struct {
+		src    string
+		expect float64
+		isErr  bool
+	}
+
+	params := []paramsBlock{
+		{`0.666`, 0.666, false},
+		{`.666`, 0.666, false},
+		{`6`, 6., false},
+		{`6.`, 6., false},
+		{`6.0`, 6., false},
+		{`6.1`, 6.1, false},
+		{`16`, 16., false},
+		{`16.`, 16., false},
+		{`16.0`, 16., false},
+		{`16.1`, 16.1, false},
+		{`qwerty:    26,0  `, 26., false},
+		{`   26,1   `, 26.1, false},
+		{`qwerty:    -26,0  `, -26., false},
+		{`   −   26,1   `, -26.1, false},
+		{`   &minus;   26,2   `, -26.2, false},
+	}
+
+	for i, p := range params {
+		i++
+
+		v, err := Float(p.src)
+		if p.isErr && err == nil {
+			t.Errorf(`%d: no error, expected error`, i)
+		} else if !p.isErr && err != nil {
+			t.Errorf(`%d: error: %s`, i, err.Error())
+		} else if v != p.expect {
+			t.Errorf(`%d: got %#v, expected %#v`, i, v, p.expect)
+		}
+	}
+}
+
+//----------------------------------------------------------------------------------------------------------------------------//

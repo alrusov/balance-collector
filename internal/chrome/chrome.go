@@ -521,13 +521,17 @@ func (r *ExecData) Data() Data {
 
 //----------------------------------------------------------------------------------------------------------------------------//
 
-var reOnlyNumbers = regexp.MustCompile(`[^0-9\.]`)
+var (
+	reMinus       = regexp.MustCompile(`-|−|&minus;|&#8722;|&#x2212;`)
+	reOnlyNumbers = regexp.MustCompile(`[^0-9\.-]`)
+)
 
 // Float --
 func Float(s string) (v float64, err error) {
 	s = strings.ReplaceAll(s, ",", ".")
-	s = string(reOnlyNumbers.ReplaceAll([]byte(s), []byte{}))
-	s = strings.Trim(s, ".")
+	s = reMinus.ReplaceAllString(s, "-")
+	s = reOnlyNumbers.ReplaceAllString(s, "")
+	s = strings.TrimRight(s, ".")
 
 	v, err = strconv.ParseFloat(s, 64)
 	if err != nil {
