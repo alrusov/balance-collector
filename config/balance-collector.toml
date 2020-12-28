@@ -31,6 +31,7 @@ min-size-for-gzip = 256
 listener = { \
              bind-addr = "127.0.0.1:{$PORT}", ssl-combined-pem = "", timeout = 5, \
              root = "html/", \
+             proxy-prefix = "/balance-collector/", \
              icon-file = "html/favicon.ico", \
              disabled-endpoints = [], \
              basic-auth-enabled = false, \

@@ -1,6 +1,7 @@
 package http
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/alrusov/misc"
@@ -56,9 +57,9 @@ func NewHTTP(cfg *config.Config) (*stdhttp.HTTP, error) {
 	h.h.RemoveStdPath("/")
 
 	h.h.SetRootItemsFunc(
-		func() []string {
+		func(prefix string) []string {
 			return []string{
-				`<a href="/"><strong>Return to the main page</strong></a>`,
+				fmt.Sprintf(`<a href="%s/"><strong>Return to the main page</strong></a>`, prefix),
 			}
 		},
 	)

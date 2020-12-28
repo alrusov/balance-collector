@@ -6,44 +6,44 @@
 
 <table class="grd nobr">
   <tr>
-    <th class="right" colspan="{{.Data.ColsCount}}"><button class="micro" style="margin-bottom: 5px;" name="op" value="" onclick="document.getElementById('json').value='y';">JSON</button></th>
+    <th class="right" colspan="{{$.Data.ColsCount}}"><button class="micro" style="margin-bottom: 5px;" name="op" value="" onclick="document.getElementById('json').value='y';">JSON</button></th>
   </tr>
   <tr>
     <th>Наименование</th>
     <th>Идентификатор</th>
-    <th colspan={{.Data.Fcount}}>Значения</th>
-    <th colspan={{.Data.Fcount}}>Изменения</th>
-    <th colspan={{.Data.Scount}}>Комментарии</th>
+    <th colspan={{$.Data.Fcount}}>Значения</th>
+    <th colspan={{$.Data.Fcount}}>Изменения</th>
+    <th colspan={{$.Data.Scount}}>Комментарии</th>
     <th>Обновлено</th>
   </tr>
   {{$replyNeeded := false}}
-  {{range $li, $lv := .Data.List}}
+  {{range $li, $lv := $.Data.List}}
     <tr>
-      <th class="left normal"><button class="row" name="op" value="history" onclick="document.getElementById('id').value='{{.ID}}'" title="Посмотреть иcторию">{{.Name}}</button></th>
-      <th class="left normal"><button class="row" name="op" value="update"  onclick="if(confirm('Получить новые данные для {{.Name}}?')) { document.getElementById('id').value='{{.ID}}'; return true; } else { return false; }" title="Получить новые данные">{{if .Login}}{{.Login}}{{else}}{{.Name}}{{end}}</button></th>
+      <th class="left normal"><button class="row" name="op" value="history" onclick="document.getElementById('id').value='{{$lv.ID}}'" title="Посмотреть иcторию">{{$lv.Name}}</button></th>
+      <th class="left normal"><button class="row" name="op" value="update"  onclick="if(confirm('Получить новые данные для {{$lv.Name}}?')) { document.getElementById('id').value='{{$lv.ID}}'; return true; } else { return false; }" title="Получить новые данные">{{if $lv.Login}}{{$lv.Login}}{{else}}{{$lv.Name}}{{end}}</button></th>
 
-      {{range $i, $v := .Info.FVals}}
+      {{range $i, $v := $lv.Info.FVals}}
         <td class="right{{if index $lv.Ferror $i}} attention{{end}}" title="{{index $lv.FLegend $i}}{{if index $lv.Ferror $i}} {{index $lv.Ferror $i}}{{end}}">{{printf "%.2f" $v}}</td>
       {{end}}
-      {{if .Ftail}}
-        <td colspan="{{.Ftail}}">&nbsp;</td>
+      {{if $lv.Ftail}}
+        <td colspan="{{$lv.Ftail}}">&nbsp;</td>
       {{end}}
 
-      {{range $i, $v := .LastChange}}
-        <td class="right" title="{{index $lv.FLegend $i}}">{{printf "%.2f" .}}</td>
+      {{range $i, $v := $lv.LastChange}}
+        <td class="right" title="{{index $lv.FLegend $i}}">{{printf "%.2f" $v}}</td>
       {{end}}
-      {{if .Ftail}}
-        <td colspan="{{.Ftail}}">&nbsp;</td>
-      {{end}}
-
-      {{range $i, $v := .Info.SVals}}
-        <td title="{{index $lv.SLegend $i}}">{{.}}</td>
-      {{end}}
-      {{if .Stail}}
-        <td colspan="{{.Stail}}">&nbsp;</td>
+      {{if $lv.Ftail}}
+        <td colspan="{{$lv.Ftail}}">&nbsp;</td>
       {{end}}
 
-      <td class="center{{if .Error}} attention{{end}}"{{if .Error}}{{$replyNeeded = true}} title="{{.Error}}"{{end}}>{{.TS}}</td>
+      {{range $i, $v := $lv.Info.SVals}}
+        <td title="{{index $lv.SLegend $i}}">{{$v}}</td>
+      {{end}}
+      {{if $lv.Stail}}
+        <td colspan="{{$lv.Stail}}">&nbsp;</td>
+      {{end}}
+
+      <td class="center{{if $lv.Error}} attention{{end}}"{{if $lv.Error}}{{$replyNeeded = true}} title="{{$lv.Error}}"{{end}}>{{$lv.TS}}</td>
     </tr>
   {{else}}
     <tr>

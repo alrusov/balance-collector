@@ -23,7 +23,7 @@ var (
 //----------------------------------------------------------------------------------------------------------------------------//
 
 // Do --
-func Do(name string, w http.ResponseWriter, r *http.Request, errMsg string, title string, data interface{}) (err error) {
+func Do(name string, prefix string, w http.ResponseWriter, r *http.Request, errMsg string, title string, data interface{}) (err error) {
 	cfg := config.Get()
 
 	mutex.Lock()
@@ -73,6 +73,7 @@ func Do(name string, w http.ResponseWriter, r *http.Request, errMsg string, titl
 	locked = false
 
 	params := struct {
+		Prefix    string
 		Base      string
 		Error     string
 		Title     string
@@ -83,6 +84,7 @@ func Do(name string, w http.ResponseWriter, r *http.Request, errMsg string, titl
 		Tags      string
 		Data      interface{}
 	}{
+		Prefix:    prefix,
 		Base:      r.URL.Path,
 		Error:     errMsg,
 		Title:     title,
@@ -110,8 +112,8 @@ func Do(name string, w http.ResponseWriter, r *http.Request, errMsg string, titl
 //----------------------------------------------------------------------------------------------------------------------------//
 
 // JSON --
-func JSON(cfg *config.Config, w http.ResponseWriter, r *http.Request, errMsg string, title string, data string) (err error) {
-	return Do("json", w, r, errMsg, title, data)
+func JSON(cfg *config.Config, prefix string, w http.ResponseWriter, r *http.Request, errMsg string, title string, data string) (err error) {
+	return Do("json", prefix, w, r, errMsg, title, data)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------//

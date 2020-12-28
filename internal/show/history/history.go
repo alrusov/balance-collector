@@ -36,7 +36,7 @@ type (
 //----------------------------------------------------------------------------------------------------------------------------//
 
 // Do --
-func Do(id uint64, w http.ResponseWriter, r *http.Request, entityID uint) (err error) {
+func Do(id uint64, prefix string, w http.ResponseWriter, r *http.Request, entityID uint) (err error) {
 	cfg := config.Get()
 
 	var data *outData
@@ -59,11 +59,11 @@ func Do(id uint64, w http.ResponseWriter, r *http.Request, entityID uint) (err e
 	// Выводим
 	if r.Form.Get("json") == "y" {
 		j, _ := jsonw.Marshal(data)
-		err = htmlpage.JSON(cfg, w, r, errMsg, title, string(j))
+		err = htmlpage.JSON(cfg, prefix, w, r, errMsg, title, string(j))
 		return
 	}
 
-	err = showPage(cfg, w, r, errMsg, title, data)
+	err = showPage(cfg, prefix, w, r, errMsg, title, data)
 	if err != nil {
 		return
 	}
@@ -181,7 +181,7 @@ func load(cfg *config.Config, entityID uint) (data *outData, err error) {
 
 //----------------------------------------------------------------------------------------------------------------------------//
 
-func showPage(cfg *config.Config, w http.ResponseWriter, r *http.Request, errMsg string, title string, data *outData) (err error) {
+func showPage(cfg *config.Config, prefix string, w http.ResponseWriter, r *http.Request, errMsg string, title string, data *outData) (err error) {
 	params := struct {
 		Data      *outData
 		Fcount    int
@@ -201,7 +201,7 @@ func showPage(cfg *config.Config, w http.ResponseWriter, r *http.Request, errMsg
 		params.ColsCount = 1 + params.Fcount + params.Scount
 	}
 
-	return htmlpage.Do("history", w, r, errMsg, title, params)
+	return htmlpage.Do("history", prefix, w, r, errMsg, title, params)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------//

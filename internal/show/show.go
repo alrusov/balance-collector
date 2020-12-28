@@ -44,7 +44,7 @@ func Show(id uint64, prefix string, path string, w http.ResponseWriter, r *http.
 		if e != nil {
 			err = e
 		} else {
-			err = history.Do(id, w, r, uint(entityID))
+			err = history.Do(id, prefix, w, r, uint(entityID))
 			returnToMain = false
 		}
 
@@ -59,12 +59,12 @@ func Show(id uint64, prefix string, path string, w http.ResponseWriter, r *http.
 	case "":
 		fallthrough
 	default:
-		err = dashboard.Do(id, w, r)
+		err = dashboard.Do(id, prefix, w, r)
 		returnToMain = false
 	}
 
 	if returnToMain {
-		stdhttp.ReturnRefresh(id, w, r, http.StatusOK, path, nil, nil)
+		stdhttp.ReturnRefresh(id, w, r, http.StatusOK, ".", nil, nil)
 
 	}
 

@@ -43,7 +43,7 @@ type (
 //----------------------------------------------------------------------------------------------------------------------------//
 
 // Do --
-func Do(id uint64, w http.ResponseWriter, r *http.Request) (err error) {
+func Do(id uint64, prefix string, w http.ResponseWriter, r *http.Request) (err error) {
 	cfg := config.Get()
 
 	var mList dataMap
@@ -85,11 +85,11 @@ func Do(id uint64, w http.ResponseWriter, r *http.Request) (err error) {
 	// Выводим
 	if r.Form.Get("json") == "y" {
 		j, _ := jsonw.Marshal(aList)
-		err = htmlpage.JSON(cfg, w, r, errMsg, title, string(j))
+		err = htmlpage.JSON(cfg, prefix, w, r, errMsg, title, string(j))
 		return
 	}
 
-	err = showPage(cfg, w, r, errMsg, title, aList)
+	err = showPage(cfg, prefix, w, r, errMsg, title, aList)
 	if err != nil {
 		return
 	}
@@ -331,7 +331,7 @@ func setErrors(cfg *config.Config, db *sql.DB, mList dataMap) (err error) {
 
 //----------------------------------------------------------------------------------------------------------------------------//
 
-func showPage(cfg *config.Config, w http.ResponseWriter, r *http.Request, errMsg string, title string, aList dataArr) (err error) {
+func showPage(cfg *config.Config, prefix string, w http.ResponseWriter, r *http.Request, errMsg string, title string, aList dataArr) (err error) {
 	params := struct {
 		List      dataArr
 		Fcount    int
@@ -351,7 +351,7 @@ func showPage(cfg *config.Config, w http.ResponseWriter, r *http.Request, errMsg
 		params.ColsCount = 2 + 2*params.Fcount + params.Scount + 1
 	}
 
-	return htmlpage.Do("dashboard", w, r, errMsg, title, params)
+	return htmlpage.Do("dashboard", prefix, w, r, errMsg, title, params)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------//

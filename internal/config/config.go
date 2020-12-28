@@ -1,6 +1,8 @@
 package config
 
 import (
+	"fmt"
+
 	"github.com/alrusov/config"
 	"github.com/alrusov/misc"
 )
@@ -112,7 +114,7 @@ func (x *Processor) Check(cfg *Config) error {
 	}
 
 	for i, n := range x.Templates {
-		x.Templates[i], err = misc.AbsPath(x.TemplatesDir + "/" + n + ".tpl")
+		x.Templates[i], err = misc.AbsPath(fmt.Sprintf("%s/%s.tpl", x.TemplatesDir, n))
 		if err != nil {
 			msgs.Add("processor.template %s - %s", n, err.Error())
 		}
