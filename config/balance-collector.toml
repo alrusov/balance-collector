@@ -37,7 +37,7 @@ listener = { \
              basic-auth-enabled = false, \
              jwt-secret = "", \
              jwt-lifetime = 157680000, \
-             jwt-endpoints = [], \
+             auth-endpoints = [], \
              users = {{#include ^users.toml}} \
            }
 
