@@ -355,7 +355,10 @@ func (c *Chrome) Prepare(entityCfg *config.Entity) (r *ExecData, err error) {
 			task = chromedp.Sleep(time.Duration(v))
 
 		case mNavigate:
-			task = chromedp.Navigate(df.node)
+			q := df.node
+			q = strings.Replace(q, "{Login}", entityCfg.Login, -1)
+			q = strings.Replace(q, "{Password}", entityCfg.Password, -1)
+			task = chromedp.Navigate(q)
 
 		case mWaitVisible:
 			task = chromedp.WaitVisible(df.node, df.options...)
@@ -415,12 +418,14 @@ func (c *Chrome) Prepare(entityCfg *config.Entity) (r *ExecData, err error) {
 
 						res.nodeIds = &nodeIds
 
-						task = chromedp.ActionFunc(func(ctx context.Context) (err error) {
-							if res.nodeIds != nil && res.nodeIdx < len(*res.nodeIds) {
-								res.v, err = dom.GetOuterHTML().WithNodeID((*res.nodeIds)[res.nodeIdx]).Do(ctx)
-							}
-							return
-						})
+						task = chromedp.ActionFunc(
+							func(ctx context.Context) (err error) {
+								if res.nodeIds != nil && res.nodeIdx < len(*res.nodeIds) {
+									res.v, err = dom.GetOuterHTML().WithNodeID((*res.nodeIds)[res.nodeIdx]).Do(ctx)
+								}
+								return
+							},
+						)
 					}
 				}
 
