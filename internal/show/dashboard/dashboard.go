@@ -83,18 +83,16 @@ func Do(id uint64, prefix string, w http.ResponseWriter, r *http.Request) (err e
 
 	title := "Последние значения"
 	// Выводим
-	if r.Form.Get("json") == "y" {
+	switch r.Form.Get("raw") {
+	case "json":
 		j, _ := jsonw.Marshal(aList)
-		err = htmlpage.JSON(cfg, prefix, w, r, errMsg, title, string(j))
+		err = htmlpage.Raw(cfg, prefix, w, r, errMsg, title, string(j))
+		return
+
+	default:
+		err = showPage(cfg, prefix, w, r, errMsg, title, aList)
 		return
 	}
-
-	err = showPage(cfg, prefix, w, r, errMsg, title, aList)
-	if err != nil {
-		return
-	}
-
-	return
 }
 
 //----------------------------------------------------------------------------------------------------------------------------//

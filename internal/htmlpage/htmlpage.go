@@ -111,9 +111,9 @@ func Do(name string, prefix string, w http.ResponseWriter, r *http.Request, errM
 
 //----------------------------------------------------------------------------------------------------------------------------//
 
-// JSON --
-func JSON(cfg *config.Config, prefix string, w http.ResponseWriter, r *http.Request, errMsg string, title string, data string) (err error) {
-	return Do("json", prefix, w, r, errMsg, title, data)
+// Raw --
+func Raw(cfg *config.Config, prefix string, w http.ResponseWriter, r *http.Request, errMsg string, title string, data string) (err error) {
+	return Do("raw", prefix, w, r, errMsg, title, data)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------//

@@ -1,4 +1,4 @@
-{{define "json"}}
+{{define "raw"}}
 {{template "header" .}}
 
 {{template "back" .}}

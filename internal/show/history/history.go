@@ -6,11 +6,12 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/alrusov/jsonw"
+
 	"github.com/alrusov/balance-collector/internal/config"
 	"github.com/alrusov/balance-collector/internal/entity"
 	"github.com/alrusov/balance-collector/internal/htmlpage"
 	"github.com/alrusov/balance-collector/internal/operator"
-	"github.com/alrusov/jsonw"
 )
 
 //----------------------------------------------------------------------------------------------------------------------------//
@@ -57,18 +58,16 @@ func Do(id uint64, prefix string, w http.ResponseWriter, r *http.Request, entity
 	title := "История запроcов"
 
 	// Выводим
-	if r.Form.Get("json") == "y" {
+	switch r.Form.Get("raw") {
+	case "json":
 		j, _ := jsonw.Marshal(data)
-		err = htmlpage.JSON(cfg, prefix, w, r, errMsg, title, string(j))
+		err = htmlpage.Raw(cfg, prefix, w, r, errMsg, title, string(j))
+		return
+
+	default:
+		err = showPage(cfg, prefix, w, r, errMsg, title, data)
 		return
 	}
-
-	err = showPage(cfg, prefix, w, r, errMsg, title, data)
-	if err != nil {
-		return
-	}
-
-	return
 }
 
 //----------------------------------------------------------------------------------------------------------------------------//
@@ -114,8 +113,8 @@ func load(cfg *config.Config, entityID uint) (data *outData, err error) {
 		return
 	}
 
-	nF := 0 // количество активных float колонок
-	nS := 0 // количество активных string колонок
+	nF := len(data.FLegend) // количество активных float колонок
+	nS := len(data.SLegend) // количество активных string колонок
 
 	// Загружаем из базы
 

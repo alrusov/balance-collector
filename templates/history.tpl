@@ -8,12 +8,14 @@
 
 {{template "back" .}}
 
-<input type="hidden" id="json" name="json" value="" />
-<input type="hidden" id="id"   name="id"   value="{{$.Data.Data.ID}}" />
+<input type="hidden" id="id"  name="id"  value="{{$.Data.Data.ID}}" />
+<input type="hidden" id="raw" name="raw" value="" />
 
 <table class="grd nobr"> 
   <tr>
-    <th class="right" colspan="{{$.Data.ColsCount}}"><button class="micro" style="margin-bottom: 5px;" name="op" value="history" onclick="document.getElementById('json').value='y';">JSON</button></th>
+    <th class="right nobr" colspan="{{$.Data.ColsCount}}">
+      <button class="micro" style="margin: 5p ;" name="op" value="history" onclick="document.getElementById('raw').value='json';">JSON</button>
+    </th>
   </tr>
 
   <tr>
