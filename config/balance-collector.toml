@@ -32,10 +32,10 @@ listener = { \
 	bind-addr = "127.0.0.1:{$PORT}", ssl-combined-pem = "", timeout = 5, \
 	root = "html/", \
 	proxy-prefix = "/balance-collector/", \
-	icon-file = "html/favicon.ico", \
+	icon-file = "$html/favicon.ico", \
 	disabled-endpoints = [], \
 	auth = { \
-		endpoints = [], \
+		endpoints = [ "*" ], \
 		users = {{#include ^users.toml}}, \
 		methods = { \
 			basic = { enabled = false, options = {} }, \
