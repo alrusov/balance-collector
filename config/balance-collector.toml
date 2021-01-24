@@ -29,17 +29,21 @@ min-size-for-gzip = 256
 
 [http]
 listener = { \
-             bind-addr = "127.0.0.1:{$PORT}", ssl-combined-pem = "", timeout = 5, \
-             root = "html/", \
-             proxy-prefix = "/balance-collector/", \
-             icon-file = "html/favicon.ico", \
-             disabled-endpoints = [], \
-             basic-auth-enabled = false, \
-             jwt-secret = "", \
-             jwt-lifetime = 157680000, \
-             auth-endpoints = [], \
-             users = {{#include ^users.toml}} \
-           }
+	bind-addr = "127.0.0.1:{$PORT}", ssl-combined-pem = "", timeout = 5, \
+	root = "html/", \
+	proxy-prefix = "/balance-collector/", \
+	icon-file = "html/favicon.ico", \
+	disabled-endpoints = [], \
+	auth = { \
+		endpoints = [], \
+		users = {{#include ^users.toml}}, \
+		methods = { \
+			basic = { enabled = false, options = {} }, \
+			jwt   = { enabled = false, options = { secret = "", lifetime = 157680000 } }, \
+			krb5  = { enabled = false, options = { key-file = "" } }, \
+		} \
+	} \
+}
 
 #----------------------------------------------------------------------------------------------------------------------------#
 
