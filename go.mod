@@ -4,7 +4,7 @@ go 1.15
 
 require (
 	github.com/alrusov/appcron v0.1.7
-	github.com/alrusov/config v0.1.30
+	github.com/alrusov/config v0.1.31
 	github.com/alrusov/jsonw v0.1.0
 	github.com/alrusov/launcher v0.1.35
 	github.com/alrusov/log v0.1.27

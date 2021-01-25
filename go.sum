@@ -4,8 +4,8 @@ github.com/alrusov/bufpool v0.1.6 h1:bK+tY3WRPXL1psiX349bvOYfi7j8SgmFVkI+7fQvwoc
 github.com/alrusov/bufpool v0.1.6/go.mod h1:kHFGm44zeETGWA2h4kUMd0FMkNMiotFERO4AMKPGwwk=
 github.com/alrusov/config v0.1.26/go.mod h1:7AWMAxzT4+k+74sB+MkaUvPiYcWl5M7NhIYxcX8UY7Q=
 github.com/alrusov/config v0.1.29/go.mod h1:rX6srXz9Mk70nnYh5rhsud+liR6d3oYFWmMsL3DC2BM=
-github.com/alrusov/config v0.1.30 h1:JVI+4MeZnRb2aC1uKCdXqLnvdyIuMhhtOcLlthCm7Xc=
-github.com/alrusov/config v0.1.30/go.mod h1:XkEIRMxu98Ajj0PLDCvaTePPhpNtcyC29FJgh04bbKY=
+github.com/alrusov/config v0.1.31 h1:NN+1Xhs/3KsoaUrF8Nd5HgmuZAEAX0OB9aCMWFuep6A=
+github.com/alrusov/config v0.1.31/go.mod h1:XkEIRMxu98Ajj0PLDCvaTePPhpNtcyC29FJgh04bbKY=
 github.com/alrusov/jsonw v0.1.0 h1:A4Ymili5ieu7pvtK+s52Ng75qCM6K/Z5h5j9twYyjlk=
 github.com/alrusov/jsonw v0.1.0/go.mod h1:azE1xRu6TOXoMgG42/I/ZMhzfFb5FkUziUlZ4KR4rCs=
 github.com/alrusov/launcher v0.1.35 h1:vJWx/ruIB3DICe7HLrYDV7Zl9EFPej3mTlr8wtL7Axo=
