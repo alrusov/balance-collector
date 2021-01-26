@@ -475,17 +475,37 @@ func (r *ExecData) Exec(timeout uint) (err error) {
 		chromedp.Cancel(ctx)
 	}()
 
+	msgs := misc.NewMessages()
+
 	err = chromedp.Run(ctx, r.tasks...)
 	if err != nil {
-		return
+		msgs.AddError(err)
 	}
 
-	return r.convResults()
+	dataFound, convErr := r.convResults(err == nil)
+
+	if convErr != nil {
+		msgs.AddError(convErr)
+	}
+
+	if dataFound {
+		err = msgs.Error()
+		if err != nil {
+			fn := fmt.Sprintf("Get(%s)", r.entityCfg.Name)
+			Log.MessageWithSource(log.ERR, fn, "%v", err)
+		}
+		return nil
+	}
+
+	msgs.Add("No data found")
+
+	return msgs.Error()
+
 }
 
 //----------------------------------------------------------------------------------------------------------------------------//
 
-func (r *ExecData) convResults() (err error) {
+func (r *ExecData) convResults(dataOK bool) (dataFound bool, err error) {
 	for i, res := range r.results {
 		if r.skippedResults[i] {
 			continue
@@ -501,16 +521,21 @@ func (r *ExecData) convResults() (err error) {
 		switch res.tp {
 		case resultTypeFloat:
 			v, e := Float(res.v)
+			r.data.FVals = append(r.data.FVals, v)
 			if e != nil {
 				Log.MessageWithSource(log.ERR, r.entityCfg.Name, "%s: %s", res.v, e.Error())
+				continue
 			}
-			r.data.FVals = append(r.data.FVals, v)
 
 		case resultTypeString:
 			r.data.SVals = append(r.data.SVals, res.v)
 
 		default:
 			break
+		}
+
+		if dataOK || res.v != "" {
+			dataFound = true
 		}
 	}
 
