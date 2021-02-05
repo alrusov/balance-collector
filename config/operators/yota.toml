@@ -3,11 +3,11 @@ description = "Yota"
 timeout = 30
 
 tasks = [
-  "Navigate(https://my.yota.ru/selfcare/login?goto=https%3A%2F%2Fmy.yota.ru%3A443%2Fdevices)",
+  "Navigate(https://my.yota.ru/login?returnUrl=%2Fdevices)",
 
-  "SendKeys(input[name='phoneNumber'], $Login)",
-  "SendKeys(input[name='password'], $Password)",
-  "Click(button[type='submit'])",
+  "SendKeys(input[id='y-input-0'], $Login)",
+  "SendKeys(input[id='y-input-1'], $Password)",
+  "Click(button[class='y-m-8 y-button y-button-tiny'])",
 
   "Float(dd[id='balance-holder'] > span, Баланс)",
   "Float(div.tarriff-info > div.time > strong, Остаток дней)",

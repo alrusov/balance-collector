@@ -35,7 +35,7 @@ listener = { \
 	icon-file = "$html/favicon.ico", \
 	disabled-endpoints = [], \
 	auth = { \
-		endpoints = [ "*" ], \
+		endpoints = { "*" = ["admin"] }, \
 		users = {{#include ^users.toml}}, \
 		methods = { \
 			basic = { enabled = false, options = {} }, \
