@@ -38,9 +38,9 @@ listener = { \
 		endpoints = { "*" = ["admin"] }, \
 		users = {{#include ^users.toml}}, \
 		methods = { \
-			basic = { enabled = false, options = {} }, \
-			jwt   = { enabled = false, options = { secret = "", lifetime = 157680000 } }, \
-			krb5  = { enabled = false, options = { key-file = "" } }, \
+			basic = { enabled = false, score = 30, options = {} }, \
+			jwt   = { enabled = false, score = 20, options = { secret = "?", lifetime = 157680000 } }, \
+			krb5  = { enabled = false, score = 10, options = { key-file = "?" } }, \
 		} \
 	} \
 }
