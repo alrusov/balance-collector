@@ -10,6 +10,6 @@ if "%1" == "" (
 call run.cmd --service %1
 if %errorlevel% == 211 (
   echo ****
-  echo Try to run as administrator
+  echo Try to run as the Administrator
   echo ****
 )

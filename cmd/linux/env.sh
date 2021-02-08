@@ -2,11 +2,6 @@
 
 set -a
 
-APP=balance-collector
+APP=$(basename $(readlink -f ../..))
 
-LOG_LEVEL=TRACE4
-PORT=10802
-
-VIEW_BROWSER=true
-
-GODEBUG=madvdontneed=1
+. ../env

@@ -1,8 +1,9 @@
 @echo off
 
-set APP=balance-collector
+pushd ..\..\
+set APP=%cd%
+cd ..
+set APP=!APP:%cd%\=!
+popd
 
-set LOG_LEVEL=TRACE4
-set PORT=10802
-
-set VIEW_BROWSER=true
+for /f "delims=" %%x in (..\env) do (set "%%x")

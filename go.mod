@@ -12,7 +12,7 @@ require (
 	github.com/alrusov/panic v0.1.12
 	github.com/alrusov/stdhttp v0.1.66
 	github.com/alrusov/winservice v0.1.7 // indirect
-	github.com/chromedp/cdproto v0.0.0-20210204225631-566b5dbfe5c0
+	github.com/chromedp/cdproto v0.0.0-20210208055300-32adaa8323b6
 	github.com/chromedp/chromedp v0.6.5
 	github.com/kardianos/service v1.2.0 // indirect
 	github.com/mattn/go-sqlite3 v1.14.6

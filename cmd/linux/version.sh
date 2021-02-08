@@ -1,5 +1,4 @@
 #!/bin/bash
 
 . ./env.sh
-../../${APP} --version 
-
+../../${APP} --version

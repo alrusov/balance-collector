@@ -1,8 +1,11 @@
 @echo off
 
-set APP=balance-collector
-
 setlocal enableextensions enabledelayedexpansion
+
+set APP=%cd%
+pushd ..\
+set APP=!APP:%cd%\=!
+popd
 
 set BUILD_NUMBER_FILE=BUILD_NUMBER
 set TAGS_FILE=TAGS
@@ -31,9 +34,8 @@ if %H% lss 10 set H=0%H%
 if %M% lss 10 set M=0%M%
 if %S% lss 10 set S=0%S%
 
-for /f "tokens=*" %%i in ('type COPYRIGHT') do (set COPYRIGHT=%%i)
+for /f "tokens=*" %%i in ('type COPYRIGHT') do set COPYRIGHT=%%i%Y%
 set COPYRIGHT=%COPYRIGHT: =_%
-set COPYRIGHT=%COPYRIGHT%%Y%
 
 set BUILD_TIME=%Y%-%N%-%D%_%H%:%M%:%S%
 
