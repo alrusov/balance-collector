@@ -1,19 +1,19 @@
 @echo off
 
+set APP=balance-collector
+
 setlocal enableextensions enabledelayedexpansion
 
-if exist vendor\github.com (
-  echo Please delete the vendor\github.com directory
-  echo See https://github.com/golang/go/issues/19000 for details
-  exit
+set BUILD_NUMBER_FILE=BUILD_NUMBER
+set TAGS_FILE=TAGS
+
+if exist STATIC (
+  set CGO_ENABLED=0 
+  set EXTRA_LD=-extldflags -static
+) else (
+  set CGO_ENABLED=1
+  set EXTRA_LD=
 )
-
-call cmd\windows\env.cmd
-
-rem set CGO_ENABLED=0
-rem set EXTRA_LD=-extldflags -static
-set CGO_ENABLED=1
-set EXTRA_LD=
 
 for /f %%d in ('wmic path win32_utctime get /format:list ^| findstr "="') do (
   for /f "tokens=1,2 delims==" %%a in ("%%d") do (
@@ -31,29 +31,29 @@ if %H% lss 10 set H=0%H%
 if %M% lss 10 set M=0%M%
 if %S% lss 10 set S=0%S%
 
-set COPYRIGHT=(C)_Alexey_Rusov_(rolic402@mail.ru),_2017-%Y%
+for /f "tokens=*" %%i in ('type COPYRIGHT') do (set COPYRIGHT=%%i)
+set COPYRIGHT=%COPYRIGHT: =_%
+set COPYRIGHT=%COPYRIGHT%%Y%
+
 set BUILD_TIME=%Y%-%N%-%D%_%H%:%M%:%S%
 
 set BUILD=
-if exist BUILD_NUMBER (
-  for /f %%i in ('type BUILD_NUMBER') do set "BUILD=%%i"
+if exist %BUILD_NUMBER_FILE% (
+  for /f %%i in ('type %BUILD_NUMBER_FILE%') do set BUILD=%%i
 )
-if "%BUILD%"=="" (set BUILD=1)
+if "%BUILD%"=="" set BUILD=1
 
-for /f %%i in ('type VERSION') do set "VERSION=%%i"
-set VERSION=%VERSION%.%BUILD%
+for /f %%i in ('type VERSION') do set VERSION=%%i.%BUILD%
 
 set TAGS=
-if exist TAGS (
-  for /f %%i in ('type TAGS') do (
+if exist %TAGS_FILE% (
+  for /f %%i in ('type %TAGS_FILE%') do (
     if not "!TAGS!"=="" set TAGS=!TAGS!_
     set TAGS=!TAGS!%%i
   )
 )
 
-go build ^
-  -o cmd\windows\%APP%.exe ^
-  --ldflags "%EXTRA_LD% -X github.com/alrusov/misc.appVersion=%VERSION% -X github.com/alrusov/misc.appTags=%TAGS% -X github.com/alrusov/misc.buildTime=%BUILD_TIME% -X github.com/alrusov/misc.copyright=%COPYRIGHT%"
+go build --ldflags "%EXTRA_LD% -X github.com/alrusov/misc.appVersion=%VERSION% -X github.com/alrusov/misc.appTags=%TAGS% -X github.com/alrusov/misc.buildTime=%BUILD_TIME% -X github.com/alrusov/misc.copyright=%COPYRIGHT%"
 
 set /a BUILD+=1
-echo %BUILD% >BUILD_NUMBER
+echo %BUILD% >%BUILD_NUMBER_FILE%

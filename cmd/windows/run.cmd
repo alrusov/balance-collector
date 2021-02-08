@@ -1,4 +1,4 @@
 @echo off
 
-call %~dp0\env.cmd
-%APP% --config config\%APP%.toml %*
+call env.cmd
+..\..\%APP% --config config\%APP%.toml %*

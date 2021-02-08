@@ -1,1 +1,1 @@
-@%~dp0\service.cmd start
+@service.cmd start

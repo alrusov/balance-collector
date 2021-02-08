@@ -89,7 +89,7 @@ build:
 		CGO_ENABLED=$(CGO) \
 		GOOS=$(OS) \
 		GOARCH=$(ARCH) \
-		go build -o "cmd/$(OS)/$(APP)" \
+		go build -o "$(APP)" \
 			$(GO_FLAGS) \
 			--ldflags "$(EXTRA_LD) \
 			-X github.com/alrusov/misc.appVersion=$(VERSION) \

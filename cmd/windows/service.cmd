@@ -7,7 +7,7 @@ if "%1" == "" (
   exit 1
 )
 
-call %~dp0\run.cmd --service %1
+call run.cmd --service %1
 if %errorlevel% == 211 (
   echo ****
   echo Try to run as administrator
