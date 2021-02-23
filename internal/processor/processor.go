@@ -26,7 +26,7 @@ type (
 func Init() (err error) {
 	cfg := config.Get()
 
-	err = appcron.Init(cfg.Processor.TimeZoneInfoFile, cfg.Processor.CronLocation)
+	err = appcron.Init("", cfg.Processor.CronLocation)
 	if err != nil {
 		return
 	}

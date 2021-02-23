@@ -10,7 +10,7 @@
             "request": "launch",
             "mode": "auto",
             "program": "${fileDirname}",
-            "env": { "LOG_LEVEL": "TRACE4", "PORT": 10802 "VIEW_BROWSER": true },
+            "env": { "LOG_LEVEL": "TRACE4", "PORT": 10802, "VIEW_BROWSER": true },
             "args": ["-config", "config/balance-collector.toml"]
         }
     ]

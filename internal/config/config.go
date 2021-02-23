@@ -26,11 +26,11 @@ type (
 
 	// Processor -- processor options
 	Processor struct {
-		TimeZoneInfoFile string `toml:"tz-info-file"`
-		CronLocation     string `toml:"cron-location"`
-		Schedule         string `toml:"schedule"`
-		ViewBrowser      bool   `toml:"view-browser"`
-		StdTimeout       uint   `toml:"std-timeout"`
+		CronLocation string `toml:"cron-location"`
+		Schedule     string `toml:"schedule"`
+		ViewBrowser  bool   `toml:"view-browser"`
+		UserAgent    string `toml:"user-agent"`
+		StdTimeout   uint   `toml:"std-timeout"`
 
 		DB string `toml:"db"`
 

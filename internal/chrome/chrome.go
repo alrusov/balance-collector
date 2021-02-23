@@ -108,17 +108,17 @@ const (
 
 var (
 	methods = map[string]*Method{
-		mSleep:          &Method{paramsCount: 1}, // duration
-		mNavigate:       &Method{paramsCount: 1}, // url
-		mWaitVisible:    &Method{paramsCount: 1}, // selector, [ options... ]
-		mWaitNotVisible: &Method{paramsCount: 1}, // selector, [ options... ]
-		mSendKeys:       &Method{paramsCount: 2}, // selector, value, [ options... ]
-		mClick:          &Method{paramsCount: 1}, // selector, [ options... ]
-		mSubmit:         &Method{paramsCount: 1}, // selector, [ options... ]
-		mFloat:          &Method{paramsCount: 2}, // selector, caption, [ re, reIdx, options... ]
-		mString:         &Method{paramsCount: 2}, // selector, caption, [ re, reIdx, options... ]
-		mMultiFloat:     &Method{paramsCount: 2}, // selector, count, [count]caption..., [ re, reIdx, options... ]
-		mMultiString:    &Method{paramsCount: 2}, // selector, count, [count]caption..., [ re, reIdx, options... ]
+		mSleep:          {paramsCount: 1}, // duration
+		mNavigate:       {paramsCount: 1}, // url
+		mWaitVisible:    {paramsCount: 1}, // selector, [ options... ]
+		mWaitNotVisible: {paramsCount: 1}, // selector, [ options... ]
+		mSendKeys:       {paramsCount: 2}, // selector, value, [ options... ]
+		mClick:          {paramsCount: 1}, // selector, [ options... ]
+		mSubmit:         {paramsCount: 1}, // selector, [ options... ]
+		mFloat:          {paramsCount: 2}, // selector, caption, [ re, reIdx, options... ]
+		mString:         {paramsCount: 2}, // selector, caption, [ re, reIdx, options... ]
+		mMultiFloat:     {paramsCount: 2}, // selector, count, [count]caption..., [ re, reIdx, options... ]
+		mMultiString:    {paramsCount: 2}, // selector, count, [count]caption..., [ re, reIdx, options... ]
 	}
 
 	options = map[string]chromedp.QueryOption{
@@ -454,14 +454,72 @@ func (c *Chrome) Prepare(entityCfg *config.Entity) (r *ExecData, err error) {
 
 // Exec --
 func (r *ExecData) Exec(timeout uint) (err error) {
+	headless := !config.Get().Processor.ViewBrowser
+
 	opts := append(chromedp.DefaultExecAllocatorOptions[:],
-		chromedp.Flag("headless", !config.Get().Processor.ViewBrowser),
+		chromedp.Flag("headless", headless),
+		chromedp.Flag("disable-gpu", headless),
+		chromedp.Flag("enable-automation", true),
+		chromedp.Flag("no-first-run", true),
+		chromedp.Flag("no-default-browser-check", true),
+		chromedp.Flag("hide-scrollbars", true),
+		chromedp.Flag("mute-audio", true),
+		chromedp.Flag("disable-background-networking", true),
+		chromedp.Flag("enable-features", "NetworkService,NetworkServiceInProcess"),
+		chromedp.Flag("disable-background-timer-throttling", true),
+		chromedp.Flag("disable-backgrounding-occluded-windows", true),
+		chromedp.Flag("disable-breakpad", true),
+		chromedp.Flag("disable-client-side-phishing-detection", true),
+		chromedp.Flag("disable-default-apps", true),
+		chromedp.Flag("disable-dev-shm-usage", true),
+		chromedp.Flag("disable-extensions", true),
+		chromedp.Flag("disable-features", "site-per-process,TranslateUI,BlinkGenPropertyTrees"),
+		chromedp.Flag("disable-hang-monitor", true),
+		chromedp.Flag("disable-ipc-flooding-protection", true),
+		chromedp.Flag("disable-popup-blocking", true),
+		chromedp.Flag("disable-prompt-on-repost", true),
+		chromedp.Flag("disable-renderer-backgrounding", true),
+		chromedp.Flag("disable-sync", true),
+		chromedp.Flag("force-color-profile", "srgb"),
+		chromedp.Flag("metrics-recording-only", true),
+		chromedp.Flag("safebrowsing-disable-auto-update", true),
+		chromedp.Flag("password-store", "basic"),
+		chromedp.Flag("use-mock-keychain", true),
 	)
+
+	userAgent := config.Get().Processor.UserAgent
+	if userAgent != "" {
+		opts = append(opts, chromedp.Flag("user-agent", userAgent))
+	}
 
 	ctx, cancel := chromedp.NewExecAllocator(context.Background(), opts...)
 	defer cancel()
 
-	ctx, cancel = chromedp.NewContext(ctx)
+	logOptions := []chromedp.ContextOption{
+		chromedp.WithErrorf(
+			func(fmt string, i ...interface{}) {
+				Log.MessageWithSource(log.ERR, "Exec", fmt, i...)
+			},
+		),
+		chromedp.WithLogf(
+			func(fmt string, i ...interface{}) {
+				Log.MessageWithSource(log.INFO, "Exec", fmt, i...)
+			},
+		),
+	}
+
+	if Log.CurrentLogLevel() >= log.TRACE4 {
+		logOptions = append(logOptions,
+			chromedp.WithDebugf(
+				func(fmt string, i ...interface{}) {
+					Log.MessageWithSource(log.TRACE4, "Exec", fmt, i...)
+				},
+			),
+		)
+	}
+
+	ctx, cancel = chromedp.NewContext(ctx, logOptions...)
+
 	defer cancel()
 
 	ctx, cancel = context.WithTimeout(ctx, time.Duration(timeout)*time.Second)
