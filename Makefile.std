@@ -2,9 +2,15 @@
 
 APP = $(shell basename `pwd`)
 
-BUILD_NUMBER_FILE = ../_BUILDS/$(APP)
+BUILD_NUMBER_FILE = ../_BUILDS/v/$(APP)
 ifneq ($(wildcard BUILD_NUMBER),)
 	BUILD_NUMBER_FILE = BUILD_NUMBER
+endif
+
+ifeq ($(wildcard $(BUILD_NUMBER_FILE)),)
+	BUILD_NUMBER = 1
+else
+	BUILD_NUMBER = $(shell cat $(BUILD_NUMBER_FILE))
 endif
 
 ifneq ($(wildcard WITHOUT_GLOBAL_TAGS),)
@@ -32,12 +38,6 @@ VERSION =
 
 ifneq ($(wildcard VERSION),)
 	VERSION = $(shell cat VERSION)
-
-	ifeq ($(wildcard $(BUILD_NUMBER_FILE)),)
-		BUILD_NUMBER = 1
-	else
-		BUILD_NUMBER = $(shell cat $(BUILD_NUMBER_FILE))
-	endif
 
 	ifneq ($(strip $(BUILD_NUMBER)),)
 		VERSION := $(VERSION).$(BUILD_NUMBER)
@@ -80,7 +80,7 @@ pull:
 
 #-----------------------------------------------------------------------------------------------------------------------------------------------------#
 
-build:
+build: pull
 	CGO_ENABLED=$(CGO) \
 	go build -o "$(APP)" \
 		$(GO_FLAGS) \
@@ -88,9 +88,9 @@ build:
 		-X github.com/alrusov/misc.appVersion=$(VERSION) \
 		-X github.com/alrusov/misc.appTags=$(TAGS) \
 		-X github.com/alrusov/misc.buildTime=$(TS) \
-		-X github.com/alrusov/misc.copyright=$(COPYRIGHT)"; \
-	\
-	echo $$(($(BUILD_NUMBER) + 1)) >$(BUILD_NUMBER_FILE); \
+		-X github.com/alrusov/misc.copyright=$(COPYRIGHT)"
+
+	echo $$(($(BUILD_NUMBER) + 1)) >$(BUILD_NUMBER_FILE)
 
 
 #-----------------------------------------------------------------------------------------------------------------------------------------------------#
