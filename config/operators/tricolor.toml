@@ -1,6 +1,6 @@
 [operators.TRICOLOR]
 description = "Tricolor"
-timeout = 30
+timeout = 60
 
 tasks = [
   "Navigate(https://lk-subscr.tricolor.tv/#Login?utm_source=www-tricolor-tv&utm_medium=header&utm_campaign=lk-link)",

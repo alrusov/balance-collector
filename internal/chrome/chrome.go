@@ -97,6 +97,8 @@ const (
 	mNavigate       = "Navigate"
 	mWaitVisible    = "WaitVisible"
 	mWaitNotVisible = "WaitNotVisible"
+	mClear          = "Clear"
+	mSetValue       = "SetValue"
 	mSendKeys       = "SendKeys"
 	mClick          = "Click"
 	mSubmit         = "Submit"
@@ -112,6 +114,8 @@ var (
 		mNavigate:       {paramsCount: 1}, // url
 		mWaitVisible:    {paramsCount: 1}, // selector, [ options... ]
 		mWaitNotVisible: {paramsCount: 1}, // selector, [ options... ]
+		mClear:          {paramsCount: 1}, // selector, [ options... ]
+		mSetValue:       {paramsCount: 2}, // selector, value, [ options... ]
 		mSendKeys:       {paramsCount: 2}, // selector, value, [ options... ]
 		mClick:          {paramsCount: 1}, // selector, [ options... ]
 		mSubmit:         {paramsCount: 1}, // selector, [ options... ]
@@ -223,7 +227,7 @@ func (c *Chrome) parseTaskDef(src []string) (err error) {
 			cp.param = fmt.Sprintf("%d", v*int64(time.Millisecond))
 
 		//-----//
-		case mSendKeys:
+		case mSetValue, mSendKeys:
 			cp.param = params[1]
 
 		//-----//
@@ -366,7 +370,10 @@ func (c *Chrome) Prepare(entityCfg *config.Entity) (r *ExecData, err error) {
 		case mWaitNotVisible:
 			task = chromedp.WaitNotVisible(df.node, df.options...)
 
-		case mSendKeys:
+		case mClear:
+			task = chromedp.Clear(df.node, df.options...)
+
+		case mSetValue, mSendKeys:
 			v := ""
 			switch df.param {
 			case "$Login":
@@ -376,7 +383,13 @@ func (c *Chrome) Prepare(entityCfg *config.Entity) (r *ExecData, err error) {
 			default:
 				v = df.param
 			}
-			task = chromedp.SendKeys(df.node, v, df.options...)
+
+			switch df.methodName {
+			case mSetValue:
+				task = chromedp.SetValue(df.node, v, df.options...)
+			case mSendKeys:
+				task = chromedp.SendKeys(df.node, v, df.options...)
+			}
 
 		case mClick:
 			task = chromedp.Click(df.node, df.options...)

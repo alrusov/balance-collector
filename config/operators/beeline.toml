@@ -4,11 +4,12 @@ timeout = 30
 
 tasks = [
   "Navigate(https://my.beeline.ru/login.xhtml)",
+  "Clear(input[id='loginFormB2C:loginForm:login'])",
 
-  "SendKeys(input[id='loginFormB2C:loginForm:login'], $Login)",
-  "SendKeys(input[id='loginFormB2C:loginForm:passwordPwd'], $Password)",
+  "SetValue(input[id='loginFormB2C:loginForm:login'], $Login)",
+  "SetValue(input[id='loginFormB2C:loginForm:passwordPwd'], $Password)",
   "Click(button[id='loginFormB2C:loginForm:j_idt218'])",
 
   "Float(div.Balance_infoValue_kVsT, Баланс)",
-  "String(tr.profileInfoRow:last-child > td > a > span, Тариф)",
+  "String(tr.profileInfoRow > td.Summary_profileInfoValue_1vmb > a > span.Link_text_3J9U, Тариф)",
 ]
