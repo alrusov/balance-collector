@@ -21,7 +21,7 @@ func Show(id uint64, prefix string, path string, w http.ResponseWriter, r *http.
 	var err error
 	defer func() {
 		if err != nil {
-			stdhttp.Error(id, false, w, http.StatusInternalServerError, "Server error", err)
+			stdhttp.Error(id, false, w, r, http.StatusInternalServerError, "Server error", err)
 		}
 	}()
 

@@ -3,11 +3,11 @@ package htmlpage
 import (
 	"bytes"
 	"html/template"
-	"io"
 	"net/http"
 	"sync"
 
 	"github.com/alrusov/misc"
+	"github.com/alrusov/stdhttp"
 
 	"github.com/alrusov/balance-collector/internal/config"
 )
@@ -103,9 +103,7 @@ func Do(name string, prefix string, w http.ResponseWriter, r *http.Request, errM
 		return
 	}
 
-	w.WriteHeader(http.StatusOK)
-	_, err = io.Copy(w, buf)
-
+	stdhttp.WriteReply(w, r, http.StatusOK, stdhttp.ContentTypeHTML, nil, buf.Bytes())
 	return
 }
 
