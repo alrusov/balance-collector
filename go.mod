@@ -10,7 +10,7 @@ require (
 	github.com/alrusov/log v0.1.28
 	github.com/alrusov/misc v0.1.35
 	github.com/alrusov/panic v0.1.13
-	github.com/alrusov/stdhttp v0.1.73
+	github.com/alrusov/stdhttp v0.1.74
 	github.com/chromedp/cdproto v0.0.0-20210227213635-aabfe75e3e09
 	github.com/chromedp/chromedp v0.6.6
 	github.com/mattn/go-sqlite3 v1.14.6

@@ -19,8 +19,8 @@ github.com/alrusov/misc v0.1.35/go.mod h1:wq7jkLgy8u0ogF2EyY1Goes9GftiRcK4w1wH1v
 github.com/alrusov/panic v0.1.13 h1:deY9lE2bUwSS1Py4eg97oRk9d+mrOZmMowKB1hPQBrs=
 github.com/alrusov/panic v0.1.13/go.mod h1:zwS3WCJcw2e8x/A0d1UR7GQeZsoQ+OQ7Cf5x5UQSel8=
 github.com/alrusov/stdhttp v0.1.69/go.mod h1:sfBVUZ12o1PJsLfW18ZcqlAgw89pCgzeCQW9LzRJDh8=
-github.com/alrusov/stdhttp v0.1.73 h1:AgcHJ5lA7RJCrTDzYIwO7UcLpzCPBTkyYQf2ZP0OaB8=
-github.com/alrusov/stdhttp v0.1.73/go.mod h1:3RDxMsrDp5TvkSlNbdHSeakAKk0B6NYK3hBOM/DtFJ8=
+github.com/alrusov/stdhttp v0.1.74 h1:DAsEC8pWkB1/QquakAK1/us4ExS0qsUSvCwZSWwTFFo=
+github.com/alrusov/stdhttp v0.1.74/go.mod h1:3RDxMsrDp5TvkSlNbdHSeakAKk0B6NYK3hBOM/DtFJ8=
 github.com/alrusov/winservice v0.1.8 h1:MP3JRJvsj3Sw9iWiM1bWk1GcVHvlvIBhu3Av8NeKnlo=
 github.com/alrusov/winservice v0.1.8/go.mod h1:an8Ir6bSMpbjPdd1G3bnDr/9UpX1KL82opKOD8953AY=
 github.com/chromedp/cdproto v0.0.0-20210222063305-a3ac505ff0bd/go.mod h1:At5TxYYdxkbQL0TSefRjhLE3Q0lgvqKKMSFUglJ7i1U=
