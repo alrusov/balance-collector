@@ -563,7 +563,7 @@ func (r *ExecData) Exec(timeout uint) (err error) {
 		err = msgs.Error()
 		if err != nil {
 			fn := fmt.Sprintf("Get(%s)", r.entityCfg.Name)
-			Log.MessageWithSource(log.ERR, fn, "%v", err)
+			Log.MessageWithSource(log.ERR, fn, "%s", err)
 		}
 		return nil
 	}
