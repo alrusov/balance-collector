@@ -8,7 +8,7 @@ require (
 	github.com/alrusov/jsonw v0.1.1
 	github.com/alrusov/launcher v0.1.37
 	github.com/alrusov/log v0.1.28
-	github.com/alrusov/misc v0.1.35
+	github.com/alrusov/misc v0.1.36
 	github.com/alrusov/panic v0.1.13
 	github.com/alrusov/stdhttp v0.1.75
 	github.com/chromedp/cdproto v0.0.0-20210318231247-733a37e2c059

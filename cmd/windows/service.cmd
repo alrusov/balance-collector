@@ -8,7 +8,7 @@ if "%1" == "" (
 )
 
 call run.cmd --service %1
-if %errorlevel% == 211 (
+if %errorlevel% == 77 (
   echo ****
   echo Try to run as the Administrator
   echo ****
