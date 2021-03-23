@@ -1,6 +1,6 @@
 [operators.YOTA]
 description = "Yota"
-timeout = 30
+timeout = "30s"
 
 tasks = [
   "Navigate(https://my.yota.ru/login?returnUrl=%2Fdevices)",

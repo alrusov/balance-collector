@@ -1,6 +1,6 @@
 [operators.MGTS]
 description = "МГТС"
-timeout = 30
+timeout = "30s"
 
 tasks = [
   "Navigate(https://login.mgts.ru/amserver/UI/Login)",

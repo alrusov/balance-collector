@@ -8,15 +8,15 @@ log-dir = "logs"
 log-level = "{$LOG_LEVEL}"
 log-levels = {}
 log-buffer-size = 0
-log-buffer-delay = 0
+log-buffer-delay = "0s"
 log-max-string-len = 10000
 
 #go-max-procs = 4
 
-mem-stats-period = 1800
+mem-stats-period = "30m"
 mem-stats-level = "INFO"
 
-load-avg-period = 60
+load-avg-period = "1m"
 
 profiler-enabled = false 
 deep-profiling = false
@@ -29,7 +29,7 @@ min-size-for-gzip = 256
 
 [http]
 listener = { \
-	bind-addr = "127.0.0.1:{$PORT}", ssl-combined-pem = "", timeout = 5, \
+	bind-addr = "127.0.0.1:{$PORT}", ssl-combined-pem = "", timeout = "5s", \
 	root = "html/", \
 	proxy-prefix = "/balance-collector/", \
 	icon-file = "$html/favicon.ico", \
@@ -39,7 +39,7 @@ listener = { \
 		users = {{#include ^users.toml}}, \
 		methods = { \
 			basic = { enabled = false, score = 30, options = {} }, \
-			jwt   = { enabled = false, score = 20, options = { secret = "?", lifetime = 157680000 } }, \
+			jwt   = { enabled = false, score = 20, options = { secret = "?", lifetime = "3650d" } }, \
 			krb5  = { enabled = false, score = 10, options = { key-file = "?" } }, \
 		} \
 	} \
@@ -53,7 +53,7 @@ schedule = "12 5 * * *"
 
 view-browser = {$VIEW_BROWSER}
 user-agent   = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36"
-std-timeout  = 60
+std-timeout  = "60s"
 
 db = "balance-collector.db"
 

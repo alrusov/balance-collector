@@ -1,6 +1,6 @@
 [operators.ONLIME]
 description = "Onlime"
-timeout = 30
+timeout = "30s"
 
 tasks = [
   "Navigate(https://my.onlime.ru/session/logout)",

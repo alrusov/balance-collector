@@ -1,6 +1,6 @@
 [operators.GOODLINE]
 description = "GoodLine"
-timeout = 30
+timeout = "30s"
 
 tasks = [
   "Navigate(http://new.goodline.ru/user/?logout=yes)",

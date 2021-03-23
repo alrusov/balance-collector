@@ -1,6 +1,6 @@
 [operators.CBR]
 description = "Курсы валют ЦБР"
-timeout = 30
+timeout = "30s"
 
 tasks = [
   "Navigate(http://cbr.ru/key-indicators/)",

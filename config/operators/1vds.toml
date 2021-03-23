@@ -1,6 +1,6 @@
 [operators.1VDS]
 description = "firstvds.ru hosting provider"
-timeout = 30
+timeout = "30s"
 
 tasks = [
   "Navigate(https://my.firstvds.ru/manager/billmgr?func=dashboard.info&out=text&authinfo={Login}:{Password})",

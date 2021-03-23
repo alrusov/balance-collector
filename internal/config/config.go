@@ -2,6 +2,7 @@ package config
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/alrusov/config"
 	"github.com/alrusov/misc"
@@ -26,11 +27,12 @@ type (
 
 	// Processor -- processor options
 	Processor struct {
-		CronLocation string `toml:"cron-location"`
-		Schedule     string `toml:"schedule"`
-		ViewBrowser  bool   `toml:"view-browser"`
-		UserAgent    string `toml:"user-agent"`
-		StdTimeout   uint   `toml:"std-timeout"`
+		CronLocation string        `toml:"cron-location"`
+		Schedule     string        `toml:"schedule"`
+		ViewBrowser  bool          `toml:"view-browser"`
+		UserAgent    string        `toml:"user-agent"`
+		StdTimeoutS  string        `toml:"std-timeout"`
+		StdTimeout   time.Duration `toml:"-"`
 
 		DB string `toml:"db"`
 
@@ -43,9 +45,10 @@ type (
 
 	// Operator --
 	Operator struct {
-		Description string   `toml:"description"`
-		Timeout     uint     `toml:"timeout"`
-		Tasks       []string `toml:"tasks"`
+		Description string        `toml:"description"`
+		TimeoutS    string        `toml:"timeout"`
+		Timeout     time.Duration `toml:"-"`
+		Tasks       []string      `toml:"tasks"`
 	}
 
 	// Entities -- objects list
@@ -53,28 +56,29 @@ type (
 
 	// Entity -- object
 	Entity struct {
-		Idx            int    `toml:"-"`
-		ID             uint   `toml:"id"`
-		Enabled        bool   `toml:"enabled"`
-		Name           string `toml:"name"`
-		Description    string `toml:"description"`
-		Type           string `toml:"type"`
-		Delay          uint   `toml:"delay"`
-		AlertLevelHigh int    `toml:"alert-level-high"`
-		AlertLevelLow  int    `toml:"alert-level-low"`
-		Login          string `toml:"login"`
-		Password       string `toml:"password"`
-		Schedule       string `toml:"schedule"`
+		Idx            int           `toml:"-"`
+		ID             uint          `toml:"id"`
+		Enabled        bool          `toml:"enabled"`
+		Name           string        `toml:"name"`
+		Description    string        `toml:"description"`
+		Type           string        `toml:"type"`
+		DelayS         string        `toml:"delay"`
+		Delay          time.Duration `toml:"-"`
+		AlertLevelHigh int           `toml:"alert-level-high"`
+		AlertLevelLow  int           `toml:"alert-level-low"`
+		Login          string        `toml:"login"`
+		Password       string        `toml:"password"`
+		Schedule       string        `toml:"schedule"`
 	}
 )
 
 //----------------------------------------------------------------------------------------------------------------------------//
 
 // Check -- check http listener config
-func (x *HTTP) Check(cfg *Config) error {
+func (x *HTTP) Check(cfg *Config) (err error) {
 	msgs := misc.NewMessages()
 
-	err := x.Listener.Check(cfg)
+	err = x.Listener.Check(cfg)
 	if err != nil {
 		msgs.Add("%s", err.Error())
 	}
@@ -85,9 +89,8 @@ func (x *HTTP) Check(cfg *Config) error {
 //----------------------------------------------------------------------------------------------------------------------------//
 
 // Check -- check processor config
-func (x *Processor) Check(cfg *Config) error {
+func (x *Processor) Check(cfg *Config) (err error) {
 	msgs := misc.NewMessages()
-	var err error
 
 	if x.DB == "" {
 		msgs.Add("processor.db is empty")
@@ -120,6 +123,11 @@ func (x *Processor) Check(cfg *Config) error {
 		}
 	}
 
+	x.StdTimeout, err = misc.Interval2Duration(x.StdTimeoutS)
+	if err != nil {
+		msgs.Add("std-timeout: %s", err)
+	}
+
 	if x.StdTimeout == 0 {
 		msgs.Add("processor.std-timeout is zero")
 	}
@@ -130,7 +138,7 @@ func (x *Processor) Check(cfg *Config) error {
 //----------------------------------------------------------------------------------------------------------------------------//
 
 // Check -- check operators config
-func (x Operators) Check(cfg *Config) error {
+func (x Operators) Check(cfg *Config) (err error) {
 	msgs := misc.NewMessages()
 
 	for name, df := range x {
@@ -146,8 +154,13 @@ func (x Operators) Check(cfg *Config) error {
 //----------------------------------------------------------------------------------------------------------------------------//
 
 // Check -- check operators config
-func (x *Operator) Check(cfg *Config) error {
+func (x *Operator) Check(cfg *Config) (err error) {
 	msgs := misc.NewMessages()
+
+	x.Timeout, err = misc.Interval2Duration(x.TimeoutS)
+	if err != nil {
+		msgs.Add("timeout: %s", err)
+	}
 
 	if x.Timeout == 0 {
 		x.Timeout = cfg.Processor.StdTimeout
@@ -159,7 +172,7 @@ func (x *Operator) Check(cfg *Config) error {
 //----------------------------------------------------------------------------------------------------------------------------//
 
 // Check -- check entities config
-func (x Entities) Check(cfg *Config) error {
+func (x Entities) Check(cfg *Config) (err error) {
 	msgs := misc.NewMessages()
 
 	knownIDs := make(map[uint]*Entity, len(x))
@@ -196,7 +209,7 @@ func (x Entities) Check(cfg *Config) error {
 //----------------------------------------------------------------------------------------------------------------------------//
 
 // Check -- check entity config
-func (x *Entity) Check(cfg *Config) error {
+func (x *Entity) Check(cfg *Config) (err error) {
 	msgs := misc.NewMessages()
 
 	if x.Name == "" {
@@ -205,6 +218,11 @@ func (x *Entity) Check(cfg *Config) error {
 
 	if x.Type == "" {
 		msgs.Add("type is empty")
+	}
+
+	x.Delay, err = misc.Interval2Duration(x.DelayS)
+	if err != nil {
+		msgs.Add("delay: %s", err)
 	}
 
 	if x.AlertLevelLow >= x.AlertLevelHigh && x.AlertLevelHigh != 0 {

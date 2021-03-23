@@ -466,7 +466,7 @@ func (c *Chrome) Prepare(entityCfg *config.Entity) (r *ExecData, err error) {
 //----------------------------------------------------------------------------------------------------------------------------//
 
 // Exec --
-func (r *ExecData) Exec(timeout uint) (err error) {
+func (r *ExecData) Exec(timeout time.Duration) (err error) {
 	headless := !config.Get().Processor.ViewBrowser
 
 	opts := append(chromedp.DefaultExecAllocatorOptions[:],
@@ -535,7 +535,7 @@ func (r *ExecData) Exec(timeout uint) (err error) {
 
 	defer cancel()
 
-	ctx, cancel = context.WithTimeout(ctx, time.Duration(timeout)*time.Second)
+	ctx, cancel = context.WithTimeout(ctx, timeout)
 	defer cancel()
 
 	defer func() {

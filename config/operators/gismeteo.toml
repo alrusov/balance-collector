@@ -1,6 +1,6 @@
 [operators.GISMETEO]
 description = "Погода gismeteo.ru"
-timeout = 30
+timeout = "30s"
 
 tasks = [
   "Navigate(http://gismeteo.ru/)",

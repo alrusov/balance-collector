@@ -1,6 +1,6 @@
 [operators.BEELINE]
 description = "Билайн"
-timeout = 30
+timeout = "30s"
 
 tasks = [
   "Navigate(https://my.beeline.ru/login.xhtml)",
