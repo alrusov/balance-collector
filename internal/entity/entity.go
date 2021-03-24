@@ -3,6 +3,7 @@ package entity
 import (
 	"fmt"
 	"sync"
+	"time"
 
 	"github.com/alrusov/log"
 	"github.com/alrusov/misc"
@@ -187,7 +188,7 @@ func (e *Entity) Update(fn string, isBatch bool) {
 	}
 
 	if isBatch && e.cfg.Delay > 0 {
-		Log.MessageWithSource(log.DEBUG, fn, `Sleep %d seconds...`, e.cfg.Delay)
+		Log.MessageWithSource(log.DEBUG, fn, `Sleep for %d seconds...`, e.cfg.Delay/time.Second)
 		misc.Sleep(e.cfg.Delay)
 	}
 
