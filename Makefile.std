@@ -25,7 +25,11 @@ SPACE +=
 
 #-----------------------------------------------------------------------------------------------------------------------------------------------------#
 
-COPYRIGHT = $(shell cat COPYRIGHT)
+COPYRIGHT =
+
+ifneq ($(wildcard COPYRIGHT),)
+	COPYRIGHT = $(shell cat COPYRIGHT)
+endif
 
 TS   = $(shell date -u +'%Y-%m-%d %H:%M:%S')
 YEAR = $(shell date -u +'%Y')
