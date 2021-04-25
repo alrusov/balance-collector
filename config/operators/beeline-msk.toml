@@ -1,0 +1,19 @@
+[operators.BEELINE-MSK]
+description = "Билайн-Москва"
+timeout = "30s"
+
+tasks = [
+  "Navigate(https://moskva.beeline.ru/login/)",
+
+  "SendKeys(input[id='userName'], $Login)",
+  "Click(button[class='_2_o3rJ'])",
+
+  "Sleep(2000)",
+  "Click(a[class='_21fvqI _3zUfzL _21fvqI'])",
+
+  "SendKeys(input[type='password'], $Password)",
+  "Click(button[class='_2_o3rJ'])",
+
+  "Float(div.Balance_infoValue_kVsT, Баланс)",
+  "String(tr.profileInfoRow > td.Summary_profileInfoValue_1vmb > a > span.Link_text_3J9U, Тариф)",
+]

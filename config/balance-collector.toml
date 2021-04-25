@@ -63,6 +63,7 @@ templates-dir = "templates/"
 
 {#include ^operators/1vds.toml}
 {#include ^operators/beeline.toml}
+{#include ^operators/beeline-msk.toml}
 {#include ^operators/cbr.toml}
 {#include ^operators/gismeteo.toml}
 {#include ^operators/goodline.toml}
