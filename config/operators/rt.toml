@@ -13,6 +13,6 @@ tasks = [
   "WaitVisible(section[id='globalPreloader'])",
   "WaitNotVisible(section[id='globalPreloader'])",
   "Sleep(5000)",
-  "MultiFloat(div.sum, 3, Баланс телефона, , Баланс интернета, >(.+)<, 1)",
+  "MultiFloat(div[class='balance-container'] > div:nth-child(1) > h2, 2, Баланс телефона, Баланс интернета, >(.+)<, 1)",
   "Float(span.bonus-counter, Бонусы)",
 ]
