@@ -13,7 +13,7 @@
 *.out
 
 *.tmp
-.~*
+*.log
 
 _extra/
 logs/
@@ -21,7 +21,11 @@ logs/
 error_log/
 
 TODO
+LAST_BUILD
+Makefile.private
+
 debug
+debug.test
 __debug_bin
 
 *.dump

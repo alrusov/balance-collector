@@ -2,22 +2,29 @@
 
 APP = $(shell basename `pwd`)
 
-ifneq ($(wildcard BUILD_NUMBER),)
-	BUILD_NUMBER_FILE = BUILD_NUMBER
-else
-	BUILD_NUMBER_FILE = ../go-builds/v/$(APP)
-endif
+LAST_BUILD_FILE := LAST_BUILD
 
-ifneq ($(wildcard $(BUILD_NUMBER_FILE)),)
-	BUILD_NUMBER = $(shell cat $(BUILD_NUMBER_FILE))
-else
-	BUILD_NUMBER = 1
+BUILD_NUMBER := ${BUILD_NUMBER}
+BUILD_NUMBER_FILE := /dev/null
+
+ifeq ($(BUILD_NUMBER),)
+	ifneq ($(wildcard BUILD_NUMBER),)
+		BUILD_NUMBER_FILE = BUILD_NUMBER
+	else
+		BUILD_NUMBER_FILE = ../go-builds/v/$(APP)
+	endif
+
+	ifneq ($(wildcard $(BUILD_NUMBER_FILE)),)
+		BUILD_NUMBER = $(shell cat $(BUILD_NUMBER_FILE))
+	else
+		BUILD_NUMBER = 1
+	endif
 endif
 
 ifneq ($(wildcard WITHOUT_GLOBAL_TAGS),)
 	TAGS_FILES = $(wildcard TAGS)
 else
-	TAGS_FILES = $(wildcard ../go-builds/TAGS TAGS)
+	TAGS_FILES = $(wildcard ../TAGS TAGS)
 endif
 
 SPACE =
@@ -52,9 +59,11 @@ endif
 #-----------------------------------------------------------------------------------------------------------------------------------------------------#
 
 TAGS =
+RELEASE =
 
 ifneq ($(TAGS_FILES),)
 	TAGS = $(shell (cat $(TAGS_FILES) | tr -d '\r' | tr '\n' ' ' | sed 's/ *$$//' | tr ' ' '_'))
+	RELEASE = $(shell (cat $(TAGS_FILES) | head -1))
 endif
 
 #-----------------------------------------------------------------------------------------------------------------------------------------------------#
@@ -97,6 +106,7 @@ build: pull
 		-X github.com/alrusov/misc.copyright=$(COPYRIGHT)"
 
 	echo $$(($(BUILD_NUMBER) + 1)) >$(BUILD_NUMBER_FILE)
+	echo $(VERSION) >$(LAST_BUILD_FILE)
 
 
 #-----------------------------------------------------------------------------------------------------------------------------------------------------#

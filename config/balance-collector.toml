@@ -23,6 +23,7 @@ deep-profiling = false
 
 use-std-json = false
 
+skip-tls-verification = true
 min-size-for-gzip = 256
 
 #----------------------------------------------------------------------------------------------------------------------------#
