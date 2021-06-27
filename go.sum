@@ -3,7 +3,6 @@ github.com/alrusov/appcron v0.1.9/go.mod h1:UDFaAKDJUju5JXd6WBW3jcXQuXHHBWKZpO2A
 github.com/alrusov/bufpool v0.1.7 h1:zmmEVPKZ5BRxSE2+nkYfNaLXiFezQ42s4gnSZHjbfCU=
 github.com/alrusov/bufpool v0.1.7/go.mod h1:kHFGm44zeETGWA2h4kUMd0FMkNMiotFERO4AMKPGwwk=
 github.com/alrusov/config v0.1.40/go.mod h1:DyE/dSF5RkBYiJCF/9PrSQxM3y6swSKhliRI6K55JMc=
-github.com/alrusov/config v0.1.41/go.mod h1:eX4yrGZb/zcsa1GpVggN83kZpyzAer6dJHkO7liUpnE=
 github.com/alrusov/config v0.1.42 h1:z3MbqQrGnixhQX2udSXorTAktkhr/UFKIXEY47BuR8Q=
 github.com/alrusov/config v0.1.42/go.mod h1:eX4yrGZb/zcsa1GpVggN83kZpyzAer6dJHkO7liUpnE=
 github.com/alrusov/jsonw v0.1.1 h1:fApyxCLUXpMxCLGw7S4vCBmfXWALuX+eU4lGxmxWXMs=
@@ -24,8 +23,8 @@ github.com/alrusov/panic v0.1.13/go.mod h1:zwS3WCJcw2e8x/A0d1UR7GQeZsoQ+OQ7Cf5x5
 github.com/alrusov/panic v0.1.14 h1:h3DU1GVIp1ab3PPMAOweyWMPILWyLR8EZnjPIx9SUfo=
 github.com/alrusov/panic v0.1.14/go.mod h1:ALoONDJK6XEbMvLnsenCkVSF1LXQ/gjU7uXi0JX7bak=
 github.com/alrusov/stdhttp v0.1.86/go.mod h1:HyL3z5FaOcGvNfCgejpf44dwTdeMm6S36Dg74hSx74A=
-github.com/alrusov/stdhttp v0.1.89 h1:/iOu3Ibu7I5jUMUELXW6Xz2UHR1KNx+6dlhLV73EPBo=
-github.com/alrusov/stdhttp v0.1.89/go.mod h1:gP19M9yWjw8R2Q4EmPBmpkcLoKVZFvbCW6F9wD4NgCE=
+github.com/alrusov/stdhttp v0.1.90 h1:gXYWG5IoxY6F4uTNz1vdaFBK/6gfDhkQDIaNh9AOa0g=
+github.com/alrusov/stdhttp v0.1.90/go.mod h1:tNi7eIhBbkpYIZamhaX8/XWdNSWH3UhSC/EFBqobEQM=
 github.com/alrusov/winservice v0.1.9 h1:cHNfslCNbNYneezFZQfUjqNbUpIWa4gmwL1wv3qeyVM=
 github.com/alrusov/winservice v0.1.9/go.mod h1:gTXMCHnIo6K0vxmBEWW2OcuVc3MfF3gFSq1M8fd9rkA=
 github.com/chromedp/cdproto v0.0.0-20210526005521-9e51b9051fd0/go.mod h1:At5TxYYdxkbQL0TSefRjhLE3Q0lgvqKKMSFUglJ7i1U=
