@@ -409,7 +409,7 @@ func (c *Chrome) Prepare(entityCfg *config.Entity) (r *ExecData, err error) {
 
 			for i := 0; i < df.resultsCount; i++ {
 				if r.resultsCount == len(r.results) {
-					err = fmt.Errorf(`Too many results`)
+					err = fmt.Errorf(`too many results`)
 					return
 				}
 
@@ -422,7 +422,6 @@ func (c *Chrome) Prepare(entityCfg *config.Entity) (r *ExecData, err error) {
 					switch df.methodName {
 					case mFloat, mString:
 						task = chromedp.Text(df.node, &res.v, df.options...)
-						break
 
 					case mMultiFloat, mMultiString:
 						if i == 0 {
@@ -602,7 +601,6 @@ func (r *ExecData) convResults(dataOK bool) (dataFound bool, err error) {
 			r.data.SVals = append(r.data.SVals, res.v)
 
 		default:
-			break
 		}
 
 		if dataOK || res.v != "" {

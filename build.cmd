@@ -24,7 +24,7 @@ if "%BUILD_NUMBER%"=="" set BUILD_NUMBER=1
 if exist WITHOUT_GLOBAL_TAGS (
 	set TAGS_FILE=TAGS
 ) else (
-	set TAGS_FILE=..\go-builds\TAGS
+	set TAGS_FILE=..\TAGS
 )
 
 rem #-----------------------------------------------------------------------------------------------------------------------------------------------------#

@@ -80,7 +80,7 @@ func load(cfg *config.Config, entityID uint) (data *outData, err error) {
 	eCfg := e.Config()
 	if e == nil || !eCfg.Enabled {
 		// если неизвесное или не разрешено - удаляем
-		err = fmt.Errorf(`Unknown or disabled entity %d`, entityID)
+		err = fmt.Errorf(`unknown or disabled entity %d`, entityID)
 		return
 	}
 
