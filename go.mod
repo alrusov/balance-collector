@@ -6,11 +6,11 @@ require (
 	github.com/alrusov/appcron v0.1.9
 	github.com/alrusov/config v0.1.43
 	github.com/alrusov/jsonw v0.1.1
-	github.com/alrusov/launcher v0.1.43
+	github.com/alrusov/launcher v0.1.44
 	github.com/alrusov/log v0.1.30
 	github.com/alrusov/misc v0.1.47
 	github.com/alrusov/panic v0.1.14
-	github.com/alrusov/stdhttp v0.1.94
+	github.com/alrusov/stdhttp v0.1.95
 	github.com/chromedp/cdproto v0.0.0-20210910012206-68626162910d
 	github.com/chromedp/chromedp v0.7.4
 	github.com/mattn/go-sqlite3 v1.14.8
@@ -22,7 +22,7 @@ require (
 	github.com/alrusov/loadavg v0.1.4 // indirect
 	github.com/alrusov/winservice v0.1.9 // indirect
 	github.com/chromedp/sysutil v1.0.0 // indirect
-	github.com/dgrijalva/jwt-go v3.2.0+incompatible // indirect
+	github.com/dgrijalva/jwt-go/v4 v4.0.0-preview1 // indirect
 	github.com/gobwas/httphead v0.1.0 // indirect
 	github.com/gobwas/pool v0.2.1 // indirect
 	github.com/gobwas/ws v1.1.0 // indirect
@@ -36,7 +36,7 @@ require (
 	github.com/modern-go/reflect2 v0.0.0-20180701023420-4b7aa43c6742 // indirect
 	github.com/naoina/go-stringutil v0.1.0 // indirect
 	github.com/naoina/toml v0.1.1 // indirect
-	golang.org/x/crypto v0.0.0-20210711020723-a769d52b0f97 // indirect
+	golang.org/x/crypto v0.0.0-20210915214749-c084706c2272 // indirect
 	golang.org/x/sys v0.0.0-20210615035016-665e8c7367d1 // indirect
 	gopkg.in/jcmturner/aescts.v1 v1.0.1 // indirect
 	gopkg.in/jcmturner/dnsutils.v1 v1.0.1 // indirect
