@@ -4,15 +4,13 @@ timeout = "30s"
 
 tasks = [
   "Navigate(https://b2c.passport.rt.ru/auth/realms/b2c/protocol/openid-connect/auth?response_type=code&scope=openid&client_id=lk_b2c&redirect_uri=https%3A%2F%2Flk.rt.ru%2Fsso-auth%2F%3Fredirect%3Dhttps%253A%252F%252Flk.rt.ru%252F)",
-
   "Click(div[id='t-btn-tab-login'])",
-
   "SendKeys(input[id='username'], $Login)",
   "SendKeys(input[id='password'], $Password)",
   "Click(input[id='kc-login'])",
   "WaitVisible(section[id='globalPreloader'])",
   "WaitNotVisible(section[id='globalPreloader'])",
   "Sleep(5000)",
-  "MultiFloat(div[class='balance-container'] > div:nth-child(1) > h2, 2, Баланс телефона, Баланс интернета, >(.+)<, 1)",
+  "MultiFloat(div[class='balance-container'] > div:nth-child(1) > header, 2, Баланс телефона, Баланс интернета, >(.+)<, 1)",
   "Float(span.bonus-counter, Бонусы)",
 ]

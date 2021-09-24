@@ -28,8 +28,8 @@ github.com/alrusov/stdhttp v0.1.95/go.mod h1:8W45wOeST999vzz3lV5kDwlLyFhev5Pi2hR
 github.com/alrusov/winservice v0.1.9 h1:cHNfslCNbNYneezFZQfUjqNbUpIWa4gmwL1wv3qeyVM=
 github.com/alrusov/winservice v0.1.9/go.mod h1:gTXMCHnIo6K0vxmBEWW2OcuVc3MfF3gFSq1M8fd9rkA=
 github.com/chromedp/cdproto v0.0.0-20210713064928-7d28b402946a/go.mod h1:At5TxYYdxkbQL0TSefRjhLE3Q0lgvqKKMSFUglJ7i1U=
-github.com/chromedp/cdproto v0.0.0-20210910012206-68626162910d h1:77O+89zb1W9dPNUGjXOGt/J4LP70jPIPz9Rxs3aSX1w=
-github.com/chromedp/cdproto v0.0.0-20210910012206-68626162910d/go.mod h1:At5TxYYdxkbQL0TSefRjhLE3Q0lgvqKKMSFUglJ7i1U=
+github.com/chromedp/cdproto v0.0.0-20210921215903-b0b4414ddbe0 h1:vrVr4waSUQaerQiDqL2S9tzZ6V7SdRyXUGn+S7dORJc=
+github.com/chromedp/cdproto v0.0.0-20210921215903-b0b4414ddbe0/go.mod h1:At5TxYYdxkbQL0TSefRjhLE3Q0lgvqKKMSFUglJ7i1U=
 github.com/chromedp/chromedp v0.7.4 h1:U+0d3WbB/Oj4mDuBOI0P7S3PJEued5UZIl5AJ3QulwU=
 github.com/chromedp/chromedp v0.7.4/go.mod h1:dBj+SXuQHznp6ZPwZeDDEBZKwclUwDLbZ0hjMialMYs=
 github.com/chromedp/sysutil v1.0.0 h1:+ZxhTpfpZlmchB58ih/LBHX52ky7w2VhQVKQMucy3Ic=
