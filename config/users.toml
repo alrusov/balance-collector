@@ -1,3 +1,10 @@
 # use /tools/sha?p=<password>&salt=<user_name> for encoding
+
 # user admin, groups admins & users, password pwd1
 "admin@admins,users" = "62d73dda8dc7c13f11963ddb0364ff60a88453204c09e0eac2b963163c1ae400a9edc16577a6a28dbbb2710ba6ed81e002bbc595fd482bf921411b894d0e506a", \
+
+# user user1, password pwd1
+user1 = "e656f72a41fda1e8a2da5bff609f4a88591d349494e48a49f53fdec59356fafeb72c8ac259949301866f731a57464b3fad2c1b6bacf152761bd9d56928446ead", \
+
+# user user1, password pwd2
+user2 = "4a8007b310a041b39cbb6090a53fbcc23ef0e50a0d67e1c19e21da440ff247a87cda8b076c4edf4a37415714238f753f6769a88841ce48c7d5774cad23a8374d", \

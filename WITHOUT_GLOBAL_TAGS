@@ -1,2 +1,2 @@
-Наличие этого файла запрещает добавление глобальных тегов.
-Смотрите Makefile.std
+The presence of this file prevents the addition of global tags.
+See Makefile.std for details.
