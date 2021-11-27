@@ -41,8 +41,8 @@ github.com/alrusov/auth-basic v0.1.0 h1:QliU8qLnbdJ8W7TeWAdVv2hb2pGXBViJuVN0Xin7
 github.com/alrusov/auth-basic v0.1.0/go.mod h1:/WxLMltc3iqenYb+RwC4TxkaPtyk81NUR0QTvZO7cgI=
 github.com/alrusov/auth-jwt v0.1.0 h1:KySCQOEbuWlNuHeiAsjpuSIdAS0QFeZ0IQwf38embXk=
 github.com/alrusov/auth-jwt v0.1.0/go.mod h1:mB45PLz5fwazGiEQeH/dgirLPJf3DyYWBa4DFxwAtPM=
-github.com/alrusov/auth-keycloak v0.1.0 h1:wG3aBlUtfH53s5Av5IjwDBQ48ESYLIDQUQnJPVSvgZQ=
-github.com/alrusov/auth-keycloak v0.1.0/go.mod h1:yoJZnF+HpXD1vbbE0lFQ/N10n61T5sOR63/6pnL/Y5o=
+github.com/alrusov/auth-keycloak v0.1.1 h1:BdU5LtPaH9+2Ix2ypSDqU5rdEr7yzatNB1057EwVV1Y=
+github.com/alrusov/auth-keycloak v0.1.1/go.mod h1:x4WRFquH9MG9CshqzC2Cy9hDHT07JbzzY7Db0Pu0MTk=
 github.com/alrusov/auth-krb5 v0.1.0 h1:MyvSo6r0FiKJxd/qAmCjLOSYyj8bDC007WIH2OcPr60=
 github.com/alrusov/auth-krb5 v0.1.0/go.mod h1:sFCbWVBHvmDm+9vtwmjiYScoEHafJL59hzZYjsnnPkY=
 github.com/alrusov/bufpool v0.1.7 h1:zmmEVPKZ5BRxSE2+nkYfNaLXiFezQ42s4gnSZHjbfCU=
@@ -51,8 +51,8 @@ github.com/alrusov/config v0.1.43 h1:2TBaXywyCvCRgOSTSeCSptQAdHYE2UMT90v9fYgxYak
 github.com/alrusov/config v0.1.43/go.mod h1:xeDW6Dnr1Z0473sBXjdxrDWHFOcLBkFomCLfQDEs2HA=
 github.com/alrusov/jsonw v0.1.1 h1:fApyxCLUXpMxCLGw7S4vCBmfXWALuX+eU4lGxmxWXMs=
 github.com/alrusov/jsonw v0.1.1/go.mod h1:hnRfKPT1dIS8+ez4H0QJbXSwvWdVJYq835ZS3LQGLfI=
-github.com/alrusov/launcher v0.1.47 h1:fUpkj6OZv8UnOpua/3uxS9tIR2tWA1I4XgDjdwjykTU=
-github.com/alrusov/launcher v0.1.47/go.mod h1:uQcR65MvUbCEvz/abBZqMvnVGfG0HQA4jw/Lo5YHyi8=
+github.com/alrusov/launcher v0.1.48 h1:tJr4TfSoEJGNCCKdwNGaZR0x+ice1RqfNdvYP+w/djc=
+github.com/alrusov/launcher v0.1.48/go.mod h1:MCSJ0qCenfMtRgul1Rqfx+kGIwINo8J3F6f6bGtOK38=
 github.com/alrusov/loadavg v0.1.4 h1:1zjKFZWzIdm39jgSMC2VzChghB5+0a3hmJ8ULdmksc0=
 github.com/alrusov/loadavg v0.1.4/go.mod h1:7mpPkY2wHDZbMBbsMC3S9zAicM1PFMnT3dMkmofGiUs=
 github.com/alrusov/log v0.1.30 h1:TEJ0tbPSWgKF4GYygzYpIAbjOZdXlInKgjOydb1C6Bs=
@@ -87,8 +87,6 @@ github.com/coreos/go-oidc v2.2.1+incompatible/go.mod h1:CgnwVTmzoESiwO9qyAFEMiHo
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
-github.com/dgrijalva/jwt-go v3.2.0+incompatible h1:7qlOGliEKZXTDg6OTjfoBKDXWrumCAMpl/TFQ4/5kLM=
-github.com/dgrijalva/jwt-go v3.2.0+incompatible/go.mod h1:E3ru+11k8xSBh+hMPgOLZmtrrCbhqsmaPHjLKYnJCaQ=
 github.com/dgrijalva/jwt-go/v4 v4.0.0-preview1 h1:CaO/zOnF8VvUfEbhRatPcwKVWamvbYd8tQGRWacE9kU=
 github.com/dgrijalva/jwt-go/v4 v4.0.0-preview1/go.mod h1:+hnT3ywWDTAFrW5aE+u2Sa/wT555ZqwoCS+pk3p6ry4=
 github.com/envoyproxy/go-control-plane v0.9.0/go.mod h1:YTl/9mNaCwkRvm6d1a2C3ymFceY/DCBVvsKhRF0iEA4=

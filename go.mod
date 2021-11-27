@@ -6,7 +6,7 @@ require (
 	github.com/alrusov/appcron v0.1.9
 	github.com/alrusov/config v0.1.43
 	github.com/alrusov/jsonw v0.1.1
-	github.com/alrusov/launcher v0.1.47
+	github.com/alrusov/launcher v0.1.48
 	github.com/alrusov/log v0.1.30
 	github.com/alrusov/misc v0.1.49
 	github.com/alrusov/panic v0.1.14
@@ -21,14 +21,13 @@ require (
 	github.com/alrusov/auth v0.1.0 // indirect
 	github.com/alrusov/auth-basic v0.1.0 // indirect
 	github.com/alrusov/auth-jwt v0.1.0 // indirect
-	github.com/alrusov/auth-keycloak v0.1.0 // indirect
+	github.com/alrusov/auth-keycloak v0.1.1 // indirect
 	github.com/alrusov/auth-krb5 v0.1.0 // indirect
 	github.com/alrusov/bufpool v0.1.7 // indirect
 	github.com/alrusov/loadavg v0.1.4 // indirect
 	github.com/alrusov/winservice v0.1.9 // indirect
 	github.com/chromedp/sysutil v1.0.0 // indirect
 	github.com/coreos/go-oidc v2.2.1+incompatible // indirect
-	github.com/dgrijalva/jwt-go v3.2.0+incompatible // indirect
 	github.com/dgrijalva/jwt-go/v4 v4.0.0-preview1 // indirect
 	github.com/gobwas/httphead v0.1.0 // indirect
 	github.com/gobwas/pool v0.2.1 // indirect
