@@ -11,8 +11,8 @@ require (
 	github.com/alrusov/misc v0.1.49
 	github.com/alrusov/panic v0.1.14
 	github.com/alrusov/stdhttp v0.1.97
-	github.com/chromedp/cdproto v0.0.0-20211112223831-e508c7bf6446
-	github.com/chromedp/chromedp v0.7.4
+	github.com/chromedp/cdproto v0.0.0-20211126220118-81fa0469ad77
+	github.com/chromedp/chromedp v0.7.6
 	github.com/mattn/go-sqlite3 v1.14.9
 	github.com/robfig/cron/v3 v3.0.1
 )
@@ -49,7 +49,7 @@ require (
 	golang.org/x/crypto v0.0.0-20211117183948-ae814b36b871 // indirect
 	golang.org/x/net v0.0.0-20211112202133-69e39bad7dc2 // indirect
 	golang.org/x/oauth2 v0.0.0-20211104180415-d3ed0bb246c8 // indirect
-	golang.org/x/sys v0.0.0-20210615035016-665e8c7367d1 // indirect
+	golang.org/x/sys v0.0.0-20211124211545-fe61309f8881 // indirect
 	google.golang.org/appengine v1.6.6 // indirect
 	google.golang.org/protobuf v1.25.0 // indirect
 	gopkg.in/jcmturner/aescts.v1 v1.0.1 // indirect
