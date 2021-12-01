@@ -2,8 +2,8 @@
 <!DOCTYPE html>
 <html lang="ru">
   <head>
-    <meta charset="UTF-8" />
     <title>{{$.Name}}</title>
+    <meta charset="UTF-8" />
     <link rel="stylesheet" href="{{$.Prefix}}/___.css" />
     <link rel="stylesheet" href="{{$.Prefix}}/css/local.css" />
   </head>

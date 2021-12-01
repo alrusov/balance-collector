@@ -103,7 +103,7 @@ func Do(name string, prefix string, w http.ResponseWriter, r *http.Request, errM
 		return
 	}
 
-	stdhttp.WriteReply(w, r, http.StatusOK, stdhttp.ContentTypeHTML, nil, buf.Bytes())
+	stdhttp.WriteReply(w, r, http.StatusOK, stdhttp.ContentTypeHTML, nil, bytes.TrimSpace(buf.Bytes()))
 	return
 }
 
