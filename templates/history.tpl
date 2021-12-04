@@ -33,7 +33,11 @@
       <td class="center">{{$lv.TS}}</td>
       {{range $i, $v := $lv.Info.FVals}}
         <td class="right">{{printf "%.2f" $v}}</td>
-        <td class="right small">{{printf "%+.2f" (index $lv.Change $i)}}</td>
+        {{if (index $lv.Change $i)}}
+          <td class="right small">{{printf "%+.2f" (index $lv.Change $i)}}</td>
+        {{else}}
+          <td>&nbsp;</td>
+        {{end}}
       {{end}}
       {{if index $.Data.Data.Ftail $li}}
         <td colspan="{{index $.Data.Data.Ftail $li}}">&nbsp;</td>
