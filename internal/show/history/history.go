@@ -3,11 +3,13 @@ package history
 import (
 	"database/sql"
 	"fmt"
+	"math"
 	"net/http"
 	"time"
 
 	"github.com/alrusov/jsonw"
 
+	"github.com/alrusov/balance-collector/internal/chrome"
 	"github.com/alrusov/balance-collector/internal/config"
 	"github.com/alrusov/balance-collector/internal/entity"
 	"github.com/alrusov/balance-collector/internal/htmlpage"
@@ -29,8 +31,9 @@ type (
 	}
 
 	dataRow struct {
-		TS   time.Time     `json:"ts"`
-		Info operator.Data `json:"data"`
+		TS     time.Time     `json:"ts"`
+		Info   operator.Data `json:"data"`
+		Change chrome.FVals  `json:"change"`
 	}
 )
 
@@ -139,7 +142,7 @@ func load(cfg *config.Config, entityID uint) (data *outData, err error) {
 
 		ln := len(d.Info.FVals)
 		if ln > nF {
-			// акивных float колонок стало больше
+			// активных float колонок стало больше
 			nF = ln
 		}
 
@@ -153,10 +156,16 @@ func load(cfg *config.Config, entityID uint) (data *outData, err error) {
 	data.Ftail = make([]int, len(data.List))
 	data.Stail = make([]int, len(data.List))
 
-	for i, d := range data.List {
-		// сколько колонок надо будет дополнять при выводе до максимално отображаемых
-		data.Ftail[i] = nF - len(d.Info.FVals)
-		data.Stail[i] = nS - len(d.Info.SVals)
+	var prev chrome.FVals
+
+	for i := len(data.List) - 1; i >= 0; i-- {
+		d := data.List[i]
+		fLen := len(d.Info.FVals)
+		sLen := len(d.Info.SVals)
+
+		// сколько колонок надо будет дополнять при выводе до максимально отображаемых
+		data.Ftail[i] = 2 * (nF - fLen)
+		data.Stail[i] = nS - sLen
 
 		// если легенды короче, чем данные, дополняем пробелами
 
@@ -173,6 +182,19 @@ func load(cfg *config.Config, entityID uint) (data *outData, err error) {
 			}
 			data.SLegend = append(data.SLegend, "")
 		}
+
+		d.Change = make(chrome.FVals, fLen)
+
+		for i, v := range prev {
+			if i >= fLen {
+				break
+			}
+
+			change := d.Info.FVals[i] - v
+			d.Change[i] = round(change, 8)
+		}
+
+		prev = d.Info.FVals
 	}
 
 	return
@@ -190,17 +212,26 @@ func showPage(cfg *config.Config, prefix string, w http.ResponseWriter, r *http.
 		Data:      data,
 		Fcount:    1,
 		Scount:    1,
-		ColsCount: 3,
+		ColsCount: 1 + 2*1 + 1,
 	}
 
 	if len(data.List) > 0 {
 		// если есть хотя бы одна строка, вычисляем общее количество колонок по типам
 		params.Fcount = data.Ftail[0] + len(data.List[0].Info.FVals)
 		params.Scount = data.Stail[0] + len(data.List[0].Info.SVals)
-		params.ColsCount = 1 + params.Fcount + params.Scount
+		params.ColsCount = 1 + 2*params.Fcount + params.Scount
 	}
 
 	return htmlpage.Do("history", prefix, w, r, errMsg, title, params)
+}
+
+//----------------------------------------------------------------------------------------------------------------------------//
+
+func round(val float64, digits int) float64 {
+	m := math.Pow10(digits)
+	val *= m
+
+	return math.Round(val) / m
 }
 
 //----------------------------------------------------------------------------------------------------------------------------//

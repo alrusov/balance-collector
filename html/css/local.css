@@ -44,3 +44,7 @@ table.grd2 th, table.grd2 td {
 	padding: 3px 7px;
 	border: 1px solid #C4C9CE;
 }
+
+.small {
+	font-size: 9px;
+}
