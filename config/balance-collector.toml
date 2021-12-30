@@ -217,7 +217,7 @@ schedule = "12 5 * * *"
 view-browser = {$VIEW_BROWSER}
 
 # Каким браузером прикидываться, чтобы некоторые особо параноидальные операторы не отбивали запросы
-user-agent   = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36"
+user-agent   = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36"
 
 # Стандартный таймаут ожидания ответа от оператора
 std-timeout  = "60s"
