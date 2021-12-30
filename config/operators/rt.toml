@@ -10,6 +10,6 @@ tasks = [
   "Click(input[id='kc-login'])",
   "WaitVisible(div[id='globalPreloader'])",
   "Sleep(5000)",
-  "MultiFloat(div[class='balance-container'] > div:nth-child(1) > header, 2, Баланс телефона, Баланс интернета, >(.+)<, 1)",
-  "Float(span.bonus-counter, Бонусы)",
+  "MultiFloat(div[class='balance-container'] > a > header, 3, Баланс телефона, , Баланс интернета, >(.+)<, 1)",
+  "Float(div[class='application-header_bottom_navigation'] > a:nth-child(3), Бонусы)",
 ]

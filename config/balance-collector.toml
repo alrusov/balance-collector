@@ -1,9 +1,11 @@
 # Все пути в конфигурации могут указываться либо в абсолютном виде (/opt/app/logs), либо относительным (logs или logs/).
 # Относительные пути вычисляются приложением относительно исполняемого файла - его физического расположения, а не линка на него!
 # Модификаторами в первом символе можно задать специальное значение:
-#  @ -- рабочая директория на момент запуска приложения. Примеры: $/xxx.toml или $aaa/bbb.ico (слеш после $ не обязателен).
-#  $ -- текущая рабочая директория, если с момента запуска приложения она не менялась, то совпадает с $. Примеры: @/xxx.toml или @aaa/bbb.ico (слеш после @ не обязателен).
-#  ^ -- базовая директория, зависит от контекста. Для конфига это место расположения основного конфиг файла. Примеры: ^/xxx.toml или ^aaa/bbb.ico (слеш после ^ не обязателен).
+#  @ -- рабочая директория (cwd) на момент запуска приложения. Примеры: @/xxx.toml или @aaa/bbb.ico (слеш после @ не обязателен).
+#  $ -- текущая рабочая директория. Если с момента запуска приложения она не менялась, то совпадает с @.
+#       Примеры: $/xxx.toml или $aaa/bbb.ico (слеш после $ не обязателен).
+#  ^ -- базовая директория, зависит от контекста. Обычно совпадает с @. Но может быть изменена в коде приложения. Например, для конфига это 
+#       место расположения основного конфиг файла. Примеры: ^/xxx.toml или ^aaa/bbb.ico (слеш после ^ не обязателен).
 
 # Параметры таймаутов, задержек и т.п. в большинстве случаев указываются в виде строки "<величина><единица измерения>". Допустимые единицы:
 #   ns -- наносекунды
@@ -36,7 +38,7 @@ name = "Balance collector"
 description = "Balance collector"
 
 # Класс приложения
-class = ""
+class = "balance-collector"
 
 
 # Писать логи в локальном времени, по умолчанию в UTC
@@ -110,11 +112,11 @@ listener = { \
 	# Таймаут
 	timeout = "5s", \
 	# Путь до директории, где будут искаться endpoints, которые не найдены внутри приложения перед выдачей 404
-	root = "html/", \
+	root = "^/html/", \
 	# Префикс, который может добавляться прокси для идентификации приложения
 	proxy-prefix = "/balance-collector/", \
 	# Файл иконки приложения
-	icon-file = "$html/favicon.ico", \
+	icon-file = "^/html/favicon.ico", \
 	# Список endpoints, доступ к которым закрыт для всех
 	disabled-endpoints = [], \
 	auth = { \
@@ -132,6 +134,8 @@ listener = { \
 			"*"              = ["*"], \
 			"/maintenance"   = ["@admins"], \
 			"/debug*"        = ["*"], \
+			"!/favicon.ico"  = [], \
+			"!/___.css"      = [], \
 			"!/debug/pprof*" = [], \
 			"!/tools/*"      = [], \
 		}, \
@@ -139,7 +143,7 @@ listener = { \
 		# список пользователей в виде пар login[@groups...]=sha512(password_with_salt)
 		# рекомендуется хранить его в отдельном файле, общем для всех приложений и включать его в конфигурацию инструкцией #include
 
-		users = {{#include ^users.toml}}, \
+		users = {{#include ^/users.toml}}, \
 
 		# параметры методов аутентификации
 		#   enabled -- использовать метод или нет
@@ -147,21 +151,27 @@ listener = { \
 		#   options -- дополнительные опции метода, зависят от типа
 
 		methods = { \
+			# Имя пользователя и его пароль передаются в открытом виде в GET параметрах u и p соответственно.
+			# Возможен вариант передачи не пароля, а его хэша.
+			# Опции:
+			#   hashed-password -- пароль передается в хешированном виде (см. /tools/sha)
+			url   = { enabled = false, score = 10, options = { hashed-password = true } }, \
+
 			# JWT, сам токен можно создать в приложении -- endpoint /tools/jwt-login?u=<логин>&p=<пароль>
 			# Опции:
 			#   secret   -- секрет для подписи jwt токенов
 			#   lifetime -- время жизни jwt токена
-			jwt   = { enabled = false, score = 10, options = { secret = "?", lifetime = "3650d" } }, \
+			jwt   = { enabled = false, score = 20, options = { secret = "?", lifetime = "3650d" } }, \
 
 			# Kerberous
 			# Опции:
 			#   krb5-key-file -- путь до kerberos keytab файла
-			krb5  = { enabled = false, score = 20, options = { key-file = "?" } }, \
+			krb5  = { enabled = false, score = 30, options = { key-file = "?" } }, \
 
 			# Basic
 			# Опции:
 			#   нет дополнительных опций
-			basic = { enabled = false, score = 30, options = {} }, \
+			basic = { enabled = false, score = 40, options = {} }, \
 
 			# OAuth2 с keycloak в качестве identity server
 			# Должен быть последним (иметь максимальный score), так как он запрещает использование последующих методов аутентификации
@@ -213,32 +223,32 @@ user-agent   = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like 
 std-timeout  = "60s"
 
 # Имя базы данных для хранения истории
-db = "balance-collector.db"
+db = "^/balance-collector.db"
 
 # Директория с шаблонами отчетов
-templates-dir = "templates/"
+templates-dir = "^/templates/"
 
 #----------------------------------------------------------------------------------------------------------------------------#
 
 # Скрипты операторов
 
-{#include ^operators/1vds.toml}
-{#include ^operators/beeline.toml}
-{#include ^operators/beeline-msk.toml}
-{#include ^operators/cbr.toml}
-{#include ^operators/gismeteo.toml}
-{#include ^operators/goodline.toml}
-{#include ^operators/mgts.toml}
-{#include ^operators/mts.toml}
-{#include ^operators/onlime.toml}
-{#include ^operators/rt.toml}
-{#include ^operators/tricolor.toml}
-{#include ^operators/yota.toml}
+{#include ^/operators/1vds.toml}
+{#include ^/operators/beeline.toml}
+{#include ^/operators/beeline-msk.toml}
+{#include ^/operators/cbr.toml}
+{#include ^/operators/gismeteo.toml}
+{#include ^/operators/goodline.toml}
+{#include ^/operators/mgts.toml}
+{#include ^/operators/mts.toml}
+{#include ^/operators/onlime.toml}
+{#include ^/operators/rt.toml}
+{#include ^/operators/tricolor.toml}
+{#include ^/operators/yota.toml}
 
 #----------------------------------------------------------------------------------------------------------------------------#
 
 # Что надо использовать
 
-{#include ^entities.toml}
+{#include ^/entities.toml}
 
 #----------------------------------------------------------------------------------------------------------------------------#
