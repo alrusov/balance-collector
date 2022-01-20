@@ -63,11 +63,11 @@ func TestFloat(t *testing.T) {
 
 		v, err := Float(p.src)
 		if p.isErr && err == nil {
-			t.Errorf(`%d: no error, expected error`, i)
+			t.Errorf(`%d: no error, error expected`, i)
 		} else if !p.isErr && err != nil {
 			t.Errorf(`%d: error: %s`, i, err.Error())
 		} else if v != p.expect {
-			t.Errorf(`%d: got %#v, expected %#v`, i, v, p.expect)
+			t.Errorf(`%d: got %#v, %#v expected`, i, v, p.expect)
 		}
 	}
 }

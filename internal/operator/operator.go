@@ -120,7 +120,7 @@ func (o *Operator) UpdateInfo(status *Status, entityCfg *config.Entity) (info *D
 		return
 	}
 
-	err = data.Exec(o.cfg.Timeout)
+	err = data.Exec(time.Duration(o.cfg.Timeout))
 	if err != nil {
 		return
 	}

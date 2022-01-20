@@ -4,14 +4,14 @@ go 1.17
 
 require (
 	github.com/alrusov/appcron v0.1.9
-	github.com/alrusov/config v0.1.43
+	github.com/alrusov/config v0.1.44
 	github.com/alrusov/jsonw v0.1.1
-	github.com/alrusov/launcher v0.1.50
+	github.com/alrusov/launcher v0.1.51
 	github.com/alrusov/log v0.1.31
 	github.com/alrusov/misc v0.1.49
 	github.com/alrusov/panic v0.1.14
-	github.com/alrusov/stdhttp v0.1.97
-	github.com/chromedp/cdproto v0.0.0-20211226214557-5a9a0564ad26
+	github.com/alrusov/stdhttp v0.1.99
+	github.com/chromedp/cdproto v0.0.0-20220117091653-dcaca7efe124
 	github.com/chromedp/chromedp v0.7.6
 	github.com/mattn/go-sqlite3 v1.14.10
 	github.com/robfig/cron/v3 v3.0.1
@@ -20,8 +20,8 @@ require (
 require (
 	github.com/alrusov/auth v0.1.0 // indirect
 	github.com/alrusov/auth-basic v0.1.0 // indirect
-	github.com/alrusov/auth-jwt v0.1.0 // indirect
-	github.com/alrusov/auth-keycloak v0.1.2 // indirect
+	github.com/alrusov/auth-jwt v0.1.2 // indirect
+	github.com/alrusov/auth-keycloak v0.1.3 // indirect
 	github.com/alrusov/auth-krb5 v0.1.0 // indirect
 	github.com/alrusov/auth-url v0.1.0 // indirect
 	github.com/alrusov/bufpool v0.1.7 // indirect
@@ -39,7 +39,7 @@ require (
 	github.com/jcmturner/gofork v1.0.0 // indirect
 	github.com/josharian/intern v1.0.0 // indirect
 	github.com/json-iterator/go v1.1.10 // indirect
-	github.com/kardianos/service v1.2.0 // indirect
+	github.com/kardianos/service v1.2.1 // indirect
 	github.com/mailru/easyjson v0.7.7 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180228061459-e0a39a4cb421 // indirect
 	github.com/modern-go/reflect2 v0.0.0-20180701023420-4b7aa43c6742 // indirect

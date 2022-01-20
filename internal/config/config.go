@@ -2,7 +2,6 @@ package config
 
 import (
 	"fmt"
-	"time"
 
 	"github.com/alrusov/config"
 	"github.com/alrusov/misc"
@@ -27,12 +26,11 @@ type (
 
 	// Processor -- processor options
 	Processor struct {
-		CronLocation string        `toml:"cron-location"`
-		Schedule     string        `toml:"schedule"`
-		ViewBrowser  bool          `toml:"view-browser"`
-		UserAgent    string        `toml:"user-agent"`
-		StdTimeoutS  string        `toml:"std-timeout"`
-		StdTimeout   time.Duration `toml:"-"`
+		CronLocation string          `toml:"cron-location"`
+		Schedule     string          `toml:"schedule"`
+		ViewBrowser  bool            `toml:"view-browser"`
+		UserAgent    string          `toml:"user-agent"`
+		StdTimeout   config.Duration `toml:"std-timeout"`
 
 		DB string `toml:"db"`
 
@@ -45,10 +43,9 @@ type (
 
 	// Operator --
 	Operator struct {
-		Description string        `toml:"description"`
-		TimeoutS    string        `toml:"timeout"`
-		Timeout     time.Duration `toml:"-"`
-		Tasks       []string      `toml:"tasks"`
+		Description string          `toml:"description"`
+		Timeout     config.Duration `toml:"timeout"`
+		Tasks       []string        `toml:"tasks"`
 	}
 
 	// Entities -- objects list
@@ -56,19 +53,18 @@ type (
 
 	// Entity -- object
 	Entity struct {
-		Idx            int           `toml:"-"`
-		ID             uint          `toml:"id"`
-		Enabled        bool          `toml:"enabled"`
-		Name           string        `toml:"name"`
-		Description    string        `toml:"description"`
-		Type           string        `toml:"type"`
-		DelayS         string        `toml:"delay"`
-		Delay          time.Duration `toml:"-"`
-		AlertLevelHigh int           `toml:"alert-level-high"`
-		AlertLevelLow  int           `toml:"alert-level-low"`
-		Login          string        `toml:"login"`
-		Password       string        `toml:"password"`
-		Schedule       string        `toml:"schedule"`
+		Idx            int             `toml:"-"`
+		ID             uint            `toml:"id"`
+		Enabled        bool            `toml:"enabled"`
+		Name           string          `toml:"name"`
+		Description    string          `toml:"description"`
+		Type           string          `toml:"type"`
+		Delay          config.Duration `toml:"delay"`
+		AlertLevelHigh int             `toml:"alert-level-high"`
+		AlertLevelLow  int             `toml:"alert-level-low"`
+		Login          string          `toml:"login"`
+		Password       string          `toml:"password"`
+		Schedule       string          `toml:"schedule"`
 	}
 )
 
@@ -123,11 +119,6 @@ func (x *Processor) Check(cfg *Config) (err error) {
 		}
 	}
 
-	x.StdTimeout, err = misc.Interval2Duration(x.StdTimeoutS)
-	if err != nil {
-		msgs.Add("std-timeout: %s", err)
-	}
-
 	if x.StdTimeout == 0 {
 		msgs.Add("processor.std-timeout is zero")
 	}
@@ -156,11 +147,6 @@ func (x Operators) Check(cfg *Config) (err error) {
 // Check -- check operators config
 func (x *Operator) Check(cfg *Config) (err error) {
 	msgs := misc.NewMessages()
-
-	x.Timeout, err = misc.Interval2Duration(x.TimeoutS)
-	if err != nil {
-		msgs.Add("timeout: %s", err)
-	}
 
 	if x.Timeout == 0 {
 		x.Timeout = cfg.Processor.StdTimeout
@@ -218,11 +204,6 @@ func (x *Entity) Check(cfg *Config) (err error) {
 
 	if x.Type == "" {
 		msgs.Add("type is empty")
-	}
-
-	x.Delay, err = misc.Interval2Duration(x.DelayS)
-	if err != nil {
-		msgs.Add("delay: %s", err)
 	}
 
 	if x.AlertLevelLow >= x.AlertLevelHigh && x.AlertLevelHigh != 0 {

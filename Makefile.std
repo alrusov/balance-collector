@@ -26,7 +26,7 @@ endif
 ifneq ($(wildcard WITHOUT_GLOBAL_TAGS),)
 	TAGS_FILES = $(wildcard TAGS)
 else
-	TAGS_FILES = $(wildcard ../TAGS TAGS)
+	TAGS_FILES = $(wildcard ../go-builds/TAGS ../TAGS TAGS)
 endif
 
 SPACE =

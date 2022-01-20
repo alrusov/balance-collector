@@ -203,7 +203,7 @@ func (c *Chrome) parseTaskDef(src []string) (err error) {
 		nParams := len(params)
 
 		if cp.method.paramsCount > nParams {
-			msgs.Add(`Found %d params, but method "%s" expected %d at least`, nParams, cp.methodName, cp.method.paramsCount)
+			msgs.Add(`Found %d params, but %d at least expected for the method "%s" `, nParams, cp.method.paramsCount, cp.methodName)
 			continue
 		}
 
@@ -267,7 +267,7 @@ func (c *Chrome) parseTaskDef(src []string) (err error) {
 			}
 
 			if nParams < 2+cp.resultsCount {
-				msgs.Add(`found %d captions, expected %d`, nParams-2, cp.resultsCount)
+				msgs.Add(`found %d captions, %d expected`, nParams-2, cp.resultsCount)
 				continue
 			}
 

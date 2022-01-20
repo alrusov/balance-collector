@@ -45,7 +45,7 @@ class = "balance-collector"
 #log-local-time = true
 
 # Директория, куда пишутся логи. Если указан относительный путь, то он используется относительно директории исполняемого файла
-log-dir = "logs"
+log-dir = "@/logs"
 
 # Уровень логирования для основного facility и по умолчанию для остальных
 # Допустимые значения EMERG, ALERT, CRIT, ERR, WARNING, NOTICE, INFO, TIME, DEBUG, TRACE1, TRACE2, TRACE3, TRACE4
@@ -112,11 +112,11 @@ listener = { \
 	# Таймаут
 	timeout = "5s", \
 	# Путь до директории, где будут искаться endpoints, которые не найдены внутри приложения перед выдачей 404
-	root = "^/html/", \
+	root = "@/html/", \
 	# Префикс, который может добавляться прокси для идентификации приложения
 	proxy-prefix = "/balance-collector/", \
 	# Файл иконки приложения
-	icon-file = "^/html/favicon.ico", \
+	icon-file = "@/html/favicon.ico", \
 	# Список endpoints, доступ к которым закрыт для всех
 	disabled-endpoints = [], \
 	auth = { \
@@ -223,10 +223,10 @@ user-agent   = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like 
 std-timeout  = "60s"
 
 # Имя базы данных для хранения истории
-db = "^/balance-collector.db"
+db = "@/balance-collector.db"
 
 # Директория с шаблонами отчетов
-templates-dir = "^/templates/"
+templates-dir = "@/templates/"
 
 #----------------------------------------------------------------------------------------------------------------------------#
 
