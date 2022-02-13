@@ -14,4 +14,3 @@ tasks = [
   "Float(div.account-info_balance_value span, Баланс)",
   "Float(div.account-info_bonus_value span, Бонусы)",
 ]
-

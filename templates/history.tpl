@@ -11,7 +11,7 @@
 <input type="hidden" id="id"  name="id"  value="{{$.Data.Data.ID}}" />
 <input type="hidden" id="raw" name="raw" value="" />
 
-<table class="grd nobr"> 
+<table id="history" class="grd nobr">
   <tr>
     <th class="right nobr" colspan="{{$.Data.ColsCount}}">
       <button class="micro" style="margin: 5p ;" name="op" value="history" onclick="document.getElementById('raw').value='json';">JSON</button>

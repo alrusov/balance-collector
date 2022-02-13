@@ -4,7 +4,7 @@
 <input type="hidden" id="id"  name="id"  value="" />
 <input type="hidden" id="raw" name="raw" value="" />
 
-<table class="grd nobr">
+<table id="dashboard" class="grd nobr">
   <tr>
     <th class="right nobr" colspan="{{$.Data.ColsCount}}">
       <button class="micro" style="margin: 5p ;" name="op" value="" onclick="document.getElementById('raw').value='json';">JSON</button>

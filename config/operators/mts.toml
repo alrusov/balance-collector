@@ -1,12 +1,13 @@
 [operators.MTS]
 description = "МТС"
-timeout = "30s"
+timeout = "30000s"
 
 tasks = [
   "Navigate(https://login.mts.ru/amserver/UI/Login?service=newlk&goto=https://lk.mts.ru/)",
 
   "SendKeys(input[id='phone'], $Login)",
   "SendKeys(input[id='password'], $Password)",
+  "Sleep(1000000)",
   "Submit(input[id='phone'])",
 
   "Float(div.parental-statistics-balance__item-summ span, Баланс)",
