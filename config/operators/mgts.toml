@@ -11,6 +11,7 @@ tasks = [
   "SendKeys(input[name='IDToken2'], $Password)",
   "Click(button[id='submit'])",
 
+  "WaitVisible(div.account-info_balance_value)",
+
   "Float(div.account-info_balance_value span, Баланс)",
-  "Float(div.account-info_bonus_value span, Бонусы)",
 ]
