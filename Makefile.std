@@ -8,10 +8,10 @@ BUILD_NUMBER := ${BUILD_NUMBER}
 BUILD_NUMBER_FILE := /dev/null
 
 ifeq ($(BUILD_NUMBER),)
-	ifneq ($(wildcard BUILD_NUMBER),)
-		BUILD_NUMBER_FILE = BUILD_NUMBER
-	else
+	ifneq ($(wildcard go-builds/v/),)
 		BUILD_NUMBER_FILE = go-builds/v/$(APP)
+	else
+		BUILD_NUMBER_FILE = BUILD_NUMBER
 	endif
 
 	ifneq ($(wildcard $(BUILD_NUMBER_FILE)),)
