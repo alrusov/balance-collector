@@ -1,6 +1,6 @@
 [operators.BEELINE-MSK]
 description = "Билайн-Москва"
-timeout = "30s"
+timeout = "600s"
 
 tasks = [
   "Navigate(https://moskva.beeline.ru/login/)",
@@ -13,6 +13,8 @@ tasks = [
 
   "SendKeys(input[type='password'], $Password)",
   "Click(button[class='_2_o3rJ'])",
+
+  "WaitVisible(div.Balance_infoValue_kVsT)",
 
   "Float(div.Balance_infoValue_kVsT, Баланс)",
   "String(tr.profileInfoRow > td.Summary_profileInfoValue_1vmb > a > span.Link_text_3J9U, Тариф)",
