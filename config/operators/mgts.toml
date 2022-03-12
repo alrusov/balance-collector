@@ -3,12 +3,12 @@ description = "МГТС"
 timeout = "30s"
 
 tasks = [
-  "Navigate(https://login.mgts.ru/amserver/UI/Login)",
+  "Navigate(https://auth.mgts.ru/login/b2c?feature=lk)",
 
-  "SendKeys(input[name='IDToken1'], $Login)",
+  "SendKeys(input[id='loginform-username'], $Login)",
   "Click(button[id='submit'])",
 
-  "SendKeys(input[name='IDToken2'], $Password)",
+  "SendKeys(input[id='loginform-password'], $Password)",
   "Click(button[id='submit'])",
 
   "WaitVisible(div.account-info_balance_value)",
