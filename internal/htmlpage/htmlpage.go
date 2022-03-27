@@ -115,3 +115,10 @@ func Raw(cfg *config.Config, prefix string, w http.ResponseWriter, r *http.Reque
 }
 
 //----------------------------------------------------------------------------------------------------------------------------//
+
+// Graph --
+func Graph(cfg *config.Config, prefix string, w http.ResponseWriter, r *http.Request, errMsg string, title string, data string) (err error) {
+	return Do("graph", prefix, w, r, errMsg, title, data)
+}
+
+//----------------------------------------------------------------------------------------------------------------------------//

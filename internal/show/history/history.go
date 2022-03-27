@@ -45,15 +45,10 @@ func Do(id uint64, prefix string, w http.ResponseWriter, r *http.Request, entity
 
 	var data *outData
 
-	func() {
-		// Готовим данные для вывода
-		data, err = load(cfg, entityID)
-		if err != nil {
-			return
-		}
-	}()
-
 	errMsg := ""
+
+	// Готовим данные для вывода
+	data, err = load(cfg, entityID)
 	if err != nil {
 		errMsg = err.Error()
 	}
@@ -61,10 +56,15 @@ func Do(id uint64, prefix string, w http.ResponseWriter, r *http.Request, entity
 	title := "История запроcов"
 
 	// Выводим
-	switch r.Form.Get("raw") {
+	switch r.Form.Get("tp") {
 	case "json":
 		j, _ := jsonw.Marshal(data)
 		err = htmlpage.Raw(cfg, prefix, w, r, errMsg, title, string(j))
+		return
+
+	case "graph":
+		j, _ := jsonw.Marshal(data)
+		err = htmlpage.Graph(cfg, prefix, w, r, errMsg, title, string(j))
 		return
 
 	default:
@@ -96,7 +96,7 @@ func load(cfg *config.Config, entityID uint) (data *outData, err error) {
 	select h.ts, h.data
 		from history as h
 		where h.entity_id=?
-		order by h.ts desc;
+		order by h.ts;
 	`
 
 	db, err := sql.Open("sqlite3", cfg.Processor.DB)

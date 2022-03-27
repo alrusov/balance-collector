@@ -9,12 +9,13 @@
 {{template "back" .}}
 
 <input type="hidden" id="id"  name="id"  value="{{$.Data.Data.ID}}" />
-<input type="hidden" id="raw" name="raw" value="" />
+<input type="hidden" id="tp" name="tp" value="" />
 
 <table id="history" class="grd nobr">
   <tr>
     <th class="right nobr" colspan="{{$.Data.ColsCount}}">
-      <button class="micro" style="margin: 5p ;" name="op" value="history" onclick="document.getElementById('raw').value='json';">JSON</button>
+      <button class="micro" style="margin: 5p ;" name="op" value="history" onclick="document.getElementById('tp').value='graph';">График</button>
+      <button class="micro" style="margin: 5p ;" name="op" value="history" onclick="document.getElementById('tp').value='json';">JSON</button>
     </th>
   </tr>
 
