@@ -47,8 +47,11 @@ func Do(id uint64, prefix string, w http.ResponseWriter, r *http.Request, entity
 
 	errMsg := ""
 
+	tp := r.Form.Get("tp")
+	reversed := tp == ""
+
 	// Готовим данные для вывода
-	data, err = load(cfg, entityID)
+	data, err = load(cfg, entityID, reversed)
 	if err != nil {
 		errMsg = err.Error()
 	}
@@ -56,7 +59,7 @@ func Do(id uint64, prefix string, w http.ResponseWriter, r *http.Request, entity
 	title := "История запроcов"
 
 	// Выводим
-	switch r.Form.Get("tp") {
+	switch tp {
 	case "json":
 		j, _ := jsonw.Marshal(data)
 		err = htmlpage.Raw(cfg, prefix, w, r, errMsg, title, string(j))
@@ -76,7 +79,7 @@ func Do(id uint64, prefix string, w http.ResponseWriter, r *http.Request, entity
 //----------------------------------------------------------------------------------------------------------------------------//
 
 // load -- Загружаем последние
-func load(cfg *config.Config, entityID uint) (data *outData, err error) {
+func load(cfg *config.Config, entityID uint, reversed bool) (data *outData, err error) {
 	data = &outData{}
 
 	e := entity.GetByID(entityID)
@@ -92,12 +95,17 @@ func load(cfg *config.Config, entityID uint) (data *outData, err error) {
 	data.Login = eCfg.Login
 	data.FLegend, data.SLegend = e.Legend()
 
-	query := `
+	sort := "asc"
+	if reversed {
+		sort = "desc"
+	}
+
+	query := fmt.Sprintf(`
 	select h.ts, h.data
 		from history as h
 		where h.entity_id=?
-		order by h.ts;
-	`
+		order by h.ts %s;
+	`, sort)
 
 	db, err := sql.Open("sqlite3", cfg.Processor.DB)
 	if err != nil {
