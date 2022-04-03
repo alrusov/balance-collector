@@ -64,7 +64,6 @@ am5.ready(
         //   name - имя
         //   isRightAxis - ось справа?
         function createAxisAndSeries(name, isRightAxis) {
-
             // Ось
             var yRenderer = am5xy.AxisRendererY.new(
                 root,
@@ -309,7 +308,6 @@ am5.ready(
                 if (idx == 0) {
                     // для первой серии отображаем на скролбар
                     sbserie.data.setAll(serie);
-
                 }
             }
         );

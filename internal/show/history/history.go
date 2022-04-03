@@ -92,7 +92,7 @@ func load(cfg *config.Config, entityID uint, reversed bool) (data *outData, err 
 
 	data.ID = eCfg.ID
 	data.Name = eCfg.Name
-	data.Login = eCfg.Login
+	data.Login = eCfg.Vars[config.VarID]
 	data.FLegend, data.SLegend = e.Legend()
 
 	sort := "asc"

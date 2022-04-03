@@ -4,7 +4,7 @@ timeout = "30s"
 
 tasks = [
   "Navigate(https://my.firstvds.ru/manager/billmgr?func=dashboard.info&out=text&authinfo={Login}:{Password})",
+
   "Float(body, Баланс, balance=(\\d+\\.\\d*), 1)",
-  "String(body, Код клиента, subaccount=(\\S+), 1)",
-  "String(body, Оплачено до, enoughmoneyto=(\\S+)?, 1)",
+  "String(body, Код клиента, subaccount=(\\d+), 1)",
 ]

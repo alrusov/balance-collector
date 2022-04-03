@@ -2,6 +2,7 @@ package config
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/alrusov/config"
 	"github.com/alrusov/misc"
@@ -62,10 +63,16 @@ type (
 		Delay          config.Duration `toml:"delay"`
 		AlertLevelHigh int             `toml:"alert-level-high"`
 		AlertLevelLow  int             `toml:"alert-level-low"`
-		Login          string          `toml:"login"`
-		Password       string          `toml:"password"`
 		Schedule       string          `toml:"schedule"`
+		Vars           misc.StringMap  `toml:"vars"`
+		// Устаревшие параметры, перенесены в Vars. Оставлено для совместимости
+		DeprLogin    string `toml:"login"`
+		DeprPassword string `toml:"password"`
 	}
+)
+
+const (
+	VarID = "id"
 )
 
 //----------------------------------------------------------------------------------------------------------------------------//
@@ -184,6 +191,23 @@ func (x Entities) Check(cfg *Config) (err error) {
 		prev, exists = knownNames[df.Name]
 		if exists {
 			msgs.Add(`Entity #%d - "%s" already defined in block %d`, i+1, df.Name, prev.Idx)
+		}
+
+		for n, v := range df.Vars {
+			delete(df.Vars, n)
+			df.Vars[strings.ToLower(n)] = v
+		}
+
+		// Для совместимости
+		if df.DeprLogin != "" {
+			df.Vars["login"] = df.DeprLogin
+		}
+		if df.DeprPassword != "" {
+			df.Vars["password"] = df.DeprPassword
+		}
+
+		if df.Vars[VarID] == "" {
+			df.Vars[VarID] = df.Vars["login"] // Если оно есть
 		}
 
 		knownNames[df.Name] = df

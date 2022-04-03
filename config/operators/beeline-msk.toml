@@ -1,6 +1,6 @@
 [operators.BEELINE-MSK]
 description = "Билайн-Москва"
-timeout = "600s"
+timeout = "60s"
 
 tasks = [
   "Navigate(https://moskva.beeline.ru/login/)",

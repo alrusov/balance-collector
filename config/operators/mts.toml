@@ -11,6 +11,9 @@ tasks = [
   "SetValue(input[id='password'], $Password)",
   "Submit(input[id='password'])",
 
+  "WaitVisible(div.parental-statistics-balance__item-summ span)",
+  "WaitVisible(a.lk-tariff-info__title)",
+
   "Float(div.parental-statistics-balance__item-summ span, Баланс)",
   "String(a.lk-tariff-info__title, Тариф)",
 ]

@@ -106,7 +106,7 @@ func loadLast(cfg *config.Config, db *sql.DB) (mList dataMap, aList dataArr, err
 		mList[cfg.ID] = &dataRow{
 			ID:    cfg.ID,
 			Name:  cfg.Name,
-			Login: cfg.Login,
+			Login: cfg.Vars[config.VarID],
 		}
 	}
 

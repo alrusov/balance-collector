@@ -71,6 +71,7 @@ templates-dir = "@/templates/"
 {#include ^/operators/mts.toml}
 {#include ^/operators/onlime.toml}
 {#include ^/operators/rt.toml}
+{#include ^/operators/ruvds.toml}
 {#include ^/operators/tricolor.toml}
 {#include ^/operators/yota.toml}
 

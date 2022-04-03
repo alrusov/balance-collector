@@ -14,7 +14,7 @@ var jdata = '{{.Data}}';
 
 <script src="graph.js"></script>
 
-<div id="chartdiv" style="min-width: 500px; height: 500px; margin: 30px; border: solid 1px gray;"></div>
+<div id="chartdiv" style="min-width: 1024px; height: 700px; margin: 30px; border: solid 1px gray;"></div>
 
 {{template "back" .}}
 

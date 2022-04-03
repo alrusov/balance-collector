@@ -7,13 +7,14 @@ require (
 	github.com/alrusov/config v0.1.46
 	github.com/alrusov/jsonw v0.1.2
 	github.com/alrusov/launcher v0.1.55
-	github.com/alrusov/log v0.1.31
+	github.com/alrusov/log v0.1.32
 	github.com/alrusov/misc v0.1.54
 	github.com/alrusov/panic v0.1.14
-	github.com/alrusov/stdhttp v0.1.102
+	github.com/alrusov/stdhttp v0.1.103
 	github.com/chromedp/cdproto v0.0.0-20220321060548-7bc2623472b3
 	github.com/chromedp/chromedp v0.8.0
 	github.com/mattn/go-sqlite3 v1.14.12
+	github.com/oliveagle/jsonpath v0.0.0-20180606110733-2e52cf6e6852
 	github.com/robfig/cron/v3 v3.0.1
 )
 

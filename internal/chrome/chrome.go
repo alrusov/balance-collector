@@ -8,11 +8,11 @@ import (
 	"strings"
 	"time"
 
-	"github.com/chromedp/cdproto/cdp"
-	"github.com/chromedp/cdproto/dom"
 	"github.com/chromedp/cdproto/page"
 	"github.com/chromedp/chromedp"
+	"github.com/oliveagle/jsonpath"
 
+	"github.com/alrusov/jsonw"
 	"github.com/alrusov/log"
 	"github.com/alrusov/misc"
 
@@ -42,6 +42,8 @@ type (
 		resultsCount int
 		re           *regexp.Regexp
 		reIdx        int
+
+		jsonPath string
 	}
 
 	// Method --
@@ -54,18 +56,18 @@ type (
 		entityCfg      *config.Entity
 		tasks          []chromedp.Action
 		results        [maxResultCount]result
+		vars           misc.StringMap
 		resultsCount   int
 		skippedResults map[int]bool
 		data           Data
 	}
 
 	result struct {
-		v       string
-		tp      resultType
-		nodeIds *[]cdp.NodeID
-		nodeIdx int
-		re      *regexp.Regexp
-		reIdx   int
+		cp       *CallParams
+		v        []string
+		tp       resultType
+		nodeIdx  int
+		jsonData interface{}
 	}
 
 	resultType uint
@@ -139,6 +141,9 @@ var (
 var (
 	// Log --
 	Log = log.NewFacility("chrome")
+
+	reTask   = regexp.MustCompile(`^\s*(?U:(\S+)\s*\((.*)\))\s*$`)
+	reParams = regexp.MustCompile(`(\\,|[^,])*`)
 )
 
 //----------------------------------------------------------------------------------------------------------------------------//
@@ -165,11 +170,6 @@ func (c *Chrome) Legend() ([]string, []string) {
 
 //----------------------------------------------------------------------------------------------------------------------------//
 
-var (
-	reTask   = regexp.MustCompile(`^\s*(?U:(\S+)\s*\((.*)\))\s*$`)
-	reParams = regexp.MustCompile(`(\\,|[^,])*`)
-)
-
 func (c *Chrome) parseTaskDef(src []string) (err error) {
 	msgs := misc.NewMessages()
 	list := []*CallParams{}
@@ -189,6 +189,11 @@ func (c *Chrome) parseTaskDef(src []string) (err error) {
 		}
 
 		params := reParams.FindAllString(df[0][2], -1)
+
+		if params[0] == "" {
+			msgs.Add(`Empty first parameter in "%s"`, s)
+			continue
+		}
 
 		cp := &CallParams{
 			methodName: strings.TrimSpace(df[0][1]),
@@ -243,10 +248,21 @@ func (c *Chrome) parseTaskDef(src []string) (err error) {
 			*legend = append(*legend, params[1])
 
 			if nParams > 2 {
-				if !cp.parseRE(msgs, params[2:]) {
+				p2 := params[2]
+				if strings.HasPrefix(p2, "json(") {
+					if p2[len(p2)-1] != ')' {
+						msgs.Add("illegal json() format: %s", p2)
+						continue
+					}
+
+					cp.jsonPath = strings.TrimSpace(p2[len("json(") : len(p2)-1])
+					optsStart++
+
+				} else if !cp.parseRE(msgs, params[2:]) {
 					continue
+				} else {
+					optsStart += 2
 				}
-				optsStart += 2
 			}
 
 			cp.resultsCount = 1
@@ -346,8 +362,14 @@ func (cp *CallParams) parseRE(msgs *misc.Messages, params []string) bool {
 func (c *Chrome) Prepare(entityCfg *config.Entity) (r *ExecData, err error) {
 	r = &ExecData{
 		entityCfg:      entityCfg,
+		vars:           make(misc.StringMap, len(entityCfg.Vars)),
 		resultsCount:   0,
 		skippedResults: c.skippedResults,
+	}
+
+	// Копируем, так как в перспективе переменные могут создаваться в процессе выполнения
+	for n, v := range entityCfg.Vars {
+		r.vars[n] = v
 	}
 
 	r.tasks = append(r.tasks,
@@ -362,53 +384,61 @@ func (c *Chrome) Prepare(entityCfg *config.Entity) (r *ExecData, err error) {
 		),
 	)
 
-	for _, df := range c.tasks {
+	for _, cp := range c.tasks {
 		var task chromedp.Action
 		tp := resultTypeUnknown
 
-		switch df.methodName {
+		switch cp.methodName {
 		case mSleep:
-			v, _ := strconv.ParseInt(df.param, 10, 64)
+			v, _ := strconv.ParseInt(cp.param, 10, 64)
 			task = chromedp.Sleep(time.Duration(v))
 
 		case mNavigate:
-			q := df.node
-			q = strings.Replace(q, "{Login}", entityCfg.Login, -1)
-			q = strings.Replace(q, "{Password}", entityCfg.Password, -1)
+			q := cp.node
+
+			// Заменяем только имеющиеся переменные, отсутствующие не трогаем, они могут быть заполнены позже в просессе исполнения
+			for n, v := range r.vars {
+				var re *regexp.Regexp
+				re, err = regexp.Compile(`(?i)\{` + n + `\}`)
+				if err != nil {
+					return
+				}
+
+				q = re.ReplaceAllString(q, v)
+			}
+
 			task = chromedp.Navigate(q)
 
 		case mWaitVisible:
-			task = chromedp.WaitVisible(df.node, df.options...)
+			task = chromedp.WaitVisible(cp.node, cp.options...)
 
 		case mWaitNotVisible:
-			task = chromedp.WaitNotVisible(df.node, df.options...)
+			task = chromedp.WaitNotVisible(cp.node, cp.options...)
 
 		case mClear:
-			task = chromedp.Clear(df.node, df.options...)
+			task = chromedp.Clear(cp.node, cp.options...)
 
 		case mSetValue, mSendKeys:
-			v := ""
-			switch df.param {
-			case "$Login":
-				v = entityCfg.Login
-			case "$Password":
-				v = entityCfg.Password
-			default:
-				v = df.param
+			v := cp.param
+			if v[0] == '$' {
+				if vv, exists := r.vars[strings.ToLower(v[1:])]; exists {
+					// Заменяем только имеющиеся переменные, отсутствующие не трогаем, они могут быть заполнены позже в просессе исполнения
+					v = vv
+				}
 			}
 
-			switch df.methodName {
+			switch cp.methodName {
 			case mSetValue:
-				task = chromedp.SetValue(df.node, v, df.options...)
+				task = chromedp.SetValue(cp.node, v, cp.options...)
 			case mSendKeys:
-				task = chromedp.SendKeys(df.node, v, df.options...)
+				task = chromedp.SendKeys(cp.node, v, cp.options...)
 			}
 
 		case mClick:
-			task = chromedp.Click(df.node, df.options...)
+			task = chromedp.Click(cp.node, cp.options...)
 
 		case mSubmit:
-			task = chromedp.Submit(df.node, df.options...)
+			task = chromedp.Submit(cp.node, cp.options...)
 
 		case mFloat, mMultiFloat:
 			tp = resultTypeFloat
@@ -418,9 +448,7 @@ func (c *Chrome) Prepare(entityCfg *config.Entity) (r *ExecData, err error) {
 				tp = resultTypeString
 			}
 
-			nodeIds := []cdp.NodeID{}
-
-			for i := 0; i < df.resultsCount; i++ {
+			for i := 0; i < cp.resultsCount; i++ {
 				if r.resultsCount == len(r.results) {
 					err = fmt.Errorf(`too many results`)
 					return
@@ -429,34 +457,11 @@ func (c *Chrome) Prepare(entityCfg *config.Entity) (r *ExecData, err error) {
 				res := &r.results[r.resultsCount]
 				res.nodeIdx = i
 
-				if df.node == "" {
-					task = nil
-				} else {
-					switch df.methodName {
-					case mFloat, mString:
-						task = chromedp.Text(df.node, &res.v, df.options...)
+				js := fmt.Sprintf(`[document.querySelectorAll('%s')[%d]].map((e) => e.innerText)`, strings.Replace(cp.node, `'`, `\'`, -1), res.nodeIdx)
+				task = chromedp.Evaluate(js, &res.v)
 
-					case mMultiFloat, mMultiString:
-						if i == 0 {
-							r.tasks = append(r.tasks, chromedp.NodeIDs(df.node, &nodeIds))
-						}
-
-						res.nodeIds = &nodeIds
-
-						task = chromedp.ActionFunc(
-							func(ctx context.Context) (err error) {
-								if res.nodeIds != nil && res.nodeIdx < len(*res.nodeIds) {
-									res.v, err = dom.GetOuterHTML().WithNodeID((*res.nodeIds)[res.nodeIdx]).Do(ctx)
-								}
-								return
-							},
-						)
-					}
-				}
-
+				res.cp = cp
 				res.tp = tp
-				res.re = df.re
-				res.reIdx = df.reIdx
 
 				r.resultsCount++
 
@@ -524,7 +529,6 @@ func (r *ExecData) Exec(timeout time.Duration) (err error) {
 	}
 
 	ctx, cancel = chromedp.NewContext(ctx, logOptions...)
-
 	defer cancel()
 
 	ctx, cancel = context.WithTimeout(ctx, timeout)
@@ -570,20 +574,36 @@ func (r *ExecData) Exec(timeout time.Duration) (err error) {
 
 func (r *ExecData) convResults(dataOK bool) (dataFound bool, err error) {
 	for i, res := range r.results {
-		if r.skippedResults[i] {
+		if r.skippedResults[i] || res.cp == nil {
 			continue
 		}
 
-		if res.re != nil {
-			x := res.re.FindAllStringSubmatch(res.v, -1)
-			if len(x) > 0 && len(x[0]) > res.reIdx {
-				res.v = x[0][res.reIdx]
+		if len(res.v) == 0 {
+			switch res.tp {
+			case resultTypeFloat:
+				r.data.FVals = append(r.data.FVals, 0)
+			case resultTypeString:
+				r.data.SVals = append(r.data.SVals, "")
+			}
+			continue
+		}
+
+		if res.cp.re != nil {
+			x := res.cp.re.FindAllStringSubmatch(res.v[0], -1)
+			if len(x) > 0 && len(x[0]) > res.cp.reIdx {
+				res.v[0] = x[0][res.cp.reIdx]
+			}
+		} else if res.cp.jsonPath != "" {
+			e := res.extractJson(r.entityCfg.Name)
+			if e != nil {
+				Log.MessageWithSource(log.ERR, r.entityCfg.Name, "%s: %s", res.v, e.Error())
+				continue
 			}
 		}
 
 		switch res.tp {
 		case resultTypeFloat:
-			v, e := Float(res.v)
+			v, e := Float(res.v[0])
 			r.data.FVals = append(r.data.FVals, v)
 			if e != nil {
 				Log.MessageWithSource(log.ERR, r.entityCfg.Name, "%s: %s", res.v, e.Error())
@@ -591,15 +611,42 @@ func (r *ExecData) convResults(dataOK bool) (dataFound bool, err error) {
 			}
 
 		case resultTypeString:
-			r.data.SVals = append(r.data.SVals, res.v)
+			r.data.SVals = append(r.data.SVals, res.v[0])
 
 		default:
 		}
 
-		if dataOK || res.v != "" {
+		if dataOK || res.v[0] != "" {
 			dataFound = true
 		}
 	}
+
+	return
+}
+
+//----------------------------------------------------------------------------------------------------------------------------//
+
+func (res *result) extractJson(entityName string) (err error) {
+	if len(res.v) == 0 {
+		err = fmt.Errorf("no data")
+		return
+	}
+
+	if res.jsonData == nil {
+		err = jsonw.Unmarshal(misc.UnsafeString2ByteSlice(res.v[0]), &res.jsonData)
+		if err != nil {
+			Log.MessageWithSource(log.ERR, entityName, "%s: %s", res.v, err.Error())
+			return
+		}
+	}
+
+	v, err := jsonpath.JsonPathLookup(res.jsonData, res.cp.jsonPath)
+	if err != nil {
+		Log.MessageWithSource(log.ERR, entityName, "%s: %s", res.v, err.Error())
+		return
+	}
+
+	res.v[0] = fmt.Sprint(v)
 
 	return
 }
