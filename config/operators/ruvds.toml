@@ -5,6 +5,7 @@ timeout = "30s"
 tasks = [
   "Navigate(https://ruvds.com/api/balance/?sessionToken={Token}&&details=0)",
   "Float(body, Баланс, json($.amount))",
+
   "Navigate(https://ruvds.com/api/servers/?sessionToken={Token}&id={ServerID})",
   "Float(body, Цена, json($.items[0].priceRub))",
   "Float(body, Входящий трафик, json($.items[0].stat.trafficInbound.value))",

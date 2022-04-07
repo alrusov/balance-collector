@@ -6,8 +6,8 @@ tasks = [
   "Navigate(https://my.beeline.ru/login.xhtml)",
   "Clear(input[id='loginFormB2C:loginForm:login'])",
 
-  "SetValue(input[id='loginFormB2C:loginForm:login'], $Login)",
-  "SetValue(input[id='loginFormB2C:loginForm:passwordPwd'], $Password)",
+  "SendKeys(input[id='loginFormB2C:loginForm:login'], $Login)",
+  "SendKeys(input[id='loginFormB2C:loginForm:passwordPwd'], $Password)",
   "Click(button[id='loginFormB2C:loginForm:j_idt218'])",
 
   "WaitVisible(div.Balance_infoValue_kVsT)",
