@@ -18,7 +18,7 @@ tasks = [
 
   "Navigate(https://lk.rt.ru/#bonus)",
 
-  "WaitVisible(span[class='Fpl_text-balance'])",
+  "WaitVisible(div[class='bonus-balance_value'])",
 
-  "Float(span[class='Fpl_text-balance'], Бонусы)",
+  "Float(div[class='bonus-balance_value'], Бонусы)",
 ]
