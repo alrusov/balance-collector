@@ -25,6 +25,7 @@ type (
 	// Chrome --
 	Chrome struct {
 		tasks          []*CallParams
+		options        misc.StringMap
 		fLegend        []string
 		sLegend        []string
 		skippedResults map[int]bool
@@ -54,6 +55,7 @@ type (
 	// ExecData --
 	ExecData struct {
 		entityCfg      *config.Entity
+		options        misc.StringMap
 		tasks          []chromedp.Action
 		results        [maxResultCount]result
 		vars           misc.StringMap
@@ -96,6 +98,7 @@ const (
 )
 
 const (
+	mOption         = "Option"
 	mSleep          = "Sleep"
 	mNavigate       = "Navigate"
 	mWaitVisible    = "WaitVisible"
@@ -113,6 +116,7 @@ const (
 
 var (
 	methods = map[string]*Method{
+		mOption:         {paramsCount: 1}, // name, value
 		mSleep:          {paramsCount: 1}, // duration
 		mNavigate:       {paramsCount: 1}, // url
 		mWaitVisible:    {paramsCount: 1}, // selector, [ options... ]
@@ -150,7 +154,9 @@ var (
 
 // New --
 func New(src []string) (c *Chrome, err error) {
-	c = &Chrome{}
+	c = &Chrome{
+		options: make(misc.StringMap),
+	}
 
 	err = c.parseTaskDef(src)
 	if err != nil {
@@ -223,6 +229,11 @@ func (c *Chrome) parseTaskDef(src []string) (err error) {
 		cp.node = params[0]
 
 		switch cp.methodName {
+		//-----//
+		case mOption:
+			c.options[params[0]] = params[1]
+			continue
+
 		//-----//
 		case mSleep:
 			v, err := strconv.ParseInt(params[0], 10, 64)
@@ -384,6 +395,8 @@ func (c *Chrome) Prepare(entityCfg *config.Entity) (r *ExecData, err error) {
 		),
 	)
 
+	r.options = c.options
+
 	for _, cp := range c.tasks {
 		var task chromedp.Action
 		tp := resultTypeUnknown
@@ -396,7 +409,7 @@ func (c *Chrome) Prepare(entityCfg *config.Entity) (r *ExecData, err error) {
 		case mNavigate:
 			q := cp.node
 
-			// Заменяем только имеющиеся переменные, отсутствующие не трогаем, они могут быть заполнены позже в просессе исполнения
+			// Заменяем только имеющиеся переменные, отсутствующие не трогаем, они могут быть заполнены позже в процессе исполнения
 			for n, v := range r.vars {
 				var re *regexp.Regexp
 				re, err = regexp.Compile(`(?i)\{` + n + `\}`)
@@ -496,6 +509,10 @@ func (r *ExecData) Exec(timeout time.Duration) (err error) {
 	//	chromedp.Flag("remote-debugging-port", "9222"),
 	//	chromedp.Flag("user-data-dir", "remote-profile"),
 	)
+
+	for n, v := range r.options {
+		opts = append(opts, chromedp.Flag(n, v))
+	}
 
 	userAgent := config.Get().Processor.UserAgent
 	if userAgent != "" {

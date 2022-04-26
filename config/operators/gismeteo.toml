@@ -3,6 +3,7 @@ description = "Погода gismeteo.ru"
 timeout = "30s"
 
 tasks = [
+  "Option(blink-settings, imagesEnabled=false)",
   "Navigate(https://gismeteo.ru/)",
 
   "Float(div.frame-now > div.weather-info-header > div.weather-temperature > div.temperature > span.unit_temperature_c, Температура)",

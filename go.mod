@@ -11,7 +11,7 @@ require (
 	github.com/alrusov/misc v0.1.54
 	github.com/alrusov/panic v0.1.14
 	github.com/alrusov/stdhttp v0.1.103
-	github.com/chromedp/cdproto v0.0.0-20220421002605-e483954745f2
+	github.com/chromedp/cdproto v0.0.0-20220426083054-c58585551e6c
 	github.com/chromedp/chromedp v0.8.0
 	github.com/mattn/go-sqlite3 v1.14.12
 	github.com/oliveagle/jsonpath v0.0.0-20180606110733-2e52cf6e6852

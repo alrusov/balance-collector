@@ -35,14 +35,10 @@ SPACE +=
 COPYRIGHT =
 
 ifneq ($(wildcard COPYRIGHT),)
-	COPYRIGHT = $(shell cat COPYRIGHT)
+	COPYRIGHT = $(shell cat COPYRIGHT | sed 's/ /_/g')$(shell date -u +'%Y')
 endif
 
-TS   = $(shell date -u +'%Y-%m-%d %H:%M:%S')
-YEAR = $(shell date -u +'%Y')
-
-TS        := $(subst $(SPACE),_,$(strip $(TS)))
-COPYRIGHT := $(subst $(SPACE),_,$(strip $(COPYRIGHT)$(YEAR)))
+TS = $(shell date -u +'%Y-%m-%d %H:%M:%S' | sed 's/ /_/g')
 
 #-----------------------------------------------------------------------------------------------------------------------------------------------------#
 
