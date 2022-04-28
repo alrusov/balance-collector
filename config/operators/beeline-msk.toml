@@ -1,18 +1,18 @@
 [operators.BEELINE-MSK]
 description = "Билайн-Москва"
-timeout = "180s"
+timeout = "60s"
 
 tasks = [
+  "Option(blink-settings, imagesEnabled=false)",
+
   "Navigate(https://moskva.beeline.ru/login/)",
 
-  "SendKeys(input[id='userName'], $Login)",
-  "Click(button[class='_2_o3rJ'])",
+  "WaitVisible(a._1zDj0m > span)",
+  "Click(a._1zDj0m > span)",
 
-  "Sleep(2000)",
-  "Click(a[class='_21fvqI _3zUfzL _21fvqI'])",
-
-  "SendKeys(input[type='password'], $Password)",
-  "Click(button[class='_2_o3rJ'])",
+  "SendKeys(input[name='login'], $Login)",
+  "SendKeys(input[name='password'], $Password)",
+  "Click(button._2_o3rJ)",
 
   "WaitVisible(div.Balance_infoValue_kVsT)",
 
