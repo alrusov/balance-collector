@@ -5,6 +5,8 @@ timeout = "30s"
 tasks = [
   "Navigate(http://cbr.ru/key-indicators/)",
 
+  "WaitVisible(div.key-indicators_intro)",
+
   "Float(div.dropdown_content > div:nth-child(4) > div > div > table > tbody > tr:nth-child(2) > td:nth-child(3), USDRUB)",
   "Float(div.dropdown_content > div:nth-child(4) > div > div > table > tbody > tr:nth-child(3) > td:nth-child(3), EURUSD)",
 ]
