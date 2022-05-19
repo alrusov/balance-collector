@@ -1,16 +1,21 @@
 [operators.ONLIME]
 description = "Onlime"
-timeout = "30s"
+timeout = "60s"
 
 tasks = [
-  "Navigate(https://my.onlime.ru/session/logout)",
+  "Navigate(https://b2c.passport.rt.ru/auth/realms/b2c/protocol/openid-connect/auth/?client_id=lk_onlime&redirect_uri=https%3A%2F%2Fmy.rt.ru%2Fauth%2Fssoredirect%2F&response_type=code)",
 
-  "SendKeys(input[name='auth_login']   , $Login)",
-  "SendKeys(input[name='auth_password'], $Password)",
-  "Click(input[id='login_button'])",
+  "WaitVisible(input[name='standard_auth_btn'])",
+  "Click(input[id='standard_auth_btn'])",
+
+  "WaitVisible([id='t-btn-tab-login'])",
+  "Click(div[id='t-btn-tab-login'])",
+
+  "SendKeys(input[name='name']   , $Login)",
+  "SendKeys(input[name='password'], $Password)",
+  "Click(input[name='login'])",
 
   "WaitVisible(div[id='account_info_block'] > div:nth-child(5) > p > big)",
-  "Sleep(5000)",
 
   "Float(div[id='account_info_block'] > div:nth-child(5) > p > big, Баланс)",
   "Float(div[id='account_info_block'] > div:nth-child(6) > p > big, Бонусы)",
