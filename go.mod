@@ -6,14 +6,14 @@ require (
 	github.com/alrusov/appcron v0.1.9
 	github.com/alrusov/config v0.1.46
 	github.com/alrusov/jsonw v0.1.2
-	github.com/alrusov/launcher v0.1.55
+	github.com/alrusov/launcher v0.1.56
 	github.com/alrusov/log v0.1.32
-	github.com/alrusov/misc v0.1.54
+	github.com/alrusov/misc v0.1.55
 	github.com/alrusov/panic v0.1.14
 	github.com/alrusov/stdhttp v0.1.103
-	github.com/chromedp/cdproto v0.0.0-20220426083054-c58585551e6c
-	github.com/chromedp/chromedp v0.8.0
-	github.com/mattn/go-sqlite3 v1.14.12
+	github.com/chromedp/cdproto v0.0.0-20220525225945-2a6180d575f6
+	github.com/chromedp/chromedp v0.8.2
+	github.com/mattn/go-sqlite3 v1.14.13
 	github.com/oliveagle/jsonpath v0.0.0-20180606110733-2e52cf6e6852
 	github.com/robfig/cron/v3 v3.0.1
 )
@@ -49,7 +49,7 @@ require (
 	golang.org/x/crypto v0.0.0-20220112180741-5e0467b6c7ce // indirect
 	golang.org/x/net v0.0.0-20211112202133-69e39bad7dc2 // indirect
 	golang.org/x/oauth2 v0.0.0-20211104180415-d3ed0bb246c8 // indirect
-	golang.org/x/sys v0.0.0-20210615035016-665e8c7367d1 // indirect
+	golang.org/x/sys v0.0.0-20220520151302-bc2c85ada10a // indirect
 	google.golang.org/appengine v1.6.6 // indirect
 	google.golang.org/protobuf v1.25.0 // indirect
 	gopkg.in/jcmturner/aescts.v1 v1.0.1 // indirect
