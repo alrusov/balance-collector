@@ -12,9 +12,11 @@ import (
 	"github.com/chromedp/chromedp"
 	"github.com/oliveagle/jsonpath"
 
+	"github.com/alrusov/initializer"
 	"github.com/alrusov/jsonw"
 	"github.com/alrusov/log"
 	"github.com/alrusov/misc"
+	"github.com/alrusov/stdhttp"
 
 	"github.com/alrusov/balance-collector/internal/config"
 )
@@ -146,9 +148,26 @@ var (
 	// Log --
 	Log = log.NewFacility("chrome")
 
+	cfg *config.Config
+
 	reTask   = regexp.MustCompile(`^\s*(?U:(\S+)\s*\((.*)\))\s*$`)
 	reParams = regexp.MustCompile(`(\\,|[^,])*`)
 )
+
+//----------------------------------------------------------------------------------------------------------------------------//
+
+func init() {
+	// Регистрируем инициализатор
+	initializer.RegisterModuleInitializer(initModule)
+}
+
+// Инициализация
+func initModule(appCfg interface{}, h *stdhttp.HTTP) (err error) {
+	cfg = appCfg.(*config.Config)
+
+	Log.Message(log.INFO, "Initialized")
+	return
+}
 
 //----------------------------------------------------------------------------------------------------------------------------//
 
@@ -497,7 +516,7 @@ func (c *Chrome) Prepare(entityCfg *config.Entity) (r *ExecData, err error) {
 
 // Exec --
 func (r *ExecData) Exec(timeout time.Duration) (err error) {
-	headless := !config.Get().Processor.ViewBrowser
+	headless := !cfg.Processor.ViewBrowser
 
 	opts := append(chromedp.DefaultExecAllocatorOptions[:],
 		chromedp.Flag("headless", headless),
@@ -514,7 +533,7 @@ func (r *ExecData) Exec(timeout time.Duration) (err error) {
 		opts = append(opts, chromedp.Flag(n, v))
 	}
 
-	userAgent := config.Get().Processor.UserAgent
+	userAgent := cfg.Processor.UserAgent
 	if userAgent != "" {
 		opts = append(opts, chromedp.Flag("user-agent", userAgent))
 	}

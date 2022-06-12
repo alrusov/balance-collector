@@ -7,7 +7,10 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/alrusov/initializer"
 	"github.com/alrusov/jsonw"
+	"github.com/alrusov/log"
+	"github.com/alrusov/stdhttp"
 
 	"github.com/alrusov/balance-collector/internal/chrome"
 	"github.com/alrusov/balance-collector/internal/config"
@@ -37,12 +40,32 @@ type (
 	}
 )
 
+var (
+	// Log --
+	Log = log.NewFacility("history")
+
+	cfg *config.Config
+)
+
+//----------------------------------------------------------------------------------------------------------------------------//
+
+func init() {
+	// Регистрируем инициализатор
+	initializer.RegisterModuleInitializer(initModule)
+}
+
+// Инициализация
+func initModule(appCfg interface{}, h *stdhttp.HTTP) (err error) {
+	cfg = appCfg.(*config.Config)
+
+	Log.Message(log.INFO, "Initialized")
+	return
+}
+
 //----------------------------------------------------------------------------------------------------------------------------//
 
 // Do --
 func Do(id uint64, prefix string, w http.ResponseWriter, r *http.Request, entityID uint) (err error) {
-	cfg := config.Get()
-
 	var data *outData
 
 	errMsg := ""

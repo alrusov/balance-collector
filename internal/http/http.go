@@ -4,15 +4,12 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/alrusov/initializer"
 	"github.com/alrusov/misc"
 	"github.com/alrusov/stdhttp"
 
 	"github.com/alrusov/balance-collector/internal/config"
-	"github.com/alrusov/balance-collector/internal/entity"
-	"github.com/alrusov/balance-collector/internal/operator"
-	"github.com/alrusov/balance-collector/internal/processor"
 	"github.com/alrusov/balance-collector/internal/show"
-	"github.com/alrusov/balance-collector/internal/storage"
 )
 
 //----------------------------------------------------------------------------------------------------------------------------//
@@ -64,22 +61,8 @@ func NewHTTP(cfg *config.Config) (*stdhttp.HTTP, error) {
 		},
 	)
 
-	err = storage.Init()
-	if err != nil {
-		return nil, err
-	}
-
-	err = operator.Init()
-	if err != nil {
-		return nil, err
-	}
-
-	err = entity.Init()
-	if err != nil {
-		return nil, err
-	}
-
-	err = processor.Init()
+	// Инициализируем модули
+	err = initializer.Do(cfg, h.h)
 	if err != nil {
 		return nil, err
 	}

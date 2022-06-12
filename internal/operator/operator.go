@@ -4,8 +4,10 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/alrusov/initializer"
 	"github.com/alrusov/log"
 	"github.com/alrusov/misc"
+	"github.com/alrusov/stdhttp"
 
 	"github.com/alrusov/balance-collector/internal/chrome"
 	"github.com/alrusov/balance-collector/internal/config"
@@ -60,11 +62,18 @@ var (
 
 //----------------------------------------------------------------------------------------------------------------------------//
 
-// Init --
-func Init() (err error) {
+func init() {
+	// Регистрируем инициализатор
+	initializer.RegisterModuleInitializer(initModule)
+}
+
+// Инициализация
+func initModule(appCfg interface{}, h *stdhttp.HTTP) (err error) {
+	cfg := appCfg.(*config.Config)
+
 	msgs := misc.NewMessages()
 
-	for name, cfg := range config.Get().Operators {
+	for name, cfg := range cfg.Operators {
 		o := &Operator{
 			cfg:  cfg,
 			Name: name,
@@ -79,8 +88,13 @@ func Init() (err error) {
 		operators[name] = o
 	}
 
-	return msgs.Error()
+	err = msgs.Error()
+	if err != nil {
+		return
+	}
 
+	Log.Message(log.INFO, "Initialized")
+	return
 }
 
 //----------------------------------------------------------------------------------------------------------------------------//

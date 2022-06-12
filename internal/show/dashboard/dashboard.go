@@ -8,8 +8,11 @@ import (
 	"strings"
 	"time"
 
+	"github.com/alrusov/initializer"
 	"github.com/alrusov/jsonw"
+	"github.com/alrusov/log"
 	"github.com/alrusov/misc"
+	"github.com/alrusov/stdhttp"
 
 	"github.com/alrusov/balance-collector/internal/config"
 	"github.com/alrusov/balance-collector/internal/entity"
@@ -40,12 +43,32 @@ type (
 	dataMap map[uint]*dataRow
 )
 
+var (
+	// Log --
+	Log = log.NewFacility("dashboard")
+
+	cfg *config.Config
+)
+
+//----------------------------------------------------------------------------------------------------------------------------//
+
+func init() {
+	// Регистрируем инициализатор
+	initializer.RegisterModuleInitializer(initModule)
+}
+
+// Инициализация
+func initModule(appCfg interface{}, h *stdhttp.HTTP) (err error) {
+	cfg = appCfg.(*config.Config)
+
+	Log.Message(log.INFO, "Initialized")
+	return
+}
+
 //----------------------------------------------------------------------------------------------------------------------------//
 
 // Do --
 func Do(id uint64, prefix string, w http.ResponseWriter, r *http.Request) (err error) {
-	cfg := config.Get()
-
 	var mList dataMap
 	var aList dataArr
 

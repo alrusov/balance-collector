@@ -5,8 +5,10 @@ import (
 	"sync"
 	"time"
 
+	"github.com/alrusov/initializer"
 	"github.com/alrusov/log"
 	"github.com/alrusov/misc"
+	"github.com/alrusov/stdhttp"
 
 	"github.com/alrusov/balance-collector/internal/config"
 	"github.com/alrusov/balance-collector/internal/operator"
@@ -36,11 +38,18 @@ var (
 
 //----------------------------------------------------------------------------------------------------------------------------//
 
-// Init --
-func Init() (err error) {
+func init() {
+	// Регистрируем инициализатор
+	initializer.RegisterModuleInitializer(initModule)
+}
+
+// Инициализация
+func initModule(appCfg interface{}, h *stdhttp.HTTP) (err error) {
+	cfg := appCfg.(*config.Config)
+
 	msgs := misc.NewMessages()
 
-	for _, cfg := range config.Get().Entities {
+	for _, cfg := range cfg.Entities {
 		if !cfg.Enabled {
 			continue
 		}
@@ -63,8 +72,13 @@ func Init() (err error) {
 		)
 	}
 
-	return msgs.Error()
+	err = msgs.Error()
+	if err != nil {
+		return
+	}
 
+	Log.Message(log.INFO, "Initialized")
+	return
 }
 
 //----------------------------------------------------------------------------------------------------------------------------//

@@ -241,7 +241,6 @@ func (x *Entity) Check(cfg *Config) (err error) {
 
 // Check -- check application config
 func (cfg *Config) Check() (err error) {
-	appcfg = cfg
 	return config.Check(
 		cfg,
 		[]interface{}{
@@ -252,15 +251,6 @@ func (cfg *Config) Check() (err error) {
 			&cfg.Operators,
 		},
 	)
-}
-
-//----------------------------------------------------------------------------------------------------------------------------//
-
-var appcfg *Config
-
-// Get --
-func Get() *Config {
-	return appcfg
 }
 
 //----------------------------------------------------------------------------------------------------------------------------//

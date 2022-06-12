@@ -8,6 +8,9 @@ import (
 	"github.com/alrusov/balance-collector/internal/config"
 	"github.com/alrusov/balance-collector/internal/http"
 
+	// Тут всё и начинается
+	_ "github.com/alrusov/balance-collector/internal/processor"
+
 	// sqlite driver
 	_ "github.com/mattn/go-sqlite3"
 )

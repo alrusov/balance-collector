@@ -5,13 +5,14 @@ go 1.18
 require (
 	github.com/alrusov/appcron v0.1.9
 	github.com/alrusov/config v0.1.46
+	github.com/alrusov/initializer v0.1.0
 	github.com/alrusov/jsonw v0.1.2
 	github.com/alrusov/launcher v0.1.56
 	github.com/alrusov/log v0.1.32
 	github.com/alrusov/misc v0.1.55
 	github.com/alrusov/panic v0.1.14
 	github.com/alrusov/stdhttp v0.1.103
-	github.com/chromedp/cdproto v0.0.0-20220525225945-2a6180d575f6
+	github.com/chromedp/cdproto v0.0.0-20220530001853-c0f376d894d1
 	github.com/chromedp/chromedp v0.8.2
 	github.com/mattn/go-sqlite3 v1.14.13
 	github.com/oliveagle/jsonpath v0.0.0-20180606110733-2e52cf6e6852

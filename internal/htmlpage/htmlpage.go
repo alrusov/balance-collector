@@ -6,6 +6,8 @@ import (
 	"net/http"
 	"sync"
 
+	"github.com/alrusov/initializer"
+	"github.com/alrusov/log"
 	"github.com/alrusov/misc"
 	"github.com/alrusov/stdhttp"
 
@@ -15,6 +17,11 @@ import (
 //----------------------------------------------------------------------------------------------------------------------------//
 
 var (
+	// Log --
+	Log = log.NewFacility("htmlpage")
+
+	cfg *config.Config
+
 	mutex        = new(sync.Mutex)
 	cache        = map[string]*template.Template{}
 	cacheEnabled = false
@@ -22,10 +29,23 @@ var (
 
 //----------------------------------------------------------------------------------------------------------------------------//
 
+func init() {
+	// Регистрируем инициализатор
+	initializer.RegisterModuleInitializer(initModule)
+}
+
+// Инициализация
+func initModule(appCfg interface{}, h *stdhttp.HTTP) (err error) {
+	cfg = appCfg.(*config.Config)
+
+	Log.Message(log.INFO, "Initialized")
+	return
+}
+
+//----------------------------------------------------------------------------------------------------------------------------//
+
 // Do --
 func Do(name string, prefix string, w http.ResponseWriter, r *http.Request, errMsg string, title string, data interface{}) (err error) {
-	cfg := config.Get()
-
 	mutex.Lock()
 	locked := true
 

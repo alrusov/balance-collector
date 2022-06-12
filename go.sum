@@ -49,6 +49,8 @@ github.com/alrusov/auth-url v0.1.1 h1:ArGh9lAR6rkRm+OFhXjZuSxaTVRNyS1XOHa8erYM0L
 github.com/alrusov/auth-url v0.1.1/go.mod h1:GX+C6cJZwuOxvrx3UYMy+5URX1qoJO9iNNaiG12TvYk=
 github.com/alrusov/config v0.1.46 h1:hpAzuFkEYYkZBQS9bKlEBtgNEQavgscCboeI/wqBSow=
 github.com/alrusov/config v0.1.46/go.mod h1:smet+ptoCR2Rz2TvDYzaFz8iebjv7ScYD5Ac81XdVR4=
+github.com/alrusov/initializer v0.1.0 h1:F8ds51z/w8OvysvIyCZg5BV0U4NvA4sNZ4RJcWWXCV4=
+github.com/alrusov/initializer v0.1.0/go.mod h1:7+AsiWMFnaXXwrNd1hAc7dS1SUKNDfoy5M/BlvsicPQ=
 github.com/alrusov/jsonw v0.1.2 h1:vh1DMBxFvMvZ0PnyOz2dIsB66lsDOh+smCVwuh8tGLU=
 github.com/alrusov/jsonw v0.1.2/go.mod h1:/xuqVEJk/mDSpxV/Qlz2SSBoz6Y46fkjVmpf4DFhbrA=
 github.com/alrusov/launcher v0.1.56 h1:pc7g7Oz8zT7jyqPLP7h2WbnKkxEVd8tUY4KZpon5Oe0=
@@ -71,8 +73,8 @@ github.com/alrusov/stdhttp v0.1.103/go.mod h1:tG1TB50ylXTVJpGzNEF7ybBKYXM8yD/OwA
 github.com/alrusov/winservice v0.1.9 h1:cHNfslCNbNYneezFZQfUjqNbUpIWa4gmwL1wv3qeyVM=
 github.com/alrusov/winservice v0.1.9/go.mod h1:gTXMCHnIo6K0vxmBEWW2OcuVc3MfF3gFSq1M8fd9rkA=
 github.com/census-instrumentation/opencensus-proto v0.2.1/go.mod h1:f6KPmirojxKA12rnyqOA5BBL4O983OfeGPqjHWSTneU=
-github.com/chromedp/cdproto v0.0.0-20220525225945-2a6180d575f6 h1:g5wxCtWR1ekoH5IbNppoQt+lLCZWifILfSoJU2COR6s=
-github.com/chromedp/cdproto v0.0.0-20220525225945-2a6180d575f6/go.mod h1:5Y4sD/eXpwrChIuxhSr/G20n9CdbCmoerOHnuAf0Zr0=
+github.com/chromedp/cdproto v0.0.0-20220530001853-c0f376d894d1 h1:dl8AS1mmnSC7kTpRKD4mrDrV3HJqFAm975HWap3HGg0=
+github.com/chromedp/cdproto v0.0.0-20220530001853-c0f376d894d1/go.mod h1:5Y4sD/eXpwrChIuxhSr/G20n9CdbCmoerOHnuAf0Zr0=
 github.com/chromedp/chromedp v0.8.2 h1:EYSsSqWuKYwyHZEJpU00kOGOMz5DE0qDVckelzauMFA=
 github.com/chromedp/chromedp v0.8.2/go.mod h1:vpbCNtfYeOUo2q5reuwX6ZmPpbHRf5PZfAqNR2ObB+g=
 github.com/chromedp/sysutil v1.0.0 h1:+ZxhTpfpZlmchB58ih/LBHX52ky7w2VhQVKQMucy3Ic=

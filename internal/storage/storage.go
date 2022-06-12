@@ -4,9 +4,11 @@ import (
 	"database/sql"
 	"os"
 
+	"github.com/alrusov/initializer"
 	"github.com/alrusov/jsonw"
 	"github.com/alrusov/log"
 	"github.com/alrusov/misc"
+	"github.com/alrusov/stdhttp"
 
 	"github.com/alrusov/balance-collector/internal/config"
 	"github.com/alrusov/balance-collector/internal/operator"
@@ -23,9 +25,16 @@ var (
 
 //----------------------------------------------------------------------------------------------------------------------------//
 
-// Init --
-func Init() (err error) {
-	fileName = config.Get().Processor.DB
+func init() {
+	// Регистрируем инициализатор
+	initializer.RegisterModuleInitializer(initModule)
+}
+
+// Инициализация
+func initModule(appCfg interface{}, h *stdhttp.HTTP) (err error) {
+	cfg := appCfg.(*config.Config)
+
+	fileName = cfg.Processor.DB
 
 	fd, fileErr := os.Open(fileName)
 	if fd != nil {
@@ -68,6 +77,7 @@ func Init() (err error) {
 
 	}
 
+	Log.Message(log.INFO, "Initialized")
 	return
 }
 

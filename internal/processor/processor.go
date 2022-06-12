@@ -4,6 +4,9 @@ import (
 	"fmt"
 
 	"github.com/alrusov/appcron"
+	"github.com/alrusov/initializer"
+	"github.com/alrusov/log"
+	"github.com/alrusov/stdhttp"
 	cron "github.com/robfig/cron/v3"
 
 	"github.com/alrusov/balance-collector/internal/config"
@@ -20,11 +23,21 @@ type (
 	}
 )
 
+var (
+	// Log --
+	Log = log.NewFacility("processor")
+)
+
 //----------------------------------------------------------------------------------------------------------------------------//
 
-// Init --
-func Init() (err error) {
-	cfg := config.Get()
+func init() {
+	// Регистрируем инициализатор
+	initializer.RegisterModuleInitializer(initModule)
+}
+
+// Инициализация
+func initModule(appCfg interface{}, h *stdhttp.HTTP) (err error) {
+	cfg := appCfg.(*config.Config)
 
 	err = appcron.Init("", cfg.Processor.CronLocation)
 	if err != nil {
@@ -52,6 +65,7 @@ func Init() (err error) {
 		}
 	}
 
+	Log.Message(log.INFO, "Initialized")
 	return
 }
 
