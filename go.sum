@@ -63,8 +63,8 @@ github.com/alrusov/log v0.1.32/go.mod h1:oQh1gXfxlDfI+MWAigQQzCu/O9wv6mM59JXqWfj
 github.com/alrusov/misc v0.1.34/go.mod h1:wq7jkLgy8u0ogF2EyY1Goes9GftiRcK4w1wH1vM9JFc=
 github.com/alrusov/misc v0.1.39/go.mod h1:9n/TPhEOs7n3zEKP8R/TK0TIOJGISHOJe5KwKqsCsgg=
 github.com/alrusov/misc v0.1.45/go.mod h1:9n/TPhEOs7n3zEKP8R/TK0TIOJGISHOJe5KwKqsCsgg=
-github.com/alrusov/misc v0.1.55 h1:xMOSU8p3QrsLt05wqvvQn3vJQKqlrVaFkXgXgH1n4PE=
-github.com/alrusov/misc v0.1.55/go.mod h1:cAwDhOfC+dmc0Dg7TFkup32lFMQh+Ur8Q5IdHjSc1gQ=
+github.com/alrusov/misc v0.1.56 h1:oA3obfMRZJee8PlMKoCX6alcfAvZXphftMV1JW00k8U=
+github.com/alrusov/misc v0.1.56/go.mod h1:cAwDhOfC+dmc0Dg7TFkup32lFMQh+Ur8Q5IdHjSc1gQ=
 github.com/alrusov/panic v0.1.13/go.mod h1:zwS3WCJcw2e8x/A0d1UR7GQeZsoQ+OQ7Cf5x5UQSel8=
 github.com/alrusov/panic v0.1.14 h1:h3DU1GVIp1ab3PPMAOweyWMPILWyLR8EZnjPIx9SUfo=
 github.com/alrusov/panic v0.1.14/go.mod h1:ALoONDJK6XEbMvLnsenCkVSF1LXQ/gjU7uXi0JX7bak=
@@ -73,8 +73,8 @@ github.com/alrusov/stdhttp v0.1.103/go.mod h1:tG1TB50ylXTVJpGzNEF7ybBKYXM8yD/OwA
 github.com/alrusov/winservice v0.1.9 h1:cHNfslCNbNYneezFZQfUjqNbUpIWa4gmwL1wv3qeyVM=
 github.com/alrusov/winservice v0.1.9/go.mod h1:gTXMCHnIo6K0vxmBEWW2OcuVc3MfF3gFSq1M8fd9rkA=
 github.com/census-instrumentation/opencensus-proto v0.2.1/go.mod h1:f6KPmirojxKA12rnyqOA5BBL4O983OfeGPqjHWSTneU=
-github.com/chromedp/cdproto v0.0.0-20220530001853-c0f376d894d1 h1:dl8AS1mmnSC7kTpRKD4mrDrV3HJqFAm975HWap3HGg0=
-github.com/chromedp/cdproto v0.0.0-20220530001853-c0f376d894d1/go.mod h1:5Y4sD/eXpwrChIuxhSr/G20n9CdbCmoerOHnuAf0Zr0=
+github.com/chromedp/cdproto v0.0.0-20220615221636-d9c8b1f94535 h1:FFlbW54JejPhYJAZ7JsQv4LFBvqkKAuEM3A65D8qTGk=
+github.com/chromedp/cdproto v0.0.0-20220615221636-d9c8b1f94535/go.mod h1:5Y4sD/eXpwrChIuxhSr/G20n9CdbCmoerOHnuAf0Zr0=
 github.com/chromedp/chromedp v0.8.2 h1:EYSsSqWuKYwyHZEJpU00kOGOMz5DE0qDVckelzauMFA=
 github.com/chromedp/chromedp v0.8.2/go.mod h1:vpbCNtfYeOUo2q5reuwX6ZmPpbHRf5PZfAqNR2ObB+g=
 github.com/chromedp/sysutil v1.0.0 h1:+ZxhTpfpZlmchB58ih/LBHX52ky7w2VhQVKQMucy3Ic=

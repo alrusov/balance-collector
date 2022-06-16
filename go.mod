@@ -9,10 +9,10 @@ require (
 	github.com/alrusov/jsonw v0.1.2
 	github.com/alrusov/launcher v0.1.56
 	github.com/alrusov/log v0.1.32
-	github.com/alrusov/misc v0.1.55
+	github.com/alrusov/misc v0.1.56
 	github.com/alrusov/panic v0.1.14
 	github.com/alrusov/stdhttp v0.1.103
-	github.com/chromedp/cdproto v0.0.0-20220530001853-c0f376d894d1
+	github.com/chromedp/cdproto v0.0.0-20220615221636-d9c8b1f94535
 	github.com/chromedp/chromedp v0.8.2
 	github.com/mattn/go-sqlite3 v1.14.13
 	github.com/oliveagle/jsonpath v0.0.0-20180606110733-2e52cf6e6852

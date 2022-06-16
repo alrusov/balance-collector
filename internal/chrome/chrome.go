@@ -314,7 +314,7 @@ func (c *Chrome) parseTaskDef(src []string) (err error) {
 			}
 
 			if nParams < 2+cp.resultsCount {
-				msgs.Add(`found %d captions, %d expected`, nParams-2, cp.resultsCount)
+				msgs.Add(`found %d captions, expected %d`, nParams-2, cp.resultsCount)
 				continue
 			}
 

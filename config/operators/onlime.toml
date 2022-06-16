@@ -15,10 +15,10 @@ tasks = [
   "SendKeys(input[name='password'], $Password)",
   "Click(input[name='login'])",
 
-  "WaitVisible(div[id='account_info_block'] > div:nth-child(5) > p > big)",
+  "WaitVisible(div[id='account_info_block'] > div:nth-child(6) > p > big)",
 
-  "Float(div[id='account_info_block'] > div:nth-child(5) > p > big, Баланс)",
-  "Float(div[id='account_info_block'] > div:nth-child(6) > p > big, Бонусы)",
-  "Float(div[id='account_info_block'] > div:nth-child(7) > p > span > big, Дней до блокировки)",
-  "String(div[id='account_info_block'] > div:nth-child(8) > p:nth-child(2) > strong, Статус)",
+  "Float(div[id='account_info_block'] > div:nth-child(6) > p > big, Баланс)",
+  "Float(div[id='account_info_block'] > div:nth-child(7) > p > big, Бонусы)",
+  "Float(div[id='account_info_block'] > div:nth-child(8) > p > span > big, Дней до блокировки)",
+  "String(div[id='account_info_block'] > div:nth-child(9) > p:nth-child(2) > strong, Статус)",
 ]
