@@ -35,7 +35,7 @@ func init() {
 }
 
 // Инициализация
-func initModule(appCfg interface{}, h *stdhttp.HTTP) (err error) {
+func initModule(appCfg any, h any) (err error) {
 	cfg = appCfg.(*config.Config)
 
 	Log.Message(log.INFO, "Initialized")
@@ -45,7 +45,7 @@ func initModule(appCfg interface{}, h *stdhttp.HTTP) (err error) {
 //----------------------------------------------------------------------------------------------------------------------------//
 
 // Do --
-func Do(name string, prefix string, w http.ResponseWriter, r *http.Request, errMsg string, title string, data interface{}) (err error) {
+func Do(name string, prefix string, w http.ResponseWriter, r *http.Request, errMsg string, title string, data any) (err error) {
 	mutex.Lock()
 	locked := true
 
@@ -102,7 +102,7 @@ func Do(name string, prefix string, w http.ResponseWriter, r *http.Request, errM
 		App       string
 		Version   string
 		Tags      string
-		Data      interface{}
+		Data      any
 	}{
 		Prefix:    prefix,
 		Base:      r.URL.Path,

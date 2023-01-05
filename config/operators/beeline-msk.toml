@@ -7,12 +7,16 @@ tasks = [
 
   "Navigate(https://moskva.beeline.ru/login/)",
 
-  "WaitVisible(div._g_BdN > p > a)",
-  "Click(div._g_BdN > p > a)",
+  "WaitVisible(input[id='userName'])",
 
-  "SendKeys(input[name='login'], $Login)",
+  "SendKeys(input[id='userName'], $Login)",
+  "Click(button[type='submit'])",
+
+  "WaitVisible(a[role='button'])",
+  "Click(a[role='button'])",
+
   "SendKeys(input[name='password'], $Password)",
-  "Click(span.yhMq_3)",
+  "Click(button[type='submit'])",
 
   "WaitVisible(div.Balance_infoValue_kVsT)",
 

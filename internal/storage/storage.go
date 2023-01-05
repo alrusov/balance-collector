@@ -8,7 +8,6 @@ import (
 	"github.com/alrusov/jsonw"
 	"github.com/alrusov/log"
 	"github.com/alrusov/misc"
-	"github.com/alrusov/stdhttp"
 
 	"github.com/alrusov/balance-collector/internal/config"
 	"github.com/alrusov/balance-collector/internal/operator"
@@ -31,7 +30,7 @@ func init() {
 }
 
 // Инициализация
-func initModule(appCfg interface{}, h *stdhttp.HTTP) (err error) {
+func initModule(appCfg any, h any) (err error) {
 	cfg := appCfg.(*config.Config)
 
 	fileName = cfg.Processor.DB
@@ -103,7 +102,7 @@ func SaveToHistory(entityID uint, data *operator.Data) (err error) {
 //----------------------------------------------------------------------------------------------------------------------------//
 
 // SaveToErrors --
-func SaveToErrors(entityID uint, data interface{}) (err error) {
+func SaveToErrors(entityID uint, data any) (err error) {
 	j, err := jsonw.Marshal(data)
 	if err != nil {
 		return
@@ -122,7 +121,7 @@ func SaveToErrors(entityID uint, data interface{}) (err error) {
 //----------------------------------------------------------------------------------------------------------------------------//
 
 // Save --
-func Save(query string, args ...interface{}) (err error) {
+func Save(query string, args ...any) (err error) {
 	db, err := sql.Open("sqlite3", fileName)
 	if err != nil {
 		return

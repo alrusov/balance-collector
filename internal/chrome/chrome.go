@@ -16,7 +16,6 @@ import (
 	"github.com/alrusov/jsonw"
 	"github.com/alrusov/log"
 	"github.com/alrusov/misc"
-	"github.com/alrusov/stdhttp"
 
 	"github.com/alrusov/balance-collector/internal/config"
 )
@@ -71,7 +70,7 @@ type (
 		v        []string
 		tp       resultType
 		nodeIdx  int
-		jsonData interface{}
+		jsonData any
 	}
 
 	resultType uint
@@ -162,7 +161,7 @@ func init() {
 }
 
 // Инициализация
-func initModule(appCfg interface{}, h *stdhttp.HTTP) (err error) {
+func initModule(appCfg any, h any) (err error) {
 	cfg = appCfg.(*config.Config)
 
 	Log.Message(log.INFO, "Initialized")
@@ -523,7 +522,7 @@ func (r *ExecData) Exec(timeout time.Duration) (err error) {
 		chromedp.Flag("disable-gpu", headless),
 		chromedp.Flag("enable-automation", false),
 		chromedp.Flag("disable-extensions", false),
-		chromedp.WindowSize(1920, 1080),
+		chromedp.WindowSize(1280, 800),
 		chromedp.Flag("hide-scrollbars", false),
 	//	chromedp.Flag("remote-debugging-port", "9222"),
 	//	chromedp.Flag("user-data-dir", "remote-profile"),
@@ -543,12 +542,12 @@ func (r *ExecData) Exec(timeout time.Duration) (err error) {
 
 	logOptions := []chromedp.ContextOption{
 		chromedp.WithErrorf(
-			func(fmt string, i ...interface{}) {
+			func(fmt string, i ...any) {
 				Log.MessageWithSource(log.ERR, "Exec", fmt, i...)
 			},
 		),
 		chromedp.WithLogf(
-			func(fmt string, i ...interface{}) {
+			func(fmt string, i ...any) {
 				Log.MessageWithSource(log.INFO, "Exec", fmt, i...)
 			},
 		),
@@ -557,7 +556,7 @@ func (r *ExecData) Exec(timeout time.Duration) (err error) {
 	if Log.CurrentLogLevel() >= log.TRACE4 {
 		logOptions = append(logOptions,
 			chromedp.WithDebugf(
-				func(fmt string, i ...interface{}) {
+				func(fmt string, i ...any) {
 					Log.MessageWithSource(log.TRACE4, "Exec", fmt, i...)
 				},
 			),

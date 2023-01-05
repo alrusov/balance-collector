@@ -3,25 +3,20 @@ description = "МТС"
 timeout = "60s"
 
 tasks = [
-  "Navigate(https://login.mts.ru/amserver/NUI/?client_id=mts.ru&goto=https%3A%2F%2Flogin.mts.ru%2Famserver%2Foauth2%2Fauthorize%3Fscope%3Dprofile%2520account%2520phone%2520slaves%253Aall%2520slaves%253Aprofile%2520sub%2520email%2520user_address%2520identity_doc%2520personal_data%26response_type%3Dcode%26client_id%3Dmts.ru%26state%11223344556677889900aabbccddeeffff%26redirect_uri%3Dhttps%253A%252F%252Fauth-web.ssl.mts.ru%252Faccount%252Fcallback%252Flogin&realm=%2Fusers&service=login-spa)",
-
-  "Sleep(1000)",
-  "SendKeys(input[id='login'], $Login)",
-  "Sleep(1000)",
-  "Click(button[type='submit'])",
-
-  "Sleep(1000)",
-  "SendKeys(input[id='password'], $Password)",
-  "Sleep(1000)",
-  "Click(button[type='submit'])",
-
-  "Sleep(3000)",
-
   "Navigate(https://lk.mts.ru/)",
 
-  "WaitVisible(div.parental-statistics-balance__item-summ span)",
-  "Float(div.parental-statistics-balance__item-summ span, Баланс)",
+  "WaitVisible(input[id=login])",
 
-  "WaitVisible(a.lk-tariff-info__title)",
-  "String(a.lk-tariff-info__title, Тариф)",
+  "SendKeys(input[id=login], $Login)",
+  "Click(button[type=submit])",
+
+  "WaitVisible(input[id=password])",
+
+  "SendKeys(input[id=password], $Password)",
+  "Click(button[type=submit])",
+
+  "WaitVisible(span[class=widget-mobile-balance__value])",
+  "Float(span[class=widget-mobile-balance__value], Баланс)",
+
+  "String(div[class='widget-mobile-tariff__name ng-star-inserted'], Тариф)",
 ]

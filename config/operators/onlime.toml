@@ -5,15 +5,15 @@ timeout = "60s"
 tasks = [
   "Navigate(https://b2c.passport.rt.ru/auth/realms/b2c/protocol/openid-connect/auth/?client_id=lk_onlime&redirect_uri=https%3A%2F%2Fmy.rt.ru%2Fauth%2Fssoredirect%2F&response_type=code)",
 
-  "WaitVisible(input[name='standard_auth_btn'])",
-  "Click(input[id='standard_auth_btn'])",
+  "WaitVisible(button[id='standard_auth_btn'])",
+  "Click(button[id='standard_auth_btn'])",
 
   "WaitVisible([id='t-btn-tab-login'])",
   "Click(div[id='t-btn-tab-login'])",
 
-  "SendKeys(input[name='name']   , $Login)",
-  "SendKeys(input[name='password'], $Password)",
-  "Click(input[name='login'])",
+  "SendKeys(input[id='username'], $Login)",
+  "SendKeys(input[id='password'], $Password)",
+  "Click(button[id='kc-login'])",
 
   "WaitVisible(div[id='account_info_block'] > div:nth-child(6) > p > big)",
 

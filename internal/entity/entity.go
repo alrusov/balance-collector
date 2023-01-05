@@ -8,7 +8,6 @@ import (
 	"github.com/alrusov/initializer"
 	"github.com/alrusov/log"
 	"github.com/alrusov/misc"
-	"github.com/alrusov/stdhttp"
 
 	"github.com/alrusov/balance-collector/internal/config"
 	"github.com/alrusov/balance-collector/internal/operator"
@@ -44,7 +43,7 @@ func init() {
 }
 
 // Инициализация
-func initModule(appCfg interface{}, h *stdhttp.HTTP) (err error) {
+func initModule(appCfg any, h any) (err error) {
 	cfg := appCfg.(*config.Config)
 
 	msgs := misc.NewMessages()

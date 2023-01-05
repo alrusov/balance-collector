@@ -10,7 +10,6 @@ import (
 	"github.com/alrusov/initializer"
 	"github.com/alrusov/jsonw"
 	"github.com/alrusov/log"
-	"github.com/alrusov/stdhttp"
 
 	"github.com/alrusov/balance-collector/internal/chrome"
 	"github.com/alrusov/balance-collector/internal/config"
@@ -55,7 +54,7 @@ func init() {
 }
 
 // Инициализация
-func initModule(appCfg interface{}, h *stdhttp.HTTP) (err error) {
+func initModule(appCfg any, h any) (err error) {
 	cfg = appCfg.(*config.Config)
 
 	Log.Message(log.INFO, "Initialized")

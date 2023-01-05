@@ -40,7 +40,7 @@ func NewHTTP(cfg *config.Config) (*stdhttp.HTTP, error) {
 	}
 
 	h.h.SetExtraInfoFunc(
-		func() interface{} {
+		func() any {
 			return &extraInfo
 		},
 	)

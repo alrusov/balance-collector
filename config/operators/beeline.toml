@@ -1,6 +1,6 @@
 [operators.BEELINE]
 description = "Билайн"
-timeout = "30s"
+timeout = "300s"
 
 tasks = [
   "Navigate(https://my.beeline.ru/login.xhtml)",
@@ -8,10 +8,10 @@ tasks = [
 
   "SendKeys(input[id='loginFormB2C:loginForm:login'], $Login)",
   "SendKeys(input[id='loginFormB2C:loginForm:passwordPwd'], $Password)",
-  "Click(button[id='loginFormB2C:loginForm:j_idt218'])",
+  "Click(button[id='loginFormB2C:loginForm:j_idt212'])",
 
-  "WaitVisible(div.Balance_infoValue_kVsT)",
+  "WaitVisible(div.Balance_infoValue_hPPq)",
 
-  "Float(div.Balance_infoValue_kVsT, Баланс)",
-  "String(tr.profileInfoRow > td.Summary_profileInfoValue_1vmb > a > span.Link_text_3J9U, Тариф)",
+  "Float(div.Balance_infoValue_hPPq, Баланс)",
+  "String(tr.profileInfoRow > td.Summary_profileInfoValue_24h6 > a > span.Link_text_3wyt, Тариф)",
 ]

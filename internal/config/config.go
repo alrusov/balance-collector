@@ -243,7 +243,7 @@ func (x *Entity) Check(cfg *Config) (err error) {
 func (cfg *Config) Check() (err error) {
 	return config.Check(
 		cfg,
-		[]interface{}{
+		[]any{
 			&cfg.Common,
 			&cfg.Listener,
 			&cfg.Processor,
