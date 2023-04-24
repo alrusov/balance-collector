@@ -5,8 +5,8 @@ timeout = "120s"
 tasks = [
   "Navigate(https://b2c.passport.rt.ru/auth/realms/b2c/protocol/openid-connect/auth?response_type=code&scope=openid&client_id=lk_b2c&redirect_uri=https%3A%2F%2Flk.rt.ru%2Fsso-auth%2F%3Fredirect%3Dhttps%253A%252F%252Flk.rt.ru%252F)",
 
-  "WaitVisible([id=t-btn-tab-login])",
-  "Click(div[id=t-btn-tab-login])",
+  "WaitVisible([id=standard_auth_btn])",
+  "Click([id=standard_auth_btn])",
 
   "SendKeys(input[id=username], $Login)",
   "SendKeys(input[id=password], $Password)",
