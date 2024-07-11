@@ -6,6 +6,7 @@ LAST_BUILD_FILE := LAST_BUILD
 
 BUILD_NUMBER := ${BUILD_NUMBER}
 BUILD_NUMBER_FILE := /dev/null
+BUILD_HISTORY_FILE := BUILD_HISTORY
 
 ifeq ($(BUILD_NUMBER),)
 	ifneq ($(wildcard go-builds/v/),)
@@ -108,6 +109,6 @@ fast_build:
 
 	echo $$(($(BUILD_NUMBER) + 1)) >$(BUILD_NUMBER_FILE)
 	echo $(VERSION) >$(LAST_BUILD_FILE)
-
+	echo $(TS) $(VERSION) >> $(BUILD_HISTORY_FILE)
 
 #-----------------------------------------------------------------------------------------------------------------------------------------------------#

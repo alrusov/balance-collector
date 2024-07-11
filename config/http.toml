@@ -1,8 +1,8 @@
 # Путь до файла сертификата
 ssl-combined-pem = "", \
 
-# Таймаут
-timeout = "5s", \
+# Таймаут получения запроса от клиента
+timeout = "10s", \
 
 # Путь до директории, где будут искаться endpoints, которые не найдены внутри приложения перед выдачей 404
 root = "@/html/", \
@@ -56,7 +56,7 @@ auth = { \
 		# Опции:
 		#   secret   -- секрет для подписи jwt токенов
 		#   lifetime -- время жизни jwt токена
-		jwt   = { enabled = false, score = 20, options = { secret = "?", lifetime = "3650d" } }, \
+		jwt   = { enabled = false, score = 20, options = { secret = "?", lifetime-access = "60m", lifetime-refresh = "24h" } }, \
 
 		# Kerberous
 		# Опции:

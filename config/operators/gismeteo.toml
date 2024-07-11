@@ -7,11 +7,11 @@ tasks = [
 
   "Navigate(https://gismeteo.ru/)",
 
-  "Float(div.frame-now > div.weather-info-header > div.weather-temperature > div.temperature > span.unit_temperature_c, Температура)",
-  "Float(div.weather-feeling  > div.item-value > span.unit_temperature_c, Температура по ощущению)",
-  "Float(div.frame-now > div.weather-pressure > div.item-value > span.unit_pressure_mm_hg_atm, Давление)",
-  "Float(div.frame-now > div.weather-humidity > div.item-value, Влажность)",
-  "Float(div.frame-now > div.weather-wind > div.item-value > span.unit_wind_m_s, Ветер)",
-  "String(a.city-link, Место)",
-  "String(div.weather-description, Дополнительно)",
+  "Float(div.current-weather-now > div.weather-info > div:nth-child(1) > div.temperature > temperature-value, Температура)",
+  "Float(div.current-weather-now > div.weather-info > div:nth-child(2) > div.item-value  > temperature-value, Температура по ощущению)",
+  "Float(div.current-weather-now > div.weather-info > div:nth-child(4) > div.item-value  > pressure-value   , Давление)",
+  "Float(div.current-weather-now > div.weather-info > div:nth-child(5) > div.item-value                     , Влажность)",
+  "Float(div.current-weather-now > div.weather-info > div:nth-child(3) > div.item-value  > speed-value      , Ветер)",
+  "String(a.city, Место)",
+  "String(div.current-weather-now > div.weather-info > div:nth-child(1) > div.description                   , Дополнительно)",
 ]

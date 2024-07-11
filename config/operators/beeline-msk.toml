@@ -1,6 +1,6 @@
 [operators.BEELINE-MSK]
 description = "Билайн-Москва"
-timeout = "120s"
+timeout = "60s"
 
 tasks = [
   "Option(blink-settings, imagesEnabled=true)",

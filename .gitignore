@@ -15,23 +15,24 @@
 *.tmp
 *.log
 
-.env
+.idea/
+git_config/
 
 _extra/
+vendor/
 logs/
-*.log
-error_log/
 
 TODO
 LAST_BUILD
 Makefile.private
 
-debug
-debug.test
-__debug_bin
+__debug_*
 
 *.dump
 
+___DOCKER_TMP___/
+
+BUILD_HISTORY
 balance-collector
 entities.toml
 *.db
