@@ -453,7 +453,7 @@ func (c *Chrome) Prepare(entityCfg *config.Entity) (r *ExecData, err error) {
 			v := cp.param
 			if v[0] == '$' {
 				if vv, exists := r.vars[strings.ToLower(v[1:])]; exists {
-					// Заменяем только имеющиеся переменные, отсутствующие не трогаем, они могут быть заполнены позже в просессе исполнения
+					// Заменяем только имеющиеся переменные, отсутствующие не трогаем, они могут быть заполнены позже в процессе исполнения
 					v = vv
 				}
 			}
@@ -518,6 +518,7 @@ func (r *ExecData) Exec(timeout time.Duration) (err error) {
 	headless := !cfg.Processor.ViewBrowser
 
 	opts := append(chromedp.DefaultExecAllocatorOptions[:],
+		chromedp.NoSandbox,
 		chromedp.Flag("headless", headless),
 		chromedp.Flag("disable-gpu", headless),
 		chromedp.Flag("enable-automation", false),

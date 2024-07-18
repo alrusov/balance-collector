@@ -22,7 +22,7 @@ class = "balance-collector"
 # Листенер
 listener = { \
 	# Адрес, на котором слушать
-	bind-addr = "127.0.0.1:{$PORT}", \
+	bind-addr = "{$LISTEN_ADDR}:{$PORT}", \
 
 	# Префикс, который может добавляться прокси для идентификации приложения
 	proxy-prefix = "/balance-collector/", \

@@ -1,0 +1,21 @@
+version: "3.5"
+
+services:
+
+  balance-collector:
+    container_name: "balance-collector"
+    image: "${DOCKER_REGISTRY}/balance-collector:latest"
+    restart: unless-stopped
+    logging:
+      driver: journald
+      options:
+        tag: balance-collector
+    hostname: balance-collector
+    ports:
+      - "${PORT}:${PORT}"
+    volumes:
+      - ./.env:/opt/balance-collector/.env
+      #- ./logs:/opt/balance-collector/logs
+      - /dev/null:/opt/balance-collector/logs
+      - ./balance-collector.db:/opt/balance-collector/balance-collector.db
+      - ./entities.toml:/opt/balance-collector/config/entities.toml

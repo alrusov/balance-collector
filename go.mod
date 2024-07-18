@@ -7,9 +7,9 @@ require (
 	github.com/alrusov/config v0.1.59
 	github.com/alrusov/initializer v0.1.2
 	github.com/alrusov/jsonw v0.1.3
-	github.com/alrusov/launcher v0.1.66
+	github.com/alrusov/launcher v0.1.67
 	github.com/alrusov/log v0.1.38
-	github.com/alrusov/misc v1.1.13
+	github.com/alrusov/misc v1.1.14
 	github.com/alrusov/panic v0.1.15
 	github.com/alrusov/stdhttp v0.1.119
 	github.com/chromedp/cdproto v0.0.0-20240709201219-e202069cc16b
@@ -48,7 +48,7 @@ require (
 	github.com/naoina/toml v0.1.1 // indirect
 	github.com/pquerna/cachecontrol v0.1.0 // indirect
 	golang.org/x/crypto v0.14.0 // indirect
-	golang.org/x/net v0.17.0 // indirect
+	golang.org/x/net v0.10.0 // indirect
 	golang.org/x/oauth2 v0.6.0 // indirect
 	golang.org/x/sys v0.16.0 // indirect
 	google.golang.org/appengine v1.6.7 // indirect

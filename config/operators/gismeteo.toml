@@ -6,12 +6,12 @@ tasks = [
   "Option(blink-settings, imagesEnabled=false)",
 
   "Navigate(https://gismeteo.ru/)",
-
-  "Float(div.current-weather-now > div.weather-info > div:nth-child(1) > div.temperature > temperature-value, Температура)",
-  "Float(div.current-weather-now > div.weather-info > div:nth-child(2) > div.item-value  > temperature-value, Температура по ощущению)",
-  "Float(div.current-weather-now > div.weather-info > div:nth-child(4) > div.item-value  > pressure-value   , Давление)",
-  "Float(div.current-weather-now > div.weather-info > div:nth-child(5) > div.item-value                     , Влажность)",
-  "Float(div.current-weather-now > div.weather-info > div:nth-child(3) > div.item-value  > speed-value      , Ветер)",
-  "String(a.city, Место)",
-  "String(div.current-weather-now > div.weather-info > div:nth-child(1) > div.description                   , Дополнительно)",
+  "WaitVisible(div.current-weather-wrap > a.city)",
+  "Float(div.current-weather-now > div.weather-info > div:nth-child(1) > div.temperature , Температура)",
+  "Float(div.current-weather-now > div.weather-info > div:nth-child(2) > div.item-value  , Температура по ощущению)",
+  "Float(div.current-weather-now > div.weather-info > div:nth-child(4) > div.item-value  , Давление)",
+  "Float(div.current-weather-now > div.weather-info > div:nth-child(5) > div.item-value  , Влажность)",
+  "Float(div.current-weather-now > div.weather-info > div:nth-child(3) > div.item-value  , Ветер)",
+  "String(div.current-weather-wrap > a.city                                              , Место)",
+  "String(div.current-weather-now > div.weather-info > div:nth-child(1) > div.description, Дополнительно)",
 ]

@@ -35,18 +35,17 @@ func initModule(appCfg any, h any) (err error) {
 
 	fileName = cfg.Processor.DB
 
-	fd, fileErr := os.Open(fileName)
-	if fd != nil {
-		fd.Close()
-	}
+	fi, fileErr := os.Stat(fileName)
+	exists := fileErr == nil && fi.Size() != 0
 
-	db, err := sql.Open("sqlite3", fileName)
-	if err != nil {
-		return
-	}
-	defer db.Close()
+	if !exists {
+		var db *sql.DB
+		db, err = sql.Open("sqlite3", fileName)
+		if err != nil {
+			return
+		}
+		defer db.Close()
 
-	if fileErr != nil {
 		Log.Message(log.NOTICE, `Database "%s" is not found, try to create new...`, fileName)
 
 		query := `
