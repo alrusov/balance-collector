@@ -17,14 +17,10 @@ APP_HOME=/opt/${APP}
 
 TAG_LATEST="${DOCKER_REGISTRY}/${APP}:${VERSION:=latest}"
 
-
 rm -rf ${BUILD_HOME}
 mkdir -p ${BUILD_HOME}/
 cp -r ../../balance-collector ../../config ../../html ../../templates ${BUILD_HOME}/
 rm -f ${BUILD_HOME}/config/entities.toml
-touch entities.toml balance-collector.db
-
-HEALTHCHECK=". .env && curl -fs http://localhost:${PORT}/ || exit 1"
 
 docker build \
 	-t ${TAG_LATEST} \
@@ -36,7 +32,6 @@ docker build \
 	--build-arg DOCKER_GROUP=${DOCKER_GROUP} \
 	--build-arg DOCKER_GID=${DOCKER_GID} \
 	--build-arg DOCKER_TZ=${DOCKER_TZ} \
-	--build-arg HEALTHCHECK="${HEALTHCHECK}" \
 	.
 
 rm -rf ${BUILD_HOME}
