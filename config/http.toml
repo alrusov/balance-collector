@@ -5,10 +5,10 @@ ssl-combined-pem = "", \
 timeout = "10s", \
 
 # Путь до директории, где будут искаться endpoints, которые не найдены внутри приложения перед выдачей 404
-root = "@/html/", \
+root = "@/web/", \
 
 # Файл иконки приложения
-icon-file = "@/html/favicon.ico", \
+icon-file = "@/web/favicon.ico", \
 
 # Список endpoints, доступ к которым закрыт для всех
 disabled-endpoints = [], \

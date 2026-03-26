@@ -19,7 +19,7 @@ TAG_LATEST="${DOCKER_REGISTRY}/${APP}:${VERSION:=latest}"
 
 rm -rf ${BUILD_HOME}
 mkdir -p ${BUILD_HOME}/
-cp -r ../../balance-collector ../../config ../../html ../../templates ${BUILD_HOME}/
+cp -r ../../balance-collector ../../config ../../web ../../templates ${BUILD_HOME}/
 rm -f ${BUILD_HOME}/config/entities.toml
 
 docker build \
